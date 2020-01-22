@@ -5,6 +5,8 @@
  */
 package chefguru;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import javax.swing.JFrame;
 
 /**
@@ -16,7 +18,18 @@ public class Dashboard extends javax.swing.JFrame {
     /**
      * Creates new form Dashboard
      */
+    public static final String DATE_FORMAT_NOW = "dd MMM yyyy HH:mm:ss";
+    public static String dateTime;
+    
+    public static String now() {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
+        return sdf.format(cal.getTime());
+    }
+  
     public Dashboard() {
+        dateTime = "Date: "+Dashboard.now();
+        System.out.println(dateTime);
         initComponents();
     }
 
