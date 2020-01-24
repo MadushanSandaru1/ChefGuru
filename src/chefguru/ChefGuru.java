@@ -15,7 +15,7 @@ public class ChefGuru {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        /*Loading loading = new Loading();
+        Loading loading = new Loading();
         loading.setVisible(true);
         
         try {
@@ -29,8 +29,8 @@ public class ChefGuru {
             
             new Login().setVisible(true);
             loading.setVisible(false);
-        }*/
-        new Dashboard().setVisible(true);
+        }
+        //new Dashboard().setVisible(true);
     }
     
 }

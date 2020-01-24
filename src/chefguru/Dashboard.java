@@ -58,6 +58,7 @@ public class Dashboard extends javax.swing.JFrame {
         checkOutTopic = new javax.swing.JLabel();
         guest = new javax.swing.JPanel();
         guestTopic = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         room = new javax.swing.JPanel();
         roomTopic = new javax.swing.JLabel();
         discount = new javax.swing.JPanel();
@@ -184,20 +185,30 @@ public class Dashboard extends javax.swing.JFrame {
         guestTopic.setForeground(new java.awt.Color(51, 51, 51));
         guestTopic.setText("Guest Information");
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setText("jLabel1");
+
         javax.swing.GroupLayout guestLayout = new javax.swing.GroupLayout(guest);
         guest.setLayout(guestLayout);
         guestLayout.setHorizontalGroup(
             guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(guestLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(guestTopic, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(guestLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(guestTopic, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(guestLayout.createSequentialGroup()
+                        .addGap(220, 220, 220)
+                        .addComponent(jLabel1)))
                 .addContainerGap(414, Short.MAX_VALUE))
         );
         guestLayout.setVerticalGroup(
             guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(guestLayout.createSequentialGroup()
                 .addComponent(guestTopic)
-                .addGap(0, 542, Short.MAX_VALUE))
+                .addGap(176, 176, 176)
+                .addComponent(jLabel1)
+                .addGap(0, 351, Short.MAX_VALUE))
         );
 
         LayeredPane.add(guest, "card2");
@@ -747,7 +758,7 @@ public class Dashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void closeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeBtnMouseClicked
-        System.exit(0);
+        new Logout().setVisible(true);
     }//GEN-LAST:event_closeBtnMouseClicked
 
     private void minimizeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeBtnMouseClicked
@@ -923,16 +934,8 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel checkInTopic;
     private javax.swing.JLabel checkOutTopic;
     private javax.swing.JLabel checkedInIcon;
-    private javax.swing.JLabel checkedInIcon2;
-    private javax.swing.JLabel checkedInIcon3;
     private javax.swing.JLabel checkedInLabel;
-    private javax.swing.JLabel checkedInLabel2;
-    private javax.swing.JLabel checkedInLabel3;
-    private javax.swing.JLabel checkedInLabel5;
     private javax.swing.JPanel checkedInPanel;
-    private javax.swing.JPanel checkedInPanel2;
-    private javax.swing.JPanel checkedInPanel3;
-    private javax.swing.JPanel checkedInPanel5;
     private javax.swing.JLabel checkedOutIcon;
     private javax.swing.JLabel checkedOutLabel;
     private javax.swing.JPanel checkedOutPanel;
@@ -952,7 +955,7 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel guestPanel;
     private javax.swing.JLabel guestTopic;
     private javax.swing.JPanel hrLine;
-    private javax.swing.JLabel icon9;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel logoIcon;
     private javax.swing.JLabel logoLabel;
     private javax.swing.JLabel logoutIcon;
