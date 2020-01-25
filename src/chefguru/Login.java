@@ -18,6 +18,11 @@ public class Login extends javax.swing.JFrame {
      * Creates new form Login
      */
     
+    
+    public static String id;
+    public static String fullname;
+    public static String email;
+    
     Connection conn = null;
     PreparedStatement ps = null;
     CallableStatement cs = null;
@@ -68,11 +73,6 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setText("User Name");
 
         username.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 0)));
-        username.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usernameActionPerformed(evt);
-            }
-        });
 
         jLabel3.setForeground(new java.awt.Color(102, 0, 0));
         jLabel3.setText("Password");
@@ -90,13 +90,12 @@ public class Login extends javax.swing.JFrame {
 
         password.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 0)));
 
-        errMsg.setBackground(new java.awt.Color(255, 255, 255, 0)
-        );
+        errMsg.setBackground(new java.awt.Color(255, 255, 255, 0));
         errMsg.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         errMsg.setForeground(new java.awt.Color(255, 0, 0));
         errMsg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        showPassword.setBackground(new java.awt.Color(255, 255, 255));
+        showPassword.setBackground(new java.awt.Color(255,255,255,200));
         showPassword.setForeground(new java.awt.Color(153, 153, 153));
         showPassword.setText("Show Password");
         showPassword.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -208,10 +207,6 @@ public class Login extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_usernameActionPerformed
-
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
         login();
     }//GEN-LAST:event_loginBtnActionPerformed
@@ -303,19 +298,40 @@ public class Login extends javax.swing.JFrame {
                 conn = obj.connect();
                 cs = conn.prepareCall("{call login(?)}");
                 cs.setString("username", user);
-                rs = cs.executeQuery();                
-                conn = null;
+                rs = cs.executeQuery();
                 
                 if(rs.next())
                 {
                     
                     if(pwd.equals(rs.getString("password")) && rs.getString("role").equalsIgnoreCase("admin"))
                     {
+                        cs = conn.prepareCall("{call adminDetails(?)}");
+                        cs.setString("username", user);
+                        rs = cs.executeQuery();                
+                        conn = null;
+                        
+                        if(rs.next())
+                        {
+                            id = rs.getString("id");
+                            fullname = rs.getString("firstName")+" "+rs.getString("lastName");
+                            email = rs.getString("email");
+                        }
+                        
                         new Dashboard().setVisible(true);
                         this.setVisible(false);
                     }
                     else if(pwd.equals(rs.getString("password")) && rs.getString("role").equalsIgnoreCase("cashier"))
                     {
+                        cs = conn.prepareCall("{call cashierDetails(?)}");
+                        cs.setString("username", user);
+                        rs = cs.executeQuery();                
+                        conn = null;
+                        
+                        if(rs.next())
+                        {
+                        
+                        }
+                        
                         new Dashboard().setVisible(true);
                         this.setVisible(false);
                     }

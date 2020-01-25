@@ -34,6 +34,7 @@ public class Dashboard extends javax.swing.JFrame {
         initComponents();
         dateTime = "Date: "+Dashboard.now();
         date.setText(dateTime);
+        welcomeName.setText("Welcome, "+Login.fullname);
     }
 
     /**
@@ -126,7 +127,6 @@ public class Dashboard extends javax.swing.JFrame {
 
         welcomeName.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
         welcomeName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        welcomeName.setText("Welcome, Team DigiMart");
 
         LayeredPane.setBackground(new java.awt.Color(255, 255, 255));
         LayeredPane.setLayout(new java.awt.CardLayout());
