@@ -22,6 +22,7 @@ public class Login extends javax.swing.JFrame {
     public static String id;
     public static String fullname;
     public static String email;
+    public static String role;
     
     Connection conn = null;
     PreparedStatement ps = null;
@@ -230,7 +231,7 @@ public class Login extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -269,6 +270,8 @@ public class Login extends javax.swing.JFrame {
     
     public void login()
     {
+        conn = obj.connect();
+        
         String user = username.getText().trim();
         String pwd = password.getText().trim();
         
@@ -295,20 +298,18 @@ public class Login extends javax.swing.JFrame {
             password.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 0)));
                         
             try {
-                conn = obj.connect();
                 cs = conn.prepareCall("{call login(?)}");
                 cs.setString("username", user);
                 rs = cs.executeQuery();
                 
                 if(rs.next())
                 {
-                    
+                    role = rs.getString("role");
                     if(pwd.equals(rs.getString("password")) && rs.getString("role").equalsIgnoreCase("admin"))
                     {
                         cs = conn.prepareCall("{call adminDetails(?)}");
                         cs.setString("username", user);
-                        rs = cs.executeQuery();                
-                        conn = null;
+                        rs = cs.executeQuery();
                         
                         if(rs.next())
                         {
@@ -324,12 +325,13 @@ public class Login extends javax.swing.JFrame {
                     {
                         cs = conn.prepareCall("{call cashierDetails(?)}");
                         cs.setString("username", user);
-                        rs = cs.executeQuery();                
-                        conn = null;
+                        rs = cs.executeQuery();
                         
                         if(rs.next())
                         {
-                        
+                            id = rs.getString("id");
+                            fullname = rs.getString("firstName")+" "+rs.getString("lastName");
+                            email = rs.getString("email");
                         }
                         
                         new Dashboard().setVisible(true);
@@ -354,6 +356,8 @@ public class Login extends javax.swing.JFrame {
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
+            
+            conn = null;
             
         }
     }

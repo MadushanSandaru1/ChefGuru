@@ -5,10 +5,19 @@
  */
 package chefguru;
 
+import dbconnection.DBConnection;
+import java.awt.HeadlessException;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -28,7 +37,16 @@ public class Dashboard extends javax.swing.JFrame {
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
         return sdf.format(cal.getTime());
     }
-  
+    
+    public static String editUserId;
+    
+    Connection conn = null;
+    PreparedStatement ps = null;
+    CallableStatement cs = null;
+    ResultSet rs = null;
+    
+    DBConnection obj = DBConnection.getDb();
+    
     public Dashboard() {
         
         initComponents();
@@ -66,8 +84,26 @@ public class Dashboard extends javax.swing.JFrame {
         discountTopic = new javax.swing.JLabel();
         report = new javax.swing.JPanel();
         reportTopic = new javax.swing.JLabel();
-        setting = new javax.swing.JPanel();
-        settingTopic = new javax.swing.JLabel();
+        user = new javax.swing.JPanel();
+        userTopic = new javax.swing.JLabel();
+        id = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        email = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        phone = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        fName = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        lName = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        userSaveBtn = new javax.swing.JButton();
+        userUpdateBtn = new javax.swing.JButton();
+        userDeleteBtn = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        userTable = new javax.swing.JTable();
+        userChangePwdBtn = new javax.swing.JButton();
+        password = new javax.swing.JTextField();
+        pwdLabel = new javax.swing.JLabel();
         hrLine = new javax.swing.JPanel();
         logoIcon = new javax.swing.JLabel();
         logoLabel = new javax.swing.JLabel();
@@ -90,9 +126,9 @@ public class Dashboard extends javax.swing.JFrame {
         reportPanel = new javax.swing.JPanel();
         reportLabel = new javax.swing.JLabel();
         reportIcon = new javax.swing.JLabel();
-        settingPanel = new javax.swing.JPanel();
-        settingLabel = new javax.swing.JLabel();
-        settingIcon = new javax.swing.JLabel();
+        userPanel = new javax.swing.JPanel();
+        userLabel = new javax.swing.JLabel();
+        userIcon = new javax.swing.JLabel();
         logoutPanel = new javax.swing.JPanel();
         logoutLabel = new javax.swing.JLabel();
         logoutIcon = new javax.swing.JLabel();
@@ -285,29 +321,237 @@ public class Dashboard extends javax.swing.JFrame {
 
         LayeredPane.add(report, "card2");
 
-        setting.setBackground(new java.awt.Color(255, 255, 255));
+        user.setBackground(new java.awt.Color(255, 255, 255));
 
-        settingTopic.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
-        settingTopic.setForeground(new java.awt.Color(51, 51, 51));
-        settingTopic.setText("Setting");
+        userTopic.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
+        userTopic.setForeground(new java.awt.Color(51, 51, 51));
+        userTopic.setText("User Information");
 
-        javax.swing.GroupLayout settingLayout = new javax.swing.GroupLayout(setting);
-        setting.setLayout(settingLayout);
-        settingLayout.setHorizontalGroup(
-            settingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(settingLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(settingTopic, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(414, Short.MAX_VALUE))
+        id.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        id.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idActionPerformed(evt);
+            }
+        });
+        id.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                idKeyTyped(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel2.setText("User Name :");
+
+        email.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        email.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emailActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel3.setText("First Name :");
+
+        phone.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        phone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                phoneActionPerformed(evt);
+            }
+        });
+        phone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                phoneKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                phoneKeyTyped(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel4.setText("Last Name :");
+
+        fName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        fName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fNameActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel5.setText("Email :");
+
+        lName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lNameActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel6.setText("Phone No :");
+
+        userSaveBtn.setBackground(new java.awt.Color(0, 202, 78));
+        userSaveBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        userSaveBtn.setForeground(new java.awt.Color(255, 255, 255));
+        userSaveBtn.setText("Save");
+        userSaveBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userSaveBtnActionPerformed(evt);
+            }
+        });
+
+        userUpdateBtn.setBackground(new java.awt.Color(255, 189, 68));
+        userUpdateBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        userUpdateBtn.setForeground(new java.awt.Color(255, 255, 255));
+        userUpdateBtn.setText("Update");
+        userUpdateBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userUpdateBtnActionPerformed(evt);
+            }
+        });
+
+        userDeleteBtn.setBackground(new java.awt.Color(255, 96, 92));
+        userDeleteBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        userDeleteBtn.setForeground(new java.awt.Color(255, 255, 255));
+        userDeleteBtn.setText("Delete");
+        userDeleteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userDeleteBtnActionPerformed(evt);
+            }
+        });
+
+        userTable.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        userTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Id", "First Name", "Last Name", "Email", "Phone No"
+            }
+        ));
+        userTable.setRowHeight(20);
+        userTable.setSelectionBackground(new java.awt.Color(102, 0, 0));
+        userTable.setSelectionForeground(new java.awt.Color(255, 234, 231));
+        userTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                userTableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(userTable);
+
+        userChangePwdBtn.setBackground(new java.awt.Color(255, 189, 68));
+        userChangePwdBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        userChangePwdBtn.setForeground(new java.awt.Color(255, 255, 255));
+        userChangePwdBtn.setText("Change Password");
+        userChangePwdBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userChangePwdBtnActionPerformed(evt);
+            }
+        });
+
+        password.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        password.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwordActionPerformed(evt);
+            }
+        });
+
+        pwdLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        pwdLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        pwdLabel.setText("Password :");
+
+        javax.swing.GroupLayout userLayout = new javax.swing.GroupLayout(user);
+        user.setLayout(userLayout);
+        userLayout.setHorizontalGroup(
+            userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(userLayout.createSequentialGroup()
+                .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(userLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(userTopic, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(userLayout.createSequentialGroup()
+                        .addGap(91, 91, 91)
+                        .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel6)
+                            .addComponent(pwdLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(phone, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(userLayout.createSequentialGroup()
+                                .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lName, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(fName, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(31, 31, 31)
+                                .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(userChangePwdBtn)
+                                    .addGroup(userLayout.createSequentialGroup()
+                                        .addComponent(userSaveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(userUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(userDeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addGroup(userLayout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(userLayout.createSequentialGroup()
+                                .addGap(126, 126, 126)
+                                .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
-        settingLayout.setVerticalGroup(
-            settingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(settingLayout.createSequentialGroup()
-                .addComponent(settingTopic)
-                .addGap(0, 542, Short.MAX_VALUE))
+        userLayout.setVerticalGroup(
+            userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(userLayout.createSequentialGroup()
+                .addComponent(userTopic)
+                .addGap(30, 30, 30)
+                .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(phone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(userSaveBtn)
+                    .addComponent(userUpdateBtn)
+                    .addComponent(userDeleteBtn))
+                .addGap(35, 35, 35)
+                .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(userChangePwdBtn)
+                    .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pwdLabel))
+                .addGap(51, 51, 51)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 52, Short.MAX_VALUE))
         );
 
-        LayeredPane.add(setting, "card2");
+        LayeredPane.add(user, "card2");
 
         javax.swing.GroupLayout paneLayout = new javax.swing.GroupLayout(pane);
         pane.setLayout(paneLayout);
@@ -599,44 +843,44 @@ public class Dashboard extends javax.swing.JFrame {
             .addComponent(reportIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        settingPanel.setBackground(new java.awt.Color(102, 0, 0));
-        settingPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+        userPanel.setBackground(new java.awt.Color(102, 0, 0));
+        userPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                settingPanelMouseClicked(evt);
+                userPanelMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                settingPanelMouseEntered(evt);
+                userPanelMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                settingPanelMouseExited(evt);
+                userPanelMouseExited(evt);
             }
         });
 
-        settingLabel.setFont(new java.awt.Font("Berlin Sans FB", 0, 20)); // NOI18N
-        settingLabel.setForeground(new java.awt.Color(255, 255, 255));
-        settingLabel.setText("Setting");
-        settingLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        userLabel.setFont(new java.awt.Font("Berlin Sans FB", 0, 20)); // NOI18N
+        userLabel.setForeground(new java.awt.Color(255, 255, 255));
+        userLabel.setText("User");
+        userLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        settingIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/setting.png"))); // NOI18N
-        settingIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        userIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/setting.png"))); // NOI18N
+        userIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        javax.swing.GroupLayout settingPanelLayout = new javax.swing.GroupLayout(settingPanel);
-        settingPanel.setLayout(settingPanelLayout);
-        settingPanelLayout.setHorizontalGroup(
-            settingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(settingPanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout userPanelLayout = new javax.swing.GroupLayout(userPanel);
+        userPanel.setLayout(userPanelLayout);
+        userPanelLayout.setHorizontalGroup(
+            userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(userPanelLayout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addComponent(settingIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(userIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(settingLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                .addComponent(userLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        settingPanelLayout.setVerticalGroup(
-            settingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(settingPanelLayout.createSequentialGroup()
+        userPanelLayout.setVerticalGroup(
+            userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(userPanelLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(settingLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(settingIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(userLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(userIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         logoutPanel.setBackground(new java.awt.Color(102, 0, 0));
@@ -700,7 +944,7 @@ public class Dashboard extends javax.swing.JFrame {
                             .addComponent(roomPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(discountPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(reportPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(settingPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(userPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(logoutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -731,7 +975,7 @@ public class Dashboard extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(reportPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(settingPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(userPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(logoutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -835,15 +1079,15 @@ public class Dashboard extends javax.swing.JFrame {
         logoutIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/logout.png")));
     }//GEN-LAST:event_logoutPanelMouseExited
 
-    private void settingPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_settingPanelMouseEntered
-        settingPanel.setBackground(new java.awt.Color(70, 0, 0));
-        settingIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/setting_filled.png")));
-    }//GEN-LAST:event_settingPanelMouseEntered
+    private void userPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userPanelMouseEntered
+        userPanel.setBackground(new java.awt.Color(70, 0, 0));
+        userIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/setting_filled.png")));
+    }//GEN-LAST:event_userPanelMouseEntered
 
-    private void settingPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_settingPanelMouseExited
-        settingPanel.setBackground(new java.awt.Color(102, 0, 0));
-        settingIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/setting.png")));
-    }//GEN-LAST:event_settingPanelMouseExited
+    private void userPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userPanelMouseExited
+        userPanel.setBackground(new java.awt.Color(102, 0, 0));
+        userIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/setting.png")));
+    }//GEN-LAST:event_userPanelMouseExited
 
     private void checkedInPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkedInPanelMouseClicked
         panelDefault();
@@ -875,14 +1119,188 @@ public class Dashboard extends javax.swing.JFrame {
         report.setVisible(true);
     }//GEN-LAST:event_reportPanelMouseClicked
 
-    private void settingPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_settingPanelMouseClicked
+    private void userPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userPanelMouseClicked
         panelDefault();
-        setting.setVisible(true);
-    }//GEN-LAST:event_settingPanelMouseClicked
+        user.setVisible(true);
+        viewUserDetails();
+    }//GEN-LAST:event_userPanelMouseClicked
 
     private void logoutPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutPanelMouseClicked
         new Logout().setVisible(true);
     }//GEN-LAST:event_logoutPanelMouseClicked
+
+    private void idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_idActionPerformed
+
+    private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_emailActionPerformed
+
+    private void phoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phoneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_phoneActionPerformed
+
+    private void fNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fNameActionPerformed
+
+    private void lNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lNameActionPerformed
+
+    private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passwordActionPerformed
+
+    private void userUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userUpdateBtnActionPerformed
+        User user = new User();
+        
+        String id = this.id.getText().trim();
+        String fName = this.fName.getText().trim();
+        String lName = this.lName.getText().trim();
+        String email = this.email.getText().trim();
+        String phone = this.phone.getText().trim();
+        //String password = this.password.getText().trim();
+        
+        if(id.isEmpty() || fName.isEmpty() || lName.isEmpty() || email.isEmpty() || phone.isEmpty()){
+            new ErrorMsg().showErr("Please fill all the fields...");
+        } else {
+            user.setId(id);
+            user.setfName(fName);
+            user.setlName(lName);
+            user.setEmail(email);
+            user.setPhone(phone);
+            //user.setPassword(password);
+
+            user.updateUser(editUserId);
+            viewUserDetails();
+        }
+    }//GEN-LAST:event_userUpdateBtnActionPerformed
+
+    private void userDeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userDeleteBtnActionPerformed
+        
+        conn = obj.connect();
+        
+        try {
+            if(editUserId.isEmpty()){
+                new ErrorMsg().showErr("Please select record...");
+            } else {
+                int a = JOptionPane.showConfirmDialog(null, "Are you sure ?");
+                if(a==0){
+                    try {
+                        cs = conn.prepareCall("{call deleteUserDetails(?)}");
+                        cs.setString("username", editUserId);
+                        
+                        if(cs.executeUpdate()==2){
+                            viewUserDetails();
+                            new ErrorMsg().showErr("Record deleted successfully...");
+                        }
+                    } catch (SQLException e) {
+                        new ErrorMsg().showErr(e.getMessage());
+                    }
+                    editUserId = null;
+                }
+            }
+        } catch (HeadlessException e) {
+            new ErrorMsg().showErr("Please select record...");
+        }
+        
+        conn = null;
+    }//GEN-LAST:event_userDeleteBtnActionPerformed
+
+    private void userTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userTableMouseClicked
+        DefaultTableModel model = (DefaultTableModel) userTable.getModel();
+        int row = userTable.getSelectedRow();
+
+        editUserId = userTable.getValueAt(row, 0).toString();
+
+        id.setText(editUserId);
+        fName.setText(userTable.getValueAt(row, 1).toString());
+        lName.setText(userTable.getValueAt(row, 2).toString());
+        email.setText(userTable.getValueAt(row, 3).toString());
+        phone.setText(userTable.getValueAt(row, 4).toString());
+
+        //self deleting disabled
+        if(!editUserId.equalsIgnoreCase(Login.id)){
+            if(editUserId.substring(0, 3).equalsIgnoreCase("ADM")){
+                userUpdateBtn.setVisible(false);
+                userDeleteBtn.setVisible(false);
+            } else {
+                userUpdateBtn.setVisible(true);
+                userDeleteBtn.setVisible(true);
+            }
+            userSaveBtn.setVisible(false);
+            pwdLabel.setEnabled(false);
+            password.setEnabled(false);
+            userChangePwdBtn.setEnabled(false);
+        } else {
+            userSaveBtn.setVisible(false);
+            userUpdateBtn.setVisible(true);
+            userDeleteBtn.setVisible(false);
+            pwdLabel.setEnabled(true);
+            password.setEnabled(true);
+            userChangePwdBtn.setEnabled(true);
+        }
+    }//GEN-LAST:event_userTableMouseClicked
+
+    private void userSaveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userSaveBtnActionPerformed
+        User user = new User();
+        
+        String id = this.id.getText().trim();
+        String fName = this.fName.getText().trim();
+        String lName = this.lName.getText().trim();
+        String email = this.email.getText().trim();
+        String phone = this.phone.getText().trim();
+        String password = "123";
+        
+        if(id.isEmpty() || fName.isEmpty() || lName.isEmpty() || email.isEmpty() || phone.isEmpty()){
+            new ErrorMsg().showErr("Please fill all the fields...");
+        } else {
+            user.setId(id);
+            user.setfName(fName);
+            user.setlName(lName);
+            user.setEmail(email);
+            user.setPhone(phone);
+            user.setPassword(password);
+
+            user.createUser();
+            viewUserDetails();
+        }
+    }//GEN-LAST:event_userSaveBtnActionPerformed
+
+    private void phoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneKeyTyped
+        char enter = evt.getKeyChar();
+        
+        if ((phone.getText().length() >= 10 ) || (!(Character.isDigit(enter)))){
+            evt.consume();
+        }
+    }//GEN-LAST:event_phoneKeyTyped
+
+    private void phoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_phoneKeyPressed
+
+    private void idKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_idKeyTyped
+        if ( id.getText().length() >= 6 ){
+            evt.consume();
+        }
+    }//GEN-LAST:event_idKeyTyped
+
+    private void userChangePwdBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userChangePwdBtnActionPerformed
+        User user = new User();
+        
+        String password = this.password.getText().trim();
+        
+        if(password.isEmpty()){
+            new ErrorMsg().showErr("Please enter password...");
+        } else {
+            user.setPassword(password);
+
+            user.changePassword(editUserId);
+            viewUserDetails();
+        }
+    }//GEN-LAST:event_userChangePwdBtnActionPerformed
 
     private void panelDefault(){
         checkIn.setVisible(false);
@@ -891,7 +1309,85 @@ public class Dashboard extends javax.swing.JFrame {
         room.setVisible(false);
         discount.setVisible(false);
         report.setVisible(false);
-        setting.setVisible(false);
+        user.setVisible(false);
+    }
+    
+    public void viewUserDetails(){
+        
+        conn = obj.connect();
+        
+        //cashier no need next user id
+        if(Login.role.equalsIgnoreCase("cashier")){
+            id.setText(null);
+        } else {
+            String lastId = "CSR000";
+
+            try {
+                String sql = "CALL `lastId`()";
+                ps = conn.prepareCall(sql);
+                rs = ps.executeQuery();
+
+                while(rs.next()){
+                    lastId = rs.getString("id");
+                }
+
+            } catch (SQLException e) {
+                new ErrorMsg().showErr(e.getMessage());
+                //JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+
+            int nextId = Integer.valueOf(lastId.substring(3, 6))+1;
+
+            id.setText("CSR"+String.format("%03d", nextId));
+        }
+            
+        fName.setText(null);
+        lName.setText(null);
+        email.setText(null);
+        phone.setText(null);
+        password.setText(null);
+        
+        //cashier cannot create user profile
+        if(Login.role.equalsIgnoreCase("cashier")){
+            userSaveBtn.setVisible(false);
+        } else {
+            userSaveBtn.setVisible(true);
+        }
+        
+        userUpdateBtn.setVisible(false);
+        userDeleteBtn.setVisible(false);
+        
+        pwdLabel.setEnabled(false);
+        password.setEnabled(false);
+        userChangePwdBtn.setEnabled(false);
+        
+        if(Login.role.equalsIgnoreCase("admin")){
+            try {
+                cs = conn.prepareCall("{CALL `viewUserDetails`()}");
+                rs = cs.executeQuery();
+
+                userTable.setModel(DbUtils.resultSetToTableModel(rs));
+
+            } catch (SQLException e) {
+                new ErrorMsg().showErr(e.getMessage());
+                //JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        } else {
+            try {
+                cs = conn.prepareCall("{CALL `viewSelfDetails`(?)}");
+                cs.setString("username", Login.id);
+                rs = cs.executeQuery();
+
+                userTable.setModel(DbUtils.resultSetToTableModel(rs));
+
+            } catch (SQLException e) {
+                new ErrorMsg().showErr(e.getMessage());
+                //JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        }
+        
+        conn = null;
+        
     }
     /**
      * @param args the command line arguments
@@ -904,7 +1400,7 @@ public class Dashboard extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -949,13 +1445,23 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel discountLabel;
     private javax.swing.JPanel discountPanel;
     private javax.swing.JLabel discountTopic;
+    private javax.swing.JTextField email;
+    private javax.swing.JTextField fName;
     private javax.swing.JPanel guest;
     private javax.swing.JLabel guestIcon;
     private javax.swing.JLabel guestLabel;
     private javax.swing.JPanel guestPanel;
     private javax.swing.JLabel guestTopic;
     private javax.swing.JPanel hrLine;
+    private javax.swing.JTextField id;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField lName;
     private javax.swing.JLabel logoIcon;
     private javax.swing.JLabel logoLabel;
     private javax.swing.JLabel logoutIcon;
@@ -963,6 +1469,9 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel logoutPanel;
     private javax.swing.JLabel minimizeBtn;
     private javax.swing.JPanel pane;
+    private javax.swing.JTextField password;
+    private javax.swing.JTextField phone;
+    private javax.swing.JLabel pwdLabel;
     private javax.swing.JPanel report;
     private javax.swing.JLabel reportIcon;
     private javax.swing.JLabel reportLabel;
@@ -973,11 +1482,16 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel roomLabel;
     private javax.swing.JPanel roomPanel;
     private javax.swing.JLabel roomTopic;
-    private javax.swing.JPanel setting;
-    private javax.swing.JLabel settingIcon;
-    private javax.swing.JLabel settingLabel;
-    private javax.swing.JPanel settingPanel;
-    private javax.swing.JLabel settingTopic;
+    private javax.swing.JPanel user;
+    private javax.swing.JButton userChangePwdBtn;
+    private javax.swing.JButton userDeleteBtn;
+    private javax.swing.JLabel userIcon;
+    private javax.swing.JLabel userLabel;
+    private javax.swing.JPanel userPanel;
+    private javax.swing.JButton userSaveBtn;
+    private javax.swing.JTable userTable;
+    private javax.swing.JLabel userTopic;
+    private javax.swing.JButton userUpdateBtn;
     private javax.swing.JLabel welcomeName;
     // End of variables declaration//GEN-END:variables
 }
