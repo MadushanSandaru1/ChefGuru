@@ -137,11 +137,11 @@ public class User {
                 new ErrorMsg().showErr("Record not inserted...");
             }
            
-       } catch (SQLException e) {
-           new ErrorMsg().showErr(e.getMessage());
-       }
-       
-       conn = null;
+        } catch (SQLException e) {
+            new ErrorMsg().showErr(e.getMessage());
+        }
+
+        conn = null;
     }
     
     public void updateUser(String editUserId)
@@ -151,7 +151,7 @@ public class User {
             
         try {
             cs = conn.prepareCall("{call updateUserDetails(?,?,?,?,?)}");
-            cs.setString("username", getId());
+            cs.setString("username", editUserId);
             cs.setString("fName", getfName());
             cs.setString("lName", getlName());
             cs.setString("email", getEmail());
@@ -164,11 +164,12 @@ public class User {
                 new ErrorMsg().showErr("Record not updated...");
             }
            
-       } catch (SQLException e) {
+        } catch (SQLException e) {
            new ErrorMsg().showErr(e.getMessage());
-       }
+        }
        
-       conn = null;
+        editUserId = null;
+        conn = null;
     }
     
     public void changePassword(String editUserId)
