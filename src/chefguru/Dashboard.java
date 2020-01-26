@@ -39,6 +39,7 @@ public class Dashboard extends javax.swing.JFrame {
     }
     
     public static String editUserId;
+    public static String editDiscountId;
     
     Connection conn = null;
     PreparedStatement ps = null;
@@ -64,6 +65,7 @@ public class Dashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jSplitPane1 = new javax.swing.JSplitPane();
         dashboarddPane = new javax.swing.JPanel();
         pane = new javax.swing.JPanel();
         closeBtn = new javax.swing.JLabel();
@@ -81,7 +83,18 @@ public class Dashboard extends javax.swing.JFrame {
         room = new javax.swing.JPanel();
         roomTopic = new javax.swing.JLabel();
         discount = new javax.swing.JPanel();
-        discountTopic = new javax.swing.JLabel();
+        userTopic1 = new javax.swing.JLabel();
+        discountType = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        discountRate = new javax.swing.JTextField();
+        discountSaveBtn = new javax.swing.JButton();
+        discountUpdateBtn = new javax.swing.JButton();
+        discountDeleteBtn = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        discountTable = new javax.swing.JTable();
+        discountId = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
         report = new javax.swing.JPanel();
         reportTopic = new javax.swing.JLabel();
         user = new javax.swing.JPanel();
@@ -275,24 +288,174 @@ public class Dashboard extends javax.swing.JFrame {
 
         discount.setBackground(new java.awt.Color(255, 255, 255));
 
-        discountTopic.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
-        discountTopic.setForeground(new java.awt.Color(51, 51, 51));
-        discountTopic.setText("Discount Information");
+        userTopic1.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
+        userTopic1.setForeground(new java.awt.Color(51, 51, 51));
+        userTopic1.setText("Discount Information");
+
+        discountType.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        discountType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                discountTypeActionPerformed(evt);
+            }
+        });
+        discountType.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                discountTypeKeyTyped(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel7.setText("Discount Type :");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel8.setText("Discount Rate (%) :");
+
+        discountRate.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        discountRate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                discountRateActionPerformed(evt);
+            }
+        });
+        discountRate.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                discountRateKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                discountRateKeyTyped(evt);
+            }
+        });
+
+        discountSaveBtn.setBackground(new java.awt.Color(0, 202, 78));
+        discountSaveBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        discountSaveBtn.setForeground(new java.awt.Color(255, 255, 255));
+        discountSaveBtn.setText("Save");
+        discountSaveBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                discountSaveBtnActionPerformed(evt);
+            }
+        });
+
+        discountUpdateBtn.setBackground(new java.awt.Color(255, 189, 68));
+        discountUpdateBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        discountUpdateBtn.setForeground(new java.awt.Color(255, 255, 255));
+        discountUpdateBtn.setText("Update");
+        discountUpdateBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                discountUpdateBtnActionPerformed(evt);
+            }
+        });
+
+        discountDeleteBtn.setBackground(new java.awt.Color(255, 96, 92));
+        discountDeleteBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        discountDeleteBtn.setForeground(new java.awt.Color(255, 255, 255));
+        discountDeleteBtn.setText("Delete");
+        discountDeleteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                discountDeleteBtnActionPerformed(evt);
+            }
+        });
+
+        discountTable.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        discountTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Id", "Discount Type", "Discount Rate (%)"
+            }
+        ));
+        discountTable.setRowHeight(20);
+        discountTable.setSelectionBackground(new java.awt.Color(102, 0, 0));
+        discountTable.setSelectionForeground(new java.awt.Color(255, 234, 231));
+        discountTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                discountTableMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(discountTable);
+
+        discountId.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        discountId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                discountIdActionPerformed(evt);
+            }
+        });
+        discountId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                discountIdKeyTyped(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel9.setText("Id :");
 
         javax.swing.GroupLayout discountLayout = new javax.swing.GroupLayout(discount);
         discount.setLayout(discountLayout);
         discountLayout.setHorizontalGroup(
             discountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(discountLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(discountTopic, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(414, Short.MAX_VALUE))
+                .addGroup(discountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(discountLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(userTopic1, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(discountLayout.createSequentialGroup()
+                        .addGap(91, 91, 91)
+                        .addGroup(discountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(discountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(discountLayout.createSequentialGroup()
+                                .addComponent(discountType, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(276, 276, 276))
+                            .addGroup(discountLayout.createSequentialGroup()
+                                .addComponent(discountRate, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31)
+                                .addComponent(discountSaveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(discountUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(discountDeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(discountLayout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, discountLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(discountId, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(368, 368, 368)))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         discountLayout.setVerticalGroup(
             discountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(discountLayout.createSequentialGroup()
-                .addComponent(discountTopic)
-                .addGap(0, 542, Short.MAX_VALUE))
+                .addComponent(userTopic1)
+                .addGap(30, 30, 30)
+                .addGroup(discountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(discountId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(discountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(discountType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(discountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(discountRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(discountSaveBtn)
+                    .addComponent(discountUpdateBtn)
+                    .addComponent(discountDeleteBtn)
+                    .addComponent(jLabel8))
+                .addGap(63, 63, 63)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 54, Short.MAX_VALUE))
         );
 
         LayeredPane.add(discount, "card2");
@@ -1112,6 +1275,7 @@ public class Dashboard extends javax.swing.JFrame {
     private void discountPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_discountPanelMouseClicked
         panelDefault();
         discount.setVisible(true);
+        viewDiscountDetails();
     }//GEN-LAST:event_discountPanelMouseClicked
 
     private void reportPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportPanelMouseClicked
@@ -1302,6 +1466,125 @@ public class Dashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_userChangePwdBtnActionPerformed
 
+    private void discountTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_discountTypeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_discountTypeActionPerformed
+
+    private void discountTypeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_discountTypeKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_discountTypeKeyTyped
+
+    private void discountRateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_discountRateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_discountRateActionPerformed
+
+    private void discountSaveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_discountSaveBtnActionPerformed
+        Discount discount = new Discount();
+        
+        String id = this.discountId.getText().trim();
+        String type = this.discountType.getText().trim();
+        String rate = this.discountRate.getText().trim();
+        
+        if(id.isEmpty() || type.isEmpty() || rate.isEmpty()){
+            new ErrorMsg().showErr("Please fill all the fields...");
+        } else {
+            discount.setId(id);
+            discount.setType(type);
+            discount.setRate(rate);
+
+            discount.createDiscount();
+            viewDiscountDetails();
+        }
+    }//GEN-LAST:event_discountSaveBtnActionPerformed
+
+    private void discountUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_discountUpdateBtnActionPerformed
+        Discount discount = new Discount();
+        
+        String id = this.discountId.getText().trim();
+        String type = this.discountType.getText().trim();
+        String rate = this.discountRate.getText().trim();
+        
+        if(id.isEmpty() || type.isEmpty() || rate.isEmpty()){
+            new ErrorMsg().showErr("Please fill all the fields...");
+        } else {
+            discount.setId(id);
+            discount.setType(type);
+            discount.setRate(rate);
+
+            discount.updateDiscount(editDiscountId);
+            viewDiscountDetails();
+        }
+    }//GEN-LAST:event_discountUpdateBtnActionPerformed
+
+    private void discountDeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_discountDeleteBtnActionPerformed
+        conn = obj.connect();
+        
+        try {
+            if(editDiscountId.isEmpty()){
+                new ErrorMsg().showErr("Please select record...");
+            } else {
+                int a = JOptionPane.showConfirmDialog(null, "Are you sure ?");
+                if(a==0){
+                    try {
+                        cs = conn.prepareCall("{call deleteDiscountDetails(?)}");
+                        cs.setString("dId", editDiscountId);
+                        
+                        if(cs.executeUpdate()==1){
+                            viewDiscountDetails();
+                            new ErrorMsg().showErr("Record deleted successfully...");
+                        }
+                    } catch (SQLException e) {
+                        new ErrorMsg().showErr(e.getMessage());
+                    }
+                    editDiscountId = null;
+                }
+            }
+        } catch (HeadlessException e) {
+            new ErrorMsg().showErr("Please select record...");
+        }
+        
+        conn = null;
+    }//GEN-LAST:event_discountDeleteBtnActionPerformed
+
+    private void discountTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_discountTableMouseClicked
+        DefaultTableModel model = (DefaultTableModel) userTable.getModel();
+        int row = discountTable.getSelectedRow();
+
+        editDiscountId = discountTable.getValueAt(row, 0).toString();
+
+        discountId.setText(editDiscountId);
+        discountType.setText(discountTable.getValueAt(row, 1).toString());
+        discountRate.setText(discountTable.getValueAt(row, 2).toString());
+
+        discountSaveBtn.setVisible(false);
+        discountUpdateBtn.setVisible(true);
+        discountDeleteBtn.setVisible(true);
+    }//GEN-LAST:event_discountTableMouseClicked
+
+    private void discountIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_discountIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_discountIdActionPerformed
+
+    private void discountIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_discountIdKeyTyped
+        char enter = evt.getKeyChar();
+        
+        if ((!(Character.isDigit(enter)))){
+            evt.consume();
+        }
+    }//GEN-LAST:event_discountIdKeyTyped
+
+    private void discountRateKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_discountRateKeyTyped
+        char enter = evt.getKeyChar();
+        
+        if ((discountRate.getText().length() >= 3 ) || (!(Character.isDigit(enter)))){
+            evt.consume();
+        }
+    }//GEN-LAST:event_discountRateKeyTyped
+
+    private void discountRateKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_discountRateKeyPressed
+        
+    }//GEN-LAST:event_discountRateKeyPressed
+
     private void panelDefault(){
         checkIn.setVisible(false);
         checkout.setVisible(false);
@@ -1389,6 +1672,51 @@ public class Dashboard extends javax.swing.JFrame {
         conn = null;
         
     }
+    
+    public void viewDiscountDetails(){
+        
+        conn = obj.connect();
+        
+        String lastId = "0";
+
+        try {
+            String sql = "CALL `lastDiscountId`()";
+            ps = conn.prepareCall(sql);
+            rs = ps.executeQuery();
+
+            while(rs.next()){
+                lastId = rs.getString("id");
+            }
+
+        } catch (SQLException e) {
+            new ErrorMsg().showErr(e.getMessage());
+            //JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+
+        int nextId = Integer.valueOf(lastId)+1;
+
+        discountId.setText(String.format("%d", nextId));
+        discountType.setText(null);
+        discountRate.setText(null);
+        
+        discountSaveBtn.setVisible(true);
+        discountUpdateBtn.setVisible(false);
+        discountDeleteBtn.setVisible(false);
+        
+        try {
+                cs = conn.prepareCall("{CALL `viewDiscountDetails`()}");
+                rs = cs.executeQuery();
+
+                discountTable.setModel(DbUtils.resultSetToTableModel(rs));
+
+            } catch (SQLException e) {
+                new ErrorMsg().showErr(e.getMessage());
+                //JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        
+        conn = null;
+        
+    }
     /**
      * @param args the command line arguments
      */
@@ -1441,10 +1769,16 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel dashboarddPane;
     private static javax.swing.JLabel date;
     private javax.swing.JPanel discount;
+    private javax.swing.JButton discountDeleteBtn;
     private javax.swing.JLabel discountIcon;
+    private javax.swing.JTextField discountId;
     private javax.swing.JLabel discountLabel;
     private javax.swing.JPanel discountPanel;
-    private javax.swing.JLabel discountTopic;
+    private javax.swing.JTextField discountRate;
+    private javax.swing.JButton discountSaveBtn;
+    private javax.swing.JTable discountTable;
+    private javax.swing.JTextField discountType;
+    private javax.swing.JButton discountUpdateBtn;
     private javax.swing.JTextField email;
     private javax.swing.JTextField fName;
     private javax.swing.JPanel guest;
@@ -1460,7 +1794,12 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTextField lName;
     private javax.swing.JLabel logoIcon;
     private javax.swing.JLabel logoLabel;
@@ -1491,6 +1830,7 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JButton userSaveBtn;
     private javax.swing.JTable userTable;
     private javax.swing.JLabel userTopic;
+    private javax.swing.JLabel userTopic1;
     private javax.swing.JButton userUpdateBtn;
     private javax.swing.JLabel welcomeName;
     // End of variables declaration//GEN-END:variables
