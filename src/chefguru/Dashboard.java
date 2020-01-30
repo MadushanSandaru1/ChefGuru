@@ -75,12 +75,47 @@ public class Dashboard extends javax.swing.JFrame {
         welcomeName = new javax.swing.JLabel();
         LayeredPane = new javax.swing.JLayeredPane();
         checkIn = new javax.swing.JPanel();
-        checkInTopic = new javax.swing.JLabel();
+        userTopic4 = new javax.swing.JLabel();
+        id2 = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
+        email2 = new javax.swing.JTextField();
+        jLabel20 = new javax.swing.JLabel();
+        phone2 = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        fName2 = new javax.swing.JTextField();
+        jLabel22 = new javax.swing.JLabel();
+        lName2 = new javax.swing.JTextField();
+        jLabel23 = new javax.swing.JLabel();
+        userSaveBtn2 = new javax.swing.JButton();
+        userUpdateBtn2 = new javax.swing.JButton();
+        userDeleteBtn2 = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        userTable2 = new javax.swing.JTable();
+        userChangePwdBtn2 = new javax.swing.JButton();
+        password2 = new javax.swing.JTextField();
+        pwdLabel2 = new javax.swing.JLabel();
         checkout = new javax.swing.JPanel();
         checkOutTopic = new javax.swing.JLabel();
         guest = new javax.swing.JPanel();
-        guestTopic = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        userTopic3 = new javax.swing.JLabel();
+        id1 = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        email1 = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        phone1 = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        fName1 = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        lName1 = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        userSaveBtn1 = new javax.swing.JButton();
+        userUpdateBtn1 = new javax.swing.JButton();
+        userDeleteBtn1 = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        userTable1 = new javax.swing.JTable();
+        userChangePwdBtn1 = new javax.swing.JButton();
+        password1 = new javax.swing.JTextField();
+        pwdLabel1 = new javax.swing.JLabel();
         room = new javax.swing.JPanel();
         userTopic2 = new javax.swing.JLabel();
         roomId = new javax.swing.JTextField();
@@ -196,24 +231,232 @@ public class Dashboard extends javax.swing.JFrame {
 
         checkIn.setBackground(new java.awt.Color(255, 255, 255));
 
-        checkInTopic.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
-        checkInTopic.setForeground(new java.awt.Color(51, 51, 51));
-        checkInTopic.setText("Check in Information");
+        userTopic4.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
+        userTopic4.setForeground(new java.awt.Color(51, 51, 51));
+        userTopic4.setText("Check In Information");
+
+        id2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        id2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                id2ActionPerformed(evt);
+            }
+        });
+        id2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                id2KeyTyped(evt);
+            }
+        });
+
+        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel19.setText("User Name :");
+
+        email2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        email2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                email2ActionPerformed(evt);
+            }
+        });
+
+        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel20.setText("First Name :");
+
+        phone2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        phone2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                phone2ActionPerformed(evt);
+            }
+        });
+        phone2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                phone2KeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                phone2KeyTyped(evt);
+            }
+        });
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel21.setText("Last Name :");
+
+        fName2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        fName2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fName2ActionPerformed(evt);
+            }
+        });
+
+        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel22.setText("Email :");
+
+        lName2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lName2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lName2ActionPerformed(evt);
+            }
+        });
+
+        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel23.setText("Phone No :");
+
+        userSaveBtn2.setBackground(new java.awt.Color(0, 202, 78));
+        userSaveBtn2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        userSaveBtn2.setForeground(new java.awt.Color(255, 255, 255));
+        userSaveBtn2.setText("Save");
+        userSaveBtn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userSaveBtn2ActionPerformed(evt);
+            }
+        });
+
+        userUpdateBtn2.setBackground(new java.awt.Color(255, 189, 68));
+        userUpdateBtn2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        userUpdateBtn2.setForeground(new java.awt.Color(255, 255, 255));
+        userUpdateBtn2.setText("Update");
+        userUpdateBtn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userUpdateBtn2ActionPerformed(evt);
+            }
+        });
+
+        userDeleteBtn2.setBackground(new java.awt.Color(255, 96, 92));
+        userDeleteBtn2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        userDeleteBtn2.setForeground(new java.awt.Color(255, 255, 255));
+        userDeleteBtn2.setText("Delete");
+        userDeleteBtn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userDeleteBtn2ActionPerformed(evt);
+            }
+        });
+
+        userTable2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        userTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Id", "First Name", "Last Name", "Email", "Phone No"
+            }
+        ));
+        userTable2.setRowHeight(20);
+        userTable2.setSelectionBackground(new java.awt.Color(102, 0, 0));
+        userTable2.setSelectionForeground(new java.awt.Color(255, 234, 231));
+        userTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                userTable2MouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(userTable2);
+
+        userChangePwdBtn2.setBackground(new java.awt.Color(255, 189, 68));
+        userChangePwdBtn2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        userChangePwdBtn2.setForeground(new java.awt.Color(255, 255, 255));
+        userChangePwdBtn2.setText("Change Password");
+        userChangePwdBtn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userChangePwdBtn2ActionPerformed(evt);
+            }
+        });
+
+        password2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        password2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                password2ActionPerformed(evt);
+            }
+        });
+
+        pwdLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        pwdLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        pwdLabel2.setText("Password :");
 
         javax.swing.GroupLayout checkInLayout = new javax.swing.GroupLayout(checkIn);
         checkIn.setLayout(checkInLayout);
         checkInLayout.setHorizontalGroup(
             checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(checkInLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(checkInTopic, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(414, Short.MAX_VALUE))
+                .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(checkInLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(userTopic4, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(checkInLayout.createSequentialGroup()
+                        .addGap(91, 91, 91)
+                        .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel19)
+                            .addComponent(jLabel22)
+                            .addComponent(jLabel21)
+                            .addComponent(jLabel20)
+                            .addComponent(jLabel23)
+                            .addComponent(pwdLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(phone2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(id2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(checkInLayout.createSequentialGroup()
+                                .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(email2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lName2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(fName2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(31, 31, 31)
+                                .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(userChangePwdBtn2)
+                                    .addGroup(checkInLayout.createSequentialGroup()
+                                        .addComponent(userSaveBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(userUpdateBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(userDeleteBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addGroup(checkInLayout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(checkInLayout.createSequentialGroup()
+                                .addGap(126, 126, 126)
+                                .addComponent(password2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         checkInLayout.setVerticalGroup(
             checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(checkInLayout.createSequentialGroup()
-                .addComponent(checkInTopic)
-                .addGap(0, 542, Short.MAX_VALUE))
+                .addComponent(userTopic4)
+                .addGap(30, 30, 30)
+                .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(id2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel19))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fName2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel20))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lName2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(email2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel22))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(phone2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel23)
+                    .addComponent(userSaveBtn2)
+                    .addComponent(userUpdateBtn2)
+                    .addComponent(userDeleteBtn2))
+                .addGap(35, 35, 35)
+                .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(userChangePwdBtn2)
+                    .addComponent(password2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pwdLabel2))
+                .addGap(51, 51, 51)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 52, Short.MAX_VALUE))
         );
 
         LayeredPane.add(checkIn, "card2");
@@ -244,12 +487,151 @@ public class Dashboard extends javax.swing.JFrame {
 
         guest.setBackground(new java.awt.Color(255, 255, 255));
 
-        guestTopic.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
-        guestTopic.setForeground(new java.awt.Color(51, 51, 51));
-        guestTopic.setText("Guest Information");
+        userTopic3.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
+        userTopic3.setForeground(new java.awt.Color(51, 51, 51));
+        userTopic3.setText("Guest Information");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel1.setText("jLabel1");
+        id1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        id1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                id1ActionPerformed(evt);
+            }
+        });
+        id1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                id1KeyTyped(evt);
+            }
+        });
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel14.setText("User Name :");
+
+        email1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        email1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                email1ActionPerformed(evt);
+            }
+        });
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel15.setText("First Name :");
+
+        phone1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        phone1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                phone1ActionPerformed(evt);
+            }
+        });
+        phone1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                phone1KeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                phone1KeyTyped(evt);
+            }
+        });
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel16.setText("Last Name :");
+
+        fName1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        fName1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fName1ActionPerformed(evt);
+            }
+        });
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel17.setText("Email :");
+
+        lName1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lName1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lName1ActionPerformed(evt);
+            }
+        });
+
+        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel18.setText("Phone No :");
+
+        userSaveBtn1.setBackground(new java.awt.Color(0, 202, 78));
+        userSaveBtn1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        userSaveBtn1.setForeground(new java.awt.Color(255, 255, 255));
+        userSaveBtn1.setText("Save");
+        userSaveBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userSaveBtn1ActionPerformed(evt);
+            }
+        });
+
+        userUpdateBtn1.setBackground(new java.awt.Color(255, 189, 68));
+        userUpdateBtn1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        userUpdateBtn1.setForeground(new java.awt.Color(255, 255, 255));
+        userUpdateBtn1.setText("Update");
+        userUpdateBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userUpdateBtn1ActionPerformed(evt);
+            }
+        });
+
+        userDeleteBtn1.setBackground(new java.awt.Color(255, 96, 92));
+        userDeleteBtn1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        userDeleteBtn1.setForeground(new java.awt.Color(255, 255, 255));
+        userDeleteBtn1.setText("Delete");
+        userDeleteBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userDeleteBtn1ActionPerformed(evt);
+            }
+        });
+
+        userTable1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        userTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Id", "First Name", "Last Name", "Email", "Phone No"
+            }
+        ));
+        userTable1.setRowHeight(20);
+        userTable1.setSelectionBackground(new java.awt.Color(102, 0, 0));
+        userTable1.setSelectionForeground(new java.awt.Color(255, 234, 231));
+        userTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                userTable1MouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(userTable1);
+
+        userChangePwdBtn1.setBackground(new java.awt.Color(255, 189, 68));
+        userChangePwdBtn1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        userChangePwdBtn1.setForeground(new java.awt.Color(255, 255, 255));
+        userChangePwdBtn1.setText("Change Password");
+        userChangePwdBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userChangePwdBtn1ActionPerformed(evt);
+            }
+        });
+
+        password1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        password1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                password1ActionPerformed(evt);
+            }
+        });
+
+        pwdLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        pwdLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        pwdLabel1.setText("Password :");
 
         javax.swing.GroupLayout guestLayout = new javax.swing.GroupLayout(guest);
         guest.setLayout(guestLayout);
@@ -259,19 +641,78 @@ public class Dashboard extends javax.swing.JFrame {
                 .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(guestLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(guestTopic, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(userTopic3, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(guestLayout.createSequentialGroup()
-                        .addGap(220, 220, 220)
-                        .addComponent(jLabel1)))
-                .addContainerGap(414, Short.MAX_VALUE))
+                        .addGap(91, 91, 91)
+                        .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel17)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel18)
+                            .addComponent(pwdLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(phone1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(id1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(guestLayout.createSequentialGroup()
+                                .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(email1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lName1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(fName1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(31, 31, 31)
+                                .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(userChangePwdBtn1)
+                                    .addGroup(guestLayout.createSequentialGroup()
+                                        .addComponent(userSaveBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(userUpdateBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(userDeleteBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addGroup(guestLayout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(guestLayout.createSequentialGroup()
+                                .addGap(126, 126, 126)
+                                .addComponent(password1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         guestLayout.setVerticalGroup(
             guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(guestLayout.createSequentialGroup()
-                .addComponent(guestTopic)
-                .addGap(176, 176, 176)
-                .addComponent(jLabel1)
-                .addGap(0, 351, Short.MAX_VALUE))
+                .addComponent(userTopic3)
+                .addGap(30, 30, 30)
+                .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(id1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(email1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(phone1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel18)
+                    .addComponent(userSaveBtn1)
+                    .addComponent(userUpdateBtn1)
+                    .addComponent(userDeleteBtn1))
+                .addGap(35, 35, 35)
+                .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(userChangePwdBtn1)
+                    .addComponent(password1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pwdLabel1))
+                .addGap(51, 51, 51)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 52, Short.MAX_VALUE))
         );
 
         LayeredPane.add(guest, "card2");
@@ -580,9 +1021,7 @@ public class Dashboard extends javax.swing.JFrame {
                             .addComponent(jLabel8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(discountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(discountLayout.createSequentialGroup()
-                                .addComponent(discountType, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(276, 276, 276))
+                            .addComponent(discountType, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(discountLayout.createSequentialGroup()
                                 .addComponent(discountRate, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(31, 31, 31)
@@ -1912,6 +2351,118 @@ public class Dashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_roomOccupancyKeyTyped
 
+    private void id1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_id1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_id1ActionPerformed
+
+    private void id1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_id1KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_id1KeyTyped
+
+    private void email1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_email1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_email1ActionPerformed
+
+    private void phone1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phone1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_phone1ActionPerformed
+
+    private void phone1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phone1KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_phone1KeyPressed
+
+    private void phone1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phone1KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_phone1KeyTyped
+
+    private void fName1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fName1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fName1ActionPerformed
+
+    private void lName1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lName1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lName1ActionPerformed
+
+    private void userSaveBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userSaveBtn1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userSaveBtn1ActionPerformed
+
+    private void userUpdateBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userUpdateBtn1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userUpdateBtn1ActionPerformed
+
+    private void userDeleteBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userDeleteBtn1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userDeleteBtn1ActionPerformed
+
+    private void userTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userTable1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userTable1MouseClicked
+
+    private void userChangePwdBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userChangePwdBtn1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userChangePwdBtn1ActionPerformed
+
+    private void password1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_password1ActionPerformed
+
+    private void id2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_id2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_id2ActionPerformed
+
+    private void id2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_id2KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_id2KeyTyped
+
+    private void email2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_email2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_email2ActionPerformed
+
+    private void phone2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phone2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_phone2ActionPerformed
+
+    private void phone2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phone2KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_phone2KeyPressed
+
+    private void phone2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phone2KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_phone2KeyTyped
+
+    private void fName2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fName2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fName2ActionPerformed
+
+    private void lName2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lName2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lName2ActionPerformed
+
+    private void userSaveBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userSaveBtn2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userSaveBtn2ActionPerformed
+
+    private void userUpdateBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userUpdateBtn2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userUpdateBtn2ActionPerformed
+
+    private void userDeleteBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userDeleteBtn2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userDeleteBtn2ActionPerformed
+
+    private void userTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userTable2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userTable2MouseClicked
+
+    private void userChangePwdBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userChangePwdBtn2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userChangePwdBtn2ActionPerformed
+
+    private void password2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_password2ActionPerformed
+
     private void panelDefault(){
         checkIn.setVisible(false);
         checkout.setVisible(false);
@@ -2147,7 +2698,6 @@ public class Dashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLayeredPane LayeredPane;
     private javax.swing.JPanel checkIn;
-    private javax.swing.JLabel checkInTopic;
     private javax.swing.JLabel checkOutTopic;
     private javax.swing.JLabel checkedInIcon;
     private javax.swing.JLabel checkedInLabel;
@@ -2172,20 +2722,34 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JTextField discountType;
     private javax.swing.JButton discountUpdateBtn;
     private javax.swing.JTextField email;
+    private javax.swing.JTextField email1;
+    private javax.swing.JTextField email2;
     private javax.swing.JTextField fName;
+    private javax.swing.JTextField fName1;
+    private javax.swing.JTextField fName2;
     private javax.swing.JPanel guest;
     private javax.swing.JLabel guestIcon;
     private javax.swing.JLabel guestLabel;
     private javax.swing.JPanel guestPanel;
-    private javax.swing.JLabel guestTopic;
     private javax.swing.JPanel hrLine;
     private javax.swing.JTextField id;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTextField id1;
+    private javax.swing.JTextField id2;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -2196,8 +2760,12 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTextField lName;
+    private javax.swing.JTextField lName1;
+    private javax.swing.JTextField lName2;
     private javax.swing.JLabel logoIcon;
     private javax.swing.JLabel logoLabel;
     private javax.swing.JLabel logoutIcon;
@@ -2206,8 +2774,14 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel minimizeBtn;
     private javax.swing.JPanel pane;
     private javax.swing.JTextField password;
+    private javax.swing.JTextField password1;
+    private javax.swing.JTextField password2;
     private javax.swing.JTextField phone;
+    private javax.swing.JTextField phone1;
+    private javax.swing.JTextField phone2;
     private javax.swing.JLabel pwdLabel;
+    private javax.swing.JLabel pwdLabel1;
+    private javax.swing.JLabel pwdLabel2;
     private javax.swing.JPanel report;
     private javax.swing.JLabel reportIcon;
     private javax.swing.JLabel reportLabel;
@@ -2227,16 +2801,28 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JButton roomUpdateBtn;
     private javax.swing.JPanel user;
     private javax.swing.JButton userChangePwdBtn;
+    private javax.swing.JButton userChangePwdBtn1;
+    private javax.swing.JButton userChangePwdBtn2;
     private javax.swing.JButton userDeleteBtn;
+    private javax.swing.JButton userDeleteBtn1;
+    private javax.swing.JButton userDeleteBtn2;
     private javax.swing.JLabel userIcon;
     private javax.swing.JLabel userLabel;
     private javax.swing.JPanel userPanel;
     private javax.swing.JButton userSaveBtn;
+    private javax.swing.JButton userSaveBtn1;
+    private javax.swing.JButton userSaveBtn2;
     private javax.swing.JTable userTable;
+    private javax.swing.JTable userTable1;
+    private javax.swing.JTable userTable2;
     private javax.swing.JLabel userTopic;
     private javax.swing.JLabel userTopic1;
     private javax.swing.JLabel userTopic2;
+    private javax.swing.JLabel userTopic3;
+    private javax.swing.JLabel userTopic4;
     private javax.swing.JButton userUpdateBtn;
+    private javax.swing.JButton userUpdateBtn1;
+    private javax.swing.JButton userUpdateBtn2;
     private javax.swing.JLabel welcomeName;
     // End of variables declaration//GEN-END:variables
 }
