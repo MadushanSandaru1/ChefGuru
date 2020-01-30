@@ -85,8 +85,7 @@ public class Guest {
         conn = obj.connect();
             
         try {
-            cs = conn.prepareCall("{call createGuestDetails(?,?,?,?,?,?)}");
-            cs.setString("username", getId());
+            cs = conn.prepareCall("{call createGuestDetails(?,?,?,?,?)}");
             cs.setString("fName", getfName());
             cs.setString("lName", getlName());
             cs.setString("address", getAddress());
