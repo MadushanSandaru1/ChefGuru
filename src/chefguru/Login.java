@@ -73,6 +73,7 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(102, 0, 0));
         jLabel2.setText("User Name");
 
+        username.setText("adm001");
         username.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 0)));
 
         jLabel3.setForeground(new java.awt.Color(102, 0, 0));
@@ -89,6 +90,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        password.setText("123");
         password.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 0)));
 
         errMsg.setBackground(new java.awt.Color(255, 255, 255, 0));
@@ -318,7 +320,7 @@ public class Login extends javax.swing.JFrame {
                             email = rs.getString("email");
                         }
                         
-                        new Dashboard().setVisible(true);
+                        new CashierDashboard().setVisible(true);
                         this.setVisible(false);
                     }
                     else if(pwd.equals(rs.getString("password")) && rs.getString("role").equalsIgnoreCase("cashier"))
@@ -334,7 +336,7 @@ public class Login extends javax.swing.JFrame {
                             email = rs.getString("email");
                         }
                         
-                        new Dashboard().setVisible(true);
+                        new CashierDashboard().setVisible(true);
                         this.setVisible(false);
                     }
                     else

@@ -14,6 +14,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -23,10 +25,10 @@ import net.proteanit.sql.DbUtils;
  *
  * @author sanda
  */
-public class Dashboard extends javax.swing.JFrame {
+public class CashierDashboard extends javax.swing.JFrame {
 
     /**
-     * Creates new form Dashboard
+     * Creates new form CashierDashboard
      */
     //public static final String DATE_FORMAT_NOW = "dd MMM yyyy HH:mm:ss";
     public static final String DATE_FORMAT_NOW = "dd MMM yyyy";
@@ -41,6 +43,7 @@ public class Dashboard extends javax.swing.JFrame {
     public static String editUserId;
     public static String editDiscountId;
     public static String editRoomId;
+    public static String editGuestId;
     
     Connection conn = null;
     PreparedStatement ps = null;
@@ -49,10 +52,10 @@ public class Dashboard extends javax.swing.JFrame {
     
     DBConnection obj = DBConnection.getDb();
     
-    public Dashboard() {
+    public CashierDashboard() {
         
         initComponents();
-        dateTime = "Date: "+Dashboard.now();
+        dateTime = "Date: "+CashierDashboard.now();
         date.setText(dateTime);
         welcomeName.setText("Welcome, "+Login.fullname);
     }
@@ -147,15 +150,15 @@ public class Dashboard extends javax.swing.JFrame {
         reportTopic = new javax.swing.JLabel();
         user = new javax.swing.JPanel();
         userTopic = new javax.swing.JLabel();
-        id = new javax.swing.JTextField();
+        userId = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        email = new javax.swing.JTextField();
+        userEmail = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        phone = new javax.swing.JTextField();
+        userPhone = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        fName = new javax.swing.JTextField();
+        userFName = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        lName = new javax.swing.JTextField();
+        userLName = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         userSaveBtn = new javax.swing.JButton();
         userUpdateBtn = new javax.swing.JButton();
@@ -163,7 +166,7 @@ public class Dashboard extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         userTable = new javax.swing.JTable();
         userChangePwdBtn = new javax.swing.JButton();
-        password = new javax.swing.JTextField();
+        userPassword = new javax.swing.JTextField();
         pwdLabel = new javax.swing.JLabel();
         hrLine = new javax.swing.JPanel();
         logoIcon = new javax.swing.JLabel();
@@ -512,12 +515,30 @@ public class Dashboard extends javax.swing.JFrame {
                 guestAddressActionPerformed(evt);
             }
         });
+        guestAddress.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                guestAddressKeyTyped(evt);
+            }
+        });
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel15.setText("First Name :");
 
         guestEmail.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        guestEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                guestEmailFocusLost(evt);
+            }
+        });
+        guestEmail.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                guestEmailMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                guestEmailMouseReleased(evt);
+            }
+        });
         guestEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 guestEmailActionPerformed(evt);
@@ -542,6 +563,11 @@ public class Dashboard extends javax.swing.JFrame {
                 guestFNameActionPerformed(evt);
             }
         });
+        guestFName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                guestFNameKeyTyped(evt);
+            }
+        });
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -551,6 +577,11 @@ public class Dashboard extends javax.swing.JFrame {
         guestLName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 guestLNameActionPerformed(evt);
+            }
+        });
+        guestLName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                guestLNameKeyTyped(evt);
             }
         });
 
@@ -617,6 +648,11 @@ public class Dashboard extends javax.swing.JFrame {
                 guestPhoneActionPerformed(evt);
             }
         });
+        guestPhone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                guestPhoneKeyTyped(evt);
+            }
+        });
 
         pwdLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         pwdLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -637,34 +673,28 @@ public class Dashboard extends javax.swing.JFrame {
                     .addGroup(guestLayout.createSequentialGroup()
                         .addGap(91, 91, 91)
                         .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel14)
+                                .addComponent(jLabel17)
+                                .addComponent(jLabel16)
+                                .addComponent(jLabel15)
+                                .addComponent(jLabel18))
+                            .addComponent(pwdLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(guestLayout.createSequentialGroup()
-                                .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(guestLayout.createSequentialGroup()
-                                        .addComponent(pwdLabel1)
-                                        .addGap(195, 195, 195))
-                                    .addGroup(guestLayout.createSequentialGroup()
-                                        .addGap(74, 74, 74)
-                                        .addComponent(guestPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(guestPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(31, 31, 31)
                                 .addComponent(guestSaveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(guestUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(guestDeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(guestLayout.createSequentialGroup()
-                                .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel14)
-                                    .addComponent(jLabel17)
-                                    .addComponent(jLabel16)
-                                    .addComponent(jLabel15)
-                                    .addComponent(jLabel18))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(guestEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(guestId, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(guestAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(guestLName, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(guestFName, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                            .addComponent(guestEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(guestId, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(guestAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(guestLName, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(guestFName, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
         guestLayout.setVerticalGroup(
@@ -1085,15 +1115,15 @@ public class Dashboard extends javax.swing.JFrame {
         userTopic.setForeground(new java.awt.Color(51, 51, 51));
         userTopic.setText("User Information");
 
-        id.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        id.addActionListener(new java.awt.event.ActionListener() {
+        userId.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        userId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idActionPerformed(evt);
+                userIdActionPerformed(evt);
             }
         });
-        id.addKeyListener(new java.awt.event.KeyAdapter() {
+        userId.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                idKeyTyped(evt);
+                userIdKeyTyped(evt);
             }
         });
 
@@ -1101,10 +1131,20 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setText("User Name :");
 
-        email.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        email.addActionListener(new java.awt.event.ActionListener() {
+        userEmail.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        userEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                userEmailFocusLost(evt);
+            }
+        });
+        userEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                emailActionPerformed(evt);
+                userEmailActionPerformed(evt);
+            }
+        });
+        userEmail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                userEmailKeyTyped(evt);
             }
         });
 
@@ -1112,18 +1152,18 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setText("First Name :");
 
-        phone.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        phone.addActionListener(new java.awt.event.ActionListener() {
+        userPhone.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        userPhone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                phoneActionPerformed(evt);
+                userPhoneActionPerformed(evt);
             }
         });
-        phone.addKeyListener(new java.awt.event.KeyAdapter() {
+        userPhone.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                phoneKeyPressed(evt);
+                userPhoneKeyPressed(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                phoneKeyTyped(evt);
+                userPhoneKeyTyped(evt);
             }
         });
 
@@ -1131,10 +1171,15 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setText("Last Name :");
 
-        fName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        fName.addActionListener(new java.awt.event.ActionListener() {
+        userFName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        userFName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fNameActionPerformed(evt);
+                userFNameActionPerformed(evt);
+            }
+        });
+        userFName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                userFNameKeyTyped(evt);
             }
         });
 
@@ -1142,10 +1187,15 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel5.setText("Email :");
 
-        lName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lName.addActionListener(new java.awt.event.ActionListener() {
+        userLName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        userLName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lNameActionPerformed(evt);
+                userLNameActionPerformed(evt);
+            }
+        });
+        userLName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                userLNameKeyTyped(evt);
             }
         });
 
@@ -1216,10 +1266,10 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
-        password.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        password.addActionListener(new java.awt.event.ActionListener() {
+        userPassword.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        userPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passwordActionPerformed(evt);
+                userPasswordActionPerformed(evt);
             }
         });
 
@@ -1247,13 +1297,13 @@ public class Dashboard extends javax.swing.JFrame {
                             .addComponent(pwdLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(phone, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(userPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(userId, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(userLayout.createSequentialGroup()
                                 .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lName, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(fName, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(userEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(userLName, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(userFName, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(31, 31, 31)
                                 .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(userChangePwdBtn)
@@ -1268,7 +1318,7 @@ public class Dashboard extends javax.swing.JFrame {
                         .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(userLayout.createSequentialGroup()
                                 .addGap(126, 126, 126)
-                                .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(userPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
@@ -1278,23 +1328,23 @@ public class Dashboard extends javax.swing.JFrame {
                 .addComponent(userTopic)
                 .addGap(30, 30, 30)
                 .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(userId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(userFName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(userLName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(userEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(phone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(userPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(userSaveBtn)
                     .addComponent(userUpdateBtn)
@@ -1302,7 +1352,7 @@ public class Dashboard extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(userChangePwdBtn)
-                    .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(userPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pwdLabel))
                 .addGap(51, 51, 51)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1891,38 +1941,38 @@ public class Dashboard extends javax.swing.JFrame {
         new Logout().setVisible(true);
     }//GEN-LAST:event_logoutPanelMouseClicked
 
-    private void idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idActionPerformed
+    private void userIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userIdActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_idActionPerformed
+    }//GEN-LAST:event_userIdActionPerformed
 
-    private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
+    private void userEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userEmailActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_emailActionPerformed
+    }//GEN-LAST:event_userEmailActionPerformed
 
-    private void phoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phoneActionPerformed
+    private void userPhoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userPhoneActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_phoneActionPerformed
+    }//GEN-LAST:event_userPhoneActionPerformed
 
-    private void fNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fNameActionPerformed
+    private void userFNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userFNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_fNameActionPerformed
+    }//GEN-LAST:event_userFNameActionPerformed
 
-    private void lNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lNameActionPerformed
+    private void userLNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userLNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_lNameActionPerformed
+    }//GEN-LAST:event_userLNameActionPerformed
 
-    private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
+    private void userPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userPasswordActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_passwordActionPerformed
+    }//GEN-LAST:event_userPasswordActionPerformed
 
     private void userUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userUpdateBtnActionPerformed
         User user = new User();
         
-        String id = this.id.getText().trim();
-        String fName = this.fName.getText().trim();
-        String lName = this.lName.getText().trim();
-        String email = this.email.getText().trim();
-        String phone = this.phone.getText().trim();
+        String id = this.userId.getText().trim();
+        String fName = this.userFName.getText().trim();
+        String lName = this.userLName.getText().trim();
+        String email = this.userEmail.getText().trim();
+        String phone = this.userPhone.getText().trim();
         //String password = this.password.getText().trim();
         
         if(id.isEmpty() || fName.isEmpty() || lName.isEmpty() || email.isEmpty() || phone.isEmpty()){
@@ -1977,11 +2027,11 @@ public class Dashboard extends javax.swing.JFrame {
 
         editUserId = userTable.getValueAt(row, 0).toString();
 
-        id.setText(editUserId);
-        fName.setText(userTable.getValueAt(row, 1).toString());
-        lName.setText(userTable.getValueAt(row, 2).toString());
-        email.setText(userTable.getValueAt(row, 3).toString());
-        phone.setText(userTable.getValueAt(row, 4).toString());
+        userId.setText(editUserId);
+        userFName.setText(userTable.getValueAt(row, 1).toString());
+        userLName.setText(userTable.getValueAt(row, 2).toString());
+        userEmail.setText(userTable.getValueAt(row, 3).toString());
+        userPhone.setText(userTable.getValueAt(row, 4).toString());
 
         //self deleting disabled
         if(!editUserId.equalsIgnoreCase(Login.id)){
@@ -1994,14 +2044,14 @@ public class Dashboard extends javax.swing.JFrame {
             }
             userSaveBtn.setVisible(false);
             pwdLabel.setEnabled(false);
-            password.setEnabled(false);
+            userPassword.setEnabled(false);
             userChangePwdBtn.setEnabled(false);
         } else {
             userSaveBtn.setVisible(false);
             userUpdateBtn.setVisible(true);
             userDeleteBtn.setVisible(false);
             pwdLabel.setEnabled(true);
-            password.setEnabled(true);
+            userPassword.setEnabled(true);
             userChangePwdBtn.setEnabled(true);
         }
     }//GEN-LAST:event_userTableMouseClicked
@@ -2009,11 +2059,11 @@ public class Dashboard extends javax.swing.JFrame {
     private void userSaveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userSaveBtnActionPerformed
         User user = new User();
         
-        String id = this.id.getText().trim();
-        String fName = this.fName.getText().trim();
-        String lName = this.lName.getText().trim();
-        String email = this.email.getText().trim();
-        String phone = this.phone.getText().trim();
+        String id = this.userId.getText().trim();
+        String fName = this.userFName.getText().trim();
+        String lName = this.userLName.getText().trim();
+        String email = this.userEmail.getText().trim();
+        String phone = this.userPhone.getText().trim();
         String password = "123";
         
         if(id.isEmpty() || fName.isEmpty() || lName.isEmpty() || email.isEmpty() || phone.isEmpty()){
@@ -2031,28 +2081,28 @@ public class Dashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_userSaveBtnActionPerformed
 
-    private void phoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneKeyTyped
+    private void userPhoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_userPhoneKeyTyped
         char enter = evt.getKeyChar();
         
-        if ((phone.getText().length() >= 10 ) || (!(Character.isDigit(enter)))){
+        if ((userPhone.getText().length() >= 10 ) || (!(Character.isDigit(enter)))){
             evt.consume();
         }
-    }//GEN-LAST:event_phoneKeyTyped
+    }//GEN-LAST:event_userPhoneKeyTyped
 
-    private void phoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneKeyPressed
+    private void userPhoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_userPhoneKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_phoneKeyPressed
+    }//GEN-LAST:event_userPhoneKeyPressed
 
-    private void idKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_idKeyTyped
-        if ( id.getText().length() >= 6 ){
+    private void userIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_userIdKeyTyped
+        if ( userId.getText().length() >= 6 ){
             evt.consume();
         }
-    }//GEN-LAST:event_idKeyTyped
+    }//GEN-LAST:event_userIdKeyTyped
 
     private void userChangePwdBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userChangePwdBtnActionPerformed
         User user = new User();
         
-        String password = this.password.getText().trim();
+        String password = this.userPassword.getText().trim();
         
         if(password.isEmpty()){
             new ErrorMsg().showErr("Please enter password...");
@@ -2069,7 +2119,9 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_discountTypeActionPerformed
 
     private void discountTypeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_discountTypeKeyTyped
-        // TODO add your handling code here:
+        if (discountType.getText().length() >= 20){
+            evt.consume();
+        }
     }//GEN-LAST:event_discountTypeKeyTyped
 
     private void discountRateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_discountRateActionPerformed
@@ -2188,7 +2240,11 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_roomIdActionPerformed
 
     private void roomIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_roomIdKeyTyped
-        // TODO add your handling code here:
+        char enter = evt.getKeyChar();
+        
+        if ((!(Character.isDigit(enter)))){
+            evt.consume();
+        }
     }//GEN-LAST:event_roomIdKeyTyped
 
     private void roomOccupancyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomOccupancyActionPerformed
@@ -2361,7 +2417,9 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_guestEmailKeyPressed
 
     private void guestEmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_guestEmailKeyTyped
-        // TODO add your handling code here:
+        if (guestEmail.getText().length() >= 100){
+            evt.consume();
+        }
     }//GEN-LAST:event_guestEmailKeyTyped
 
     private void guestFNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guestFNameActionPerformed
@@ -2398,15 +2456,75 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_guestSaveBtnActionPerformed
 
     private void guestUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guestUpdateBtnActionPerformed
-        // TODO add your handling code here:
+        Guest guest = new Guest();
+        
+        String fName = this.guestFName.getText().trim();
+        String lName = this.guestLName.getText().trim();
+        String address = this.guestAddress.getText().trim();
+        String email = this.guestEmail.getText().trim();
+        String phone = this.guestPhone.getText().trim();
+        
+        if(fName.isEmpty() || lName.isEmpty() || address.isEmpty() || email.isEmpty() || phone.isEmpty()){
+            new ErrorMsg().showErr("Please fill all the fields...");
+        } else {
+            guest.setId(editGuestId);
+            guest.setfName(fName);
+            guest.setlName(lName);
+            guest.setAddress(address);
+            guest.setEmail(email);
+            guest.setPhone(phone);
+
+            guest.updateGuest(editGuestId);
+            viewGuestDetails();
+        }
     }//GEN-LAST:event_guestUpdateBtnActionPerformed
 
     private void guestDeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guestDeleteBtnActionPerformed
-        // TODO add your handling code here:
+        conn = obj.connect();
+        
+        try {
+            if(editGuestId.isEmpty()){
+                new ErrorMsg().showErr("Please select record...");
+            } else {
+                int a = JOptionPane.showConfirmDialog(null, "Are you sure ?");
+                if(a==0){
+                    try {
+                        cs = conn.prepareCall("{call deleteGuestDetails(?)}");
+                        cs.setString("gId", editGuestId);
+                        
+                        if(cs.executeUpdate()==1){
+                            viewGuestDetails();
+                            new ErrorMsg().showErr("Record deleted successfully...");
+                        }
+                    } catch (SQLException e) {
+                        new ErrorMsg().showErr(e.getMessage());
+                    }
+                    editGuestId = null;
+                }
+            }
+        } catch (HeadlessException e) {
+            new ErrorMsg().showErr("Please select record...");
+        }
+        
+        conn = null;
     }//GEN-LAST:event_guestDeleteBtnActionPerformed
 
     private void guestTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_guestTableMouseClicked
-        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) guestTable.getModel();
+        int row = guestTable.getSelectedRow();
+
+        editGuestId = guestTable.getValueAt(row, 0).toString();
+
+        guestId.setText(editGuestId);
+        guestFName.setText(guestTable.getValueAt(row, 1).toString());
+        guestLName.setText(guestTable.getValueAt(row, 2).toString());
+        guestAddress.setText(guestTable.getValueAt(row, 3).toString());
+        guestEmail.setText(guestTable.getValueAt(row, 4).toString());
+        guestPhone.setText(guestTable.getValueAt(row, 5).toString());
+
+        guestSaveBtn.setVisible(false);
+        guestUpdateBtn.setVisible(true);
+        guestDeleteBtn.setVisible(true);
     }//GEN-LAST:event_guestTableMouseClicked
 
     private void guestPhoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guestPhoneActionPerformed
@@ -2469,6 +2587,78 @@ public class Dashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_password2ActionPerformed
 
+    private void userFNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_userFNameKeyTyped
+        char enter = evt.getKeyChar();
+        
+        if (userFName.getText().length() >= 20){
+            evt.consume();
+        }
+    }//GEN-LAST:event_userFNameKeyTyped
+
+    private void userLNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_userLNameKeyTyped
+        if (userLName.getText().length() >= 20){
+            evt.consume();
+        }
+    }//GEN-LAST:event_userLNameKeyTyped
+
+    private void userEmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_userEmailKeyTyped
+        if (userEmail.getText().length() >= 100){
+            evt.consume();
+        }
+    }//GEN-LAST:event_userEmailKeyTyped
+
+    private void guestFNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_guestFNameKeyTyped
+        if (guestFName.getText().length() >= 20){
+            evt.consume();
+        }
+    }//GEN-LAST:event_guestFNameKeyTyped
+
+    private void guestLNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_guestLNameKeyTyped
+        if (guestLName.getText().length() >= 20){
+            evt.consume();
+        }
+    }//GEN-LAST:event_guestLNameKeyTyped
+
+    private void guestAddressKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_guestAddressKeyTyped
+        if (guestAddress.getText().length() >= 200){
+            evt.consume();
+        }
+    }//GEN-LAST:event_guestAddressKeyTyped
+
+    private void guestPhoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_guestPhoneKeyTyped
+        char enter = evt.getKeyChar();
+        
+        if ((guestPhone.getText().length() >= 10 ) || (!(Character.isDigit(enter)))){
+            evt.consume();
+        }
+    }//GEN-LAST:event_guestPhoneKeyTyped
+
+    private void guestEmailMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_guestEmailMouseReleased
+        
+    }//GEN-LAST:event_guestEmailMouseReleased
+
+    private void guestEmailMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_guestEmailMouseExited
+        
+    }//GEN-LAST:event_guestEmailMouseExited
+
+    private void guestEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_guestEmailFocusLost
+        if (guestEmail.getText().length() != 0){
+            if (!(Pattern.matches("^[a-zA-Z0-9]+[@]{1}+[a-zA-Z0-9]+[.]{1}+[a-zA-Z0-9]+$", guestEmail.getText()))) {
+                JOptionPane.showMessageDialog(null, "Please enter a valid email", "Error", JOptionPane.ERROR_MESSAGE);
+                guestEmail.requestFocus();
+            }
+        } 
+    }//GEN-LAST:event_guestEmailFocusLost
+
+    private void userEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_userEmailFocusLost
+        if (userEmail.getText().length() != 0){
+            if (!(Pattern.matches("^[a-zA-Z0-9]+[@]{1}+[a-zA-Z0-9]+[.]{1}+[a-zA-Z0-9]+$", userEmail.getText()))) {
+                JOptionPane.showMessageDialog(null, "Please enter a valid email", "Error", JOptionPane.ERROR_MESSAGE);
+                userEmail.requestFocus();
+            }
+        }
+    }//GEN-LAST:event_userEmailFocusLost
+
     private void panelDefault(){
         checkIn.setVisible(false);
         checkout.setVisible(false);
@@ -2485,7 +2675,7 @@ public class Dashboard extends javax.swing.JFrame {
         
         //cashier no need next user id
         if(Login.role.equalsIgnoreCase("cashier")){
-            id.setText(null);
+            userId.setText(null);
         } else {
             String lastId = "CSR000";
 
@@ -2505,14 +2695,14 @@ public class Dashboard extends javax.swing.JFrame {
 
             int nextId = Integer.valueOf(lastId.substring(3, 6))+1;
 
-            id.setText("CSR"+String.format("%03d", nextId));
+            userId.setText("CSR"+String.format("%03d", nextId));
         }
             
-        fName.setText(null);
-        lName.setText(null);
-        email.setText(null);
-        phone.setText(null);
-        password.setText(null);
+        userFName.setText(null);
+        userLName.setText(null);
+        userEmail.setText(null);
+        userPhone.setText(null);
+        userPassword.setText(null);
         
         //cashier cannot create user profile
         if(Login.role.equalsIgnoreCase("cashier")){
@@ -2525,7 +2715,7 @@ public class Dashboard extends javax.swing.JFrame {
         userDeleteBtn.setVisible(false);
         
         pwdLabel.setEnabled(false);
-        password.setEnabled(false);
+        userPassword.setEnabled(false);
         userChangePwdBtn.setEnabled(false);
         
         if(Login.role.equalsIgnoreCase("admin")){
@@ -2731,20 +2921,21 @@ public class Dashboard extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CashierDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CashierDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CashierDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CashierDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Dashboard().setVisible(true);
+                new CashierDashboard().setVisible(true);
             }
         });
     }
@@ -2775,9 +2966,7 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JTable discountTable;
     private javax.swing.JTextField discountType;
     private javax.swing.JButton discountUpdateBtn;
-    private javax.swing.JTextField email;
     private javax.swing.JTextField email2;
-    private javax.swing.JTextField fName;
     private javax.swing.JTextField fName2;
     private javax.swing.JPanel guest;
     private javax.swing.JTextField guestAddress;
@@ -2794,7 +2983,6 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JTable guestTable;
     private javax.swing.JButton guestUpdateBtn;
     private javax.swing.JPanel hrLine;
-    private javax.swing.JTextField id;
     private javax.swing.JTextField id2;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2824,7 +3012,6 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JTextField lName;
     private javax.swing.JTextField lName2;
     private javax.swing.JLabel logoIcon;
     private javax.swing.JLabel logoLabel;
@@ -2833,9 +3020,7 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel logoutPanel;
     private javax.swing.JLabel minimizeBtn;
     private javax.swing.JPanel pane;
-    private javax.swing.JTextField password;
     private javax.swing.JTextField password2;
-    private javax.swing.JTextField phone;
     private javax.swing.JTextField phone2;
     private javax.swing.JLabel pwdLabel;
     private javax.swing.JLabel pwdLabel1;
@@ -2862,9 +3047,15 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JButton userChangePwdBtn2;
     private javax.swing.JButton userDeleteBtn;
     private javax.swing.JButton userDeleteBtn2;
+    private javax.swing.JTextField userEmail;
+    private javax.swing.JTextField userFName;
     private javax.swing.JLabel userIcon;
+    private javax.swing.JTextField userId;
+    private javax.swing.JTextField userLName;
     private javax.swing.JLabel userLabel;
     private javax.swing.JPanel userPanel;
+    private javax.swing.JTextField userPassword;
+    private javax.swing.JTextField userPhone;
     private javax.swing.JButton userSaveBtn;
     private javax.swing.JButton userSaveBtn2;
     private javax.swing.JTable userTable;
