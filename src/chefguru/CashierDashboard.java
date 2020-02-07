@@ -7,6 +7,7 @@ package chefguru;
 
 import dbconnection.DBConnection;
 import java.awt.HeadlessException;
+import java.awt.event.KeyEvent;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JFrame;
@@ -31,13 +33,20 @@ public class CashierDashboard extends javax.swing.JFrame {
      * Creates new form CashierDashboard
      */
     //public static final String DATE_FORMAT_NOW = "dd MMM yyyy HH:mm:ss";
-    public static final String DATE_FORMAT_NOW = "dd MMM yyyy";
     public static String dateTime;
+    public static String today;
+    
+    public static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     
     public static String now() {
         Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
         return sdf.format(cal.getTime());
+    }
+    
+    public static String dateForUse() {
+        Calendar cal = Calendar.getInstance();
+        return dateFormat.format(cal.getTime());
     }
     
     public static String editUserId;
@@ -55,9 +64,16 @@ public class CashierDashboard extends javax.swing.JFrame {
     public CashierDashboard() {
         
         initComponents();
+        
+        today = CashierDashboard.dateForUse();
+        checkinCheckInDate.setText(today);
+        
         dateTime = "Date: "+CashierDashboard.now();
         date.setText(dateTime);
         welcomeName.setText("Welcome, "+Login.fullname);
+        
+        comboBoxCheckInRoomID();
+        comboBoxCheckInDiscountType();
     }
 
     /**
@@ -79,24 +95,39 @@ public class CashierDashboard extends javax.swing.JFrame {
         LayeredPane = new javax.swing.JLayeredPane();
         checkIn = new javax.swing.JPanel();
         userTopic4 = new javax.swing.JLabel();
-        id2 = new javax.swing.JTextField();
+        checkinTransactionId = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
-        email2 = new javax.swing.JTextField();
+        checkinRoomRate = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
-        phone2 = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
-        fName2 = new javax.swing.JTextField();
+        checkinGuestName = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
-        lName2 = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
-        userSaveBtn2 = new javax.swing.JButton();
-        userUpdateBtn2 = new javax.swing.JButton();
-        userDeleteBtn2 = new javax.swing.JButton();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        userTable2 = new javax.swing.JTable();
-        userChangePwdBtn2 = new javax.swing.JButton();
-        password2 = new javax.swing.JTextField();
-        pwdLabel2 = new javax.swing.JLabel();
+        checkinSaveBtn = new javax.swing.JButton();
+        checkinUpdateBtn = new javax.swing.JButton();
+        checkinDeleteBtn = new javax.swing.JButton();
+        checkinRoomId = new javax.swing.JComboBox<>();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        checkinNoOfOccupancy = new javax.swing.JTextField();
+        checkinRoomType = new javax.swing.JTextField();
+        checkinCheckInDate = new javax.swing.JTextField();
+        jLabel26 = new javax.swing.JLabel();
+        checkinNoOfDays = new javax.swing.JTextField();
+        jLabel27 = new javax.swing.JLabel();
+        checkinDiscountRate = new javax.swing.JTextField();
+        checkinDiscountType = new javax.swing.JComboBox<>();
+        jLabel28 = new javax.swing.JLabel();
+        checkinCheckOutDate = new com.toedter.calendar.JDateChooser();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        checkinAdvancePayment = new javax.swing.JTextField();
+        jLabel31 = new javax.swing.JLabel();
+        checkinSubTotal = new javax.swing.JTextField();
+        checkinTotalBalance = new javax.swing.JTextField();
+        jLabel32 = new javax.swing.JLabel();
+        checkinPendingBalance = new javax.swing.JTextField();
+        jLabel33 = new javax.swing.JLabel();
         checkout = new javax.swing.JPanel();
         checkOutTopic = new javax.swing.JLabel();
         guest = new javax.swing.JPanel();
@@ -237,147 +268,217 @@ public class CashierDashboard extends javax.swing.JFrame {
         userTopic4.setForeground(new java.awt.Color(51, 51, 51));
         userTopic4.setText("Check In Information");
 
-        id2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        id2.addActionListener(new java.awt.event.ActionListener() {
+        checkinTransactionId.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        checkinTransactionId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                id2ActionPerformed(evt);
+                checkinTransactionIdActionPerformed(evt);
             }
         });
-        id2.addKeyListener(new java.awt.event.KeyAdapter() {
+        checkinTransactionId.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                id2KeyTyped(evt);
+                checkinTransactionIdKeyTyped(evt);
             }
         });
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel19.setText("User Name :");
+        jLabel19.setText("Transaction ID :");
 
-        email2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        email2.addActionListener(new java.awt.event.ActionListener() {
+        checkinRoomRate.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        checkinRoomRate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                email2ActionPerformed(evt);
+                checkinRoomRateActionPerformed(evt);
             }
         });
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel20.setText("First Name :");
-
-        phone2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        phone2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                phone2ActionPerformed(evt);
-            }
-        });
-        phone2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                phone2KeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                phone2KeyTyped(evt);
-            }
-        });
+        jLabel20.setText("Guest Name :");
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel21.setText("Last Name :");
+        jLabel21.setText("Room No :");
 
-        fName2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        fName2.addActionListener(new java.awt.event.ActionListener() {
+        checkinGuestName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        checkinGuestName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fName2ActionPerformed(evt);
+                checkinGuestNameActionPerformed(evt);
             }
         });
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel22.setText("Email :");
-
-        lName2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lName2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lName2ActionPerformed(evt);
-            }
-        });
+        jLabel22.setText("Room Rate :");
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel23.setText("Phone No :");
+        jLabel23.setText("Check in Date :");
 
-        userSaveBtn2.setBackground(new java.awt.Color(0, 202, 78));
-        userSaveBtn2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        userSaveBtn2.setForeground(new java.awt.Color(255, 255, 255));
-        userSaveBtn2.setText("Save");
-        userSaveBtn2.addActionListener(new java.awt.event.ActionListener() {
+        checkinSaveBtn.setBackground(new java.awt.Color(0, 202, 78));
+        checkinSaveBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        checkinSaveBtn.setForeground(new java.awt.Color(255, 255, 255));
+        checkinSaveBtn.setText("Save");
+        checkinSaveBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userSaveBtn2ActionPerformed(evt);
+                checkinSaveBtnActionPerformed(evt);
             }
         });
 
-        userUpdateBtn2.setBackground(new java.awt.Color(255, 189, 68));
-        userUpdateBtn2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        userUpdateBtn2.setForeground(new java.awt.Color(255, 255, 255));
-        userUpdateBtn2.setText("Update");
-        userUpdateBtn2.addActionListener(new java.awt.event.ActionListener() {
+        checkinUpdateBtn.setBackground(new java.awt.Color(255, 189, 68));
+        checkinUpdateBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        checkinUpdateBtn.setForeground(new java.awt.Color(255, 255, 255));
+        checkinUpdateBtn.setText("Update");
+        checkinUpdateBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userUpdateBtn2ActionPerformed(evt);
+                checkinUpdateBtnActionPerformed(evt);
             }
         });
 
-        userDeleteBtn2.setBackground(new java.awt.Color(255, 96, 92));
-        userDeleteBtn2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        userDeleteBtn2.setForeground(new java.awt.Color(255, 255, 255));
-        userDeleteBtn2.setText("Delete");
-        userDeleteBtn2.addActionListener(new java.awt.event.ActionListener() {
+        checkinDeleteBtn.setBackground(new java.awt.Color(255, 96, 92));
+        checkinDeleteBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        checkinDeleteBtn.setForeground(new java.awt.Color(255, 255, 255));
+        checkinDeleteBtn.setText("Delete");
+        checkinDeleteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userDeleteBtn2ActionPerformed(evt);
+                checkinDeleteBtnActionPerformed(evt);
             }
         });
 
-        userTable2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        userTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Id", "First Name", "Last Name", "Email", "Phone No"
-            }
-        ));
-        userTable2.setRowHeight(20);
-        userTable2.setSelectionBackground(new java.awt.Color(102, 0, 0));
-        userTable2.setSelectionForeground(new java.awt.Color(255, 234, 231));
-        userTable2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                userTable2MouseClicked(evt);
-            }
-        });
-        jScrollPane5.setViewportView(userTable2);
-
-        userChangePwdBtn2.setBackground(new java.awt.Color(255, 189, 68));
-        userChangePwdBtn2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        userChangePwdBtn2.setForeground(new java.awt.Color(255, 255, 255));
-        userChangePwdBtn2.setText("Change Password");
-        userChangePwdBtn2.addActionListener(new java.awt.event.ActionListener() {
+        checkinRoomId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userChangePwdBtn2ActionPerformed(evt);
+                checkinRoomIdActionPerformed(evt);
             }
         });
 
-        password2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        password2.addActionListener(new java.awt.event.ActionListener() {
+        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel24.setText("Room Type :");
+
+        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel25.setText("No of Occupancy :");
+
+        checkinNoOfOccupancy.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        checkinNoOfOccupancy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                password2ActionPerformed(evt);
+                checkinNoOfOccupancyActionPerformed(evt);
             }
         });
 
-        pwdLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        pwdLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        pwdLabel2.setText("Password :");
+        checkinRoomType.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        checkinRoomType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkinRoomTypeActionPerformed(evt);
+            }
+        });
+
+        checkinCheckInDate.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        checkinCheckInDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkinCheckInDateActionPerformed(evt);
+            }
+        });
+
+        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel26.setText("No of Days :");
+
+        checkinNoOfDays.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        checkinNoOfDays.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkinNoOfDaysActionPerformed(evt);
+            }
+        });
+
+        jLabel27.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel27.setText("Discount Type :");
+
+        checkinDiscountRate.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        checkinDiscountRate.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        checkinDiscountRate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkinDiscountRateActionPerformed(evt);
+            }
+        });
+        checkinDiscountRate.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                checkinDiscountRateKeyTyped(evt);
+            }
+        });
+
+        checkinDiscountType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        checkinDiscountType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkinDiscountTypeActionPerformed(evt);
+            }
+        });
+
+        jLabel28.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel28.setText("Check out Date :");
+
+        checkinCheckOutDate.setDateFormatString("yyyy-MM-dd");
+        checkinCheckOutDate.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                checkinCheckOutDatePropertyChange(evt);
+            }
+        });
+
+        jLabel29.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel29.setText("Discount Rate :");
+
+        jLabel30.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel30.setText("Advance Payment :");
+
+        checkinAdvancePayment.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        checkinAdvancePayment.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        checkinAdvancePayment.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                checkinAdvancePaymentKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                checkinAdvancePaymentKeyTyped(evt);
+            }
+        });
+
+        jLabel31.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel31.setText("Sub Total :");
+
+        checkinSubTotal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        checkinSubTotal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        checkinSubTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkinSubTotalActionPerformed(evt);
+            }
+        });
+
+        checkinTotalBalance.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        checkinTotalBalance.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        checkinTotalBalance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkinTotalBalanceActionPerformed(evt);
+            }
+        });
+
+        jLabel32.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel32.setText("Total Balance :");
+
+        checkinPendingBalance.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        checkinPendingBalance.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        checkinPendingBalance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkinPendingBalanceActionPerformed(evt);
+            }
+        });
+
+        jLabel33.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel33.setText("Pending Balance :");
 
         javax.swing.GroupLayout checkInLayout = new javax.swing.GroupLayout(checkIn);
         checkIn.setLayout(checkInLayout);
@@ -396,33 +497,50 @@ public class CashierDashboard extends javax.swing.JFrame {
                             .addComponent(jLabel21)
                             .addComponent(jLabel20)
                             .addComponent(jLabel23)
-                            .addComponent(pwdLabel2))
+                            .addComponent(jLabel26)
+                            .addComponent(jLabel27)
+                            .addComponent(jLabel30)
+                            .addComponent(jLabel31)
+                            .addComponent(jLabel32)
+                            .addComponent(jLabel33))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(phone2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(id2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(checkinTransactionId, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(checkInLayout.createSequentialGroup()
+                                .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(checkinGuestName, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(checkinDiscountType, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(checkinRoomRate)
+                                            .addComponent(checkinRoomId, 0, 150, Short.MAX_VALUE)
+                                            .addComponent(checkinCheckInDate))
+                                        .addComponent(checkinNoOfDays, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(checkinAdvancePayment)
+                                    .addComponent(checkinSubTotal)
+                                    .addComponent(checkinTotalBalance)
+                                    .addComponent(checkinPendingBalance))
+                                .addGap(39, 39, 39)
                                 .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(email2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lName2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(fName2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(31, 31, 31)
-                                .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(userChangePwdBtn2)
                                     .addGroup(checkInLayout.createSequentialGroup()
-                                        .addComponent(userSaveBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel25, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel28, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel29, javax.swing.GroupLayout.Alignment.TRAILING))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(userUpdateBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(checkinNoOfOccupancy)
+                                            .addComponent(checkinRoomType)
+                                            .addComponent(checkinCheckOutDate, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                            .addComponent(checkinDiscountRate)))
+                                    .addGroup(checkInLayout.createSequentialGroup()
+                                        .addComponent(checkinSaveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(userDeleteBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                    .addGroup(checkInLayout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(checkInLayout.createSequentialGroup()
-                                .addGap(126, 126, 126)
-                                .addComponent(password2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(48, Short.MAX_VALUE))
+                                        .addComponent(checkinUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(checkinDeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                .addContainerGap(151, Short.MAX_VALUE))
         );
         checkInLayout.setVerticalGroup(
             checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -430,35 +548,73 @@ public class CashierDashboard extends javax.swing.JFrame {
                 .addComponent(userTopic4)
                 .addGap(30, 30, 30)
                 .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(id2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkinTransactionId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel19))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fName2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkinGuestName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel20))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(checkInLayout.createSequentialGroup()
+                        .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel21)
+                            .addComponent(checkinRoomId, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(checkinRoomRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel22))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel23)
+                            .addComponent(checkinCheckInDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel26)
+                            .addComponent(checkinNoOfDays, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel27)
+                            .addComponent(checkinDiscountType, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(checkInLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(checkInLayout.createSequentialGroup()
+                                .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel24)
+                                    .addComponent(checkinRoomType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel25)
+                                    .addComponent(checkinNoOfOccupancy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel28))
+                            .addComponent(checkinCheckOutDate, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(43, 43, 43)
+                        .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel29)
+                            .addComponent(checkinDiscountRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(checkinAdvancePayment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel30))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lName2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel21))
+                    .addComponent(checkinSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel31))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(email2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel22))
+                    .addComponent(checkinTotalBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel32))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(phone2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel23)
-                    .addComponent(userSaveBtn2)
-                    .addComponent(userUpdateBtn2)
-                    .addComponent(userDeleteBtn2))
-                .addGap(35, 35, 35)
-                .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(userChangePwdBtn2)
-                    .addComponent(password2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pwdLabel2))
-                .addGap(51, 51, 51)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 52, Short.MAX_VALUE))
+                    .addComponent(checkinPendingBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel33)
+                    .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(checkinSaveBtn)
+                        .addComponent(checkinUpdateBtn)
+                        .addComponent(checkinDeleteBtn)))
+                .addGap(0, 172, Short.MAX_VALUE))
         );
 
         LayeredPane.add(checkIn, "card2");
@@ -1900,6 +2056,8 @@ public class CashierDashboard extends javax.swing.JFrame {
     private void checkedInPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkedInPanelMouseClicked
         panelDefault();
         checkIn.setVisible(true);
+        checkinCheckInDate.setText(today);
+        
     }//GEN-LAST:event_checkedInPanelMouseClicked
 
     private void checkedOutPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkedOutPanelMouseClicked
@@ -2531,65 +2689,35 @@ public class CashierDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_guestPhoneActionPerformed
 
-    private void id2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_id2ActionPerformed
+    private void checkinTransactionIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinTransactionIdActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_id2ActionPerformed
+    }//GEN-LAST:event_checkinTransactionIdActionPerformed
 
-    private void id2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_id2KeyTyped
+    private void checkinTransactionIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_checkinTransactionIdKeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_id2KeyTyped
+    }//GEN-LAST:event_checkinTransactionIdKeyTyped
 
-    private void email2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_email2ActionPerformed
+    private void checkinRoomRateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinRoomRateActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_email2ActionPerformed
+    }//GEN-LAST:event_checkinRoomRateActionPerformed
 
-    private void phone2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phone2ActionPerformed
+    private void checkinGuestNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinGuestNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_phone2ActionPerformed
+    }//GEN-LAST:event_checkinGuestNameActionPerformed
 
-    private void phone2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phone2KeyPressed
+    private void checkinSaveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinSaveBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_phone2KeyPressed
+    }//GEN-LAST:event_checkinSaveBtnActionPerformed
 
-    private void phone2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phone2KeyTyped
+    private void checkinUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinUpdateBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_phone2KeyTyped
+    }//GEN-LAST:event_checkinUpdateBtnActionPerformed
 
-    private void fName2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fName2ActionPerformed
+    private void checkinDeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinDeleteBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_fName2ActionPerformed
-
-    private void lName2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lName2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lName2ActionPerformed
-
-    private void userSaveBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userSaveBtn2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_userSaveBtn2ActionPerformed
-
-    private void userUpdateBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userUpdateBtn2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_userUpdateBtn2ActionPerformed
-
-    private void userDeleteBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userDeleteBtn2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_userDeleteBtn2ActionPerformed
-
-    private void userTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userTable2MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_userTable2MouseClicked
-
-    private void userChangePwdBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userChangePwdBtn2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_userChangePwdBtn2ActionPerformed
-
-    private void password2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_password2ActionPerformed
+    }//GEN-LAST:event_checkinDeleteBtnActionPerformed
 
     private void userFNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_userFNameKeyTyped
-        char enter = evt.getKeyChar();
-        
         if (userFName.getText().length() >= 20){
             evt.consume();
         }
@@ -2658,6 +2786,93 @@ public class CashierDashboard extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_userEmailFocusLost
+
+    private void checkinNoOfOccupancyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinNoOfOccupancyActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkinNoOfOccupancyActionPerformed
+
+    private void checkinRoomTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinRoomTypeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkinRoomTypeActionPerformed
+
+    private void checkinNoOfDaysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinNoOfDaysActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkinNoOfDaysActionPerformed
+
+    private void checkinDiscountRateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinDiscountRateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkinDiscountRateActionPerformed
+
+    private void checkinSubTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinSubTotalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkinSubTotalActionPerformed
+
+    private void checkinTotalBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinTotalBalanceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkinTotalBalanceActionPerformed
+
+    private void checkinPendingBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinPendingBalanceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkinPendingBalanceActionPerformed
+
+    private void checkinRoomIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinRoomIdActionPerformed
+        viewCheckinRoomDetails();
+    }//GEN-LAST:event_checkinRoomIdActionPerformed
+
+    private void checkinCheckOutDatePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_checkinCheckOutDatePropertyChange
+        
+        try {
+            Date startDate = dateFormat.parse(dateFormat.format(dateFormat.parse(today)));
+            Date endDate = dateFormat.parse(dateFormat.format(checkinCheckOutDate.getDate()));
+            
+            long diff = endDate.getTime() - startDate.getTime();
+            
+            int diffDays = (int) (diff / (24 * 60 * 60 * 1000));
+            
+            if(diffDays > 0){
+                checkinNoOfDays.setText(String.valueOf(diffDays));
+                calculateBillStep1();
+            } else {
+                checkinCheckOutDate.setDate(null);
+                checkinNoOfDays.setText(null);
+                new ErrorMsg().showErr("Please enter a date after today...");
+            }
+            
+        } catch (Exception e) {
+        }
+
+    }//GEN-LAST:event_checkinCheckOutDatePropertyChange
+
+    private void checkinCheckInDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinCheckInDateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkinCheckInDateActionPerformed
+
+    private void checkinDiscountTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinDiscountTypeActionPerformed
+        
+    }//GEN-LAST:event_checkinDiscountTypeActionPerformed
+
+    private void checkinAdvancePaymentKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_checkinAdvancePaymentKeyTyped
+        char enter = evt.getKeyChar();
+
+        if (!(Character.isDigit(enter))){
+            evt.consume();
+        }
+    }//GEN-LAST:event_checkinAdvancePaymentKeyTyped
+
+    private void checkinAdvancePaymentKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_checkinAdvancePaymentKeyReleased
+        try {
+            if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+                calculateBillStep2();
+            } else {
+                calculateBillStep2();
+            }
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_checkinAdvancePaymentKeyReleased
+
+    private void checkinDiscountRateKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_checkinDiscountRateKeyTyped
+        
+    }//GEN-LAST:event_checkinDiscountRateKeyTyped
 
     private void panelDefault(){
         checkIn.setVisible(false);
@@ -2888,6 +3103,11 @@ public class CashierDashboard extends javax.swing.JFrame {
     
     public void comboBoxRoomType(){
         
+        try {
+            roomType.removeAllItems();
+        } catch (Exception e) {
+        }
+        
         conn = obj.connect();
         
         try {
@@ -2904,6 +3124,122 @@ public class CashierDashboard extends javax.swing.JFrame {
         
         conn = null;
     }
+    
+    public void comboBoxCheckInRoomID(){
+        
+        try {
+            checkinRoomId.removeAllItems();
+            checkinRoomId.addItem("");
+        } catch (Exception e) {
+        }
+        
+        conn = obj.connect();
+        
+        try {
+            cs = conn.prepareCall("{CALL `roomIdDetails`()}");
+            rs = cs.executeQuery();
+            
+            while(rs.next()){
+                checkinRoomId.addItem(rs.getString("id"));
+                //checkinRoomId.addItem(rs.getString("id") + " - " + rs.getString("type"));
+            }
+            
+        } catch (SQLException e) {
+            new ErrorMsg().showErr(e.getMessage());
+        }
+        
+        conn = null;
+    }
+    
+    public void comboBoxCheckInDiscountType(){
+        
+        try {
+            checkinDiscountType.removeAllItems();
+            checkinDiscountType.addItem("");
+        } catch (Exception e) {
+        }
+        
+        conn = obj.connect();
+        
+        try {
+            cs = conn.prepareCall("{CALL `discountTypeDetails`()}");
+            rs = cs.executeQuery();
+            
+            while(rs.next()){
+                checkinDiscountType.addItem(rs.getString("type"));
+            }
+            
+        } catch (SQLException e) {
+            new ErrorMsg().showErr(e.getMessage());
+        }
+        
+        conn = null;
+    }
+    
+    public void viewCheckinRoomDetails() {
+        
+        conn = obj.connect();
+        
+        try {
+            cs = conn.prepareCall("{CALL `roomIdDetails`()}");
+            rs = cs.executeQuery();
+            
+            while(rs.next()){
+                if(checkinRoomId.getSelectedItem().toString().equals(rs.getString("id"))){
+                    checkinRoomType.setText(rs.getString("type"));
+                    checkinRoomRate.setText(rs.getString("rate"));
+                    checkinNoOfOccupancy.setText(rs.getString("noOfOccupancy"));
+                    break;
+                } else {
+                    checkinRoomType.setText(null);
+                    checkinRoomRate.setText(null);
+                    checkinNoOfOccupancy.setText(null);
+                }
+            }
+            
+        } catch (SQLException e) {
+            new ErrorMsg().showErr(e.getMessage());
+        }
+        
+        conn = null;
+        
+    }
+    
+    public void calculateBillStep1() {
+        
+        int roomrate = Integer.parseInt(checkinRoomRate.getText());        
+        int noOfDays = Integer.parseInt(checkinNoOfDays.getText());
+        
+        int subTotal = roomrate * noOfDays;
+        int totalBalance = subTotal;
+        
+        checkinSubTotal.setText(String.valueOf(subTotal));
+        checkinTotalBalance.setText(String.valueOf(totalBalance));
+    }
+    
+    public void calculateBillStep2() {
+        try {
+            if (Integer.parseInt(checkinTotalBalance.getText()) < Integer.parseInt(checkinAdvancePayment.getText())){
+                checkinAdvancePayment.setText(checkinAdvancePayment.getText().substring(0,checkinAdvancePayment.getText().length()-1));
+            } else {
+                int totalBalance = Integer.parseInt(checkinTotalBalance.getText());        
+                int advancePayment;
+
+                if(checkinAdvancePayment.getText().length() <= 0){
+                    advancePayment = 0;
+                } else {
+                    advancePayment = Integer.parseInt(checkinAdvancePayment.getText());
+                }
+
+                int pendingBalance = totalBalance - advancePayment;
+
+                checkinPendingBalance.setText(String.valueOf(pendingBalance));
+            }
+        } catch (Exception e) {
+            checkinAdvancePayment.setText(checkinAdvancePayment.getText().substring(0,checkinTotalBalance.getText().length()-1));
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -2950,6 +3286,24 @@ public class CashierDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel checkedOutIcon;
     private javax.swing.JLabel checkedOutLabel;
     private javax.swing.JPanel checkedOutPanel;
+    private javax.swing.JTextField checkinAdvancePayment;
+    private javax.swing.JTextField checkinCheckInDate;
+    private com.toedter.calendar.JDateChooser checkinCheckOutDate;
+    private javax.swing.JButton checkinDeleteBtn;
+    private javax.swing.JTextField checkinDiscountRate;
+    private javax.swing.JComboBox<String> checkinDiscountType;
+    private javax.swing.JTextField checkinGuestName;
+    private javax.swing.JTextField checkinNoOfDays;
+    private javax.swing.JTextField checkinNoOfOccupancy;
+    private javax.swing.JTextField checkinPendingBalance;
+    private javax.swing.JComboBox<String> checkinRoomId;
+    private javax.swing.JTextField checkinRoomRate;
+    private javax.swing.JTextField checkinRoomType;
+    private javax.swing.JButton checkinSaveBtn;
+    private javax.swing.JTextField checkinSubTotal;
+    private javax.swing.JTextField checkinTotalBalance;
+    private javax.swing.JTextField checkinTransactionId;
+    private javax.swing.JButton checkinUpdateBtn;
     private javax.swing.JPanel checkout;
     private javax.swing.JLabel closeBtn;
     private javax.swing.JLabel copyrights;
@@ -2966,8 +3320,6 @@ public class CashierDashboard extends javax.swing.JFrame {
     private javax.swing.JTable discountTable;
     private javax.swing.JTextField discountType;
     private javax.swing.JButton discountUpdateBtn;
-    private javax.swing.JTextField email2;
-    private javax.swing.JTextField fName2;
     private javax.swing.JPanel guest;
     private javax.swing.JTextField guestAddress;
     private javax.swing.JButton guestDeleteBtn;
@@ -2983,7 +3335,6 @@ public class CashierDashboard extends javax.swing.JFrame {
     private javax.swing.JTable guestTable;
     private javax.swing.JButton guestUpdateBtn;
     private javax.swing.JPanel hrLine;
-    private javax.swing.JTextField id2;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -2999,7 +3350,17 @@ public class CashierDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -3010,9 +3371,7 @@ public class CashierDashboard extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JTextField lName2;
     private javax.swing.JLabel logoIcon;
     private javax.swing.JLabel logoLabel;
     private javax.swing.JLabel logoutIcon;
@@ -3020,11 +3379,8 @@ public class CashierDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel logoutPanel;
     private javax.swing.JLabel minimizeBtn;
     private javax.swing.JPanel pane;
-    private javax.swing.JTextField password2;
-    private javax.swing.JTextField phone2;
     private javax.swing.JLabel pwdLabel;
     private javax.swing.JLabel pwdLabel1;
-    private javax.swing.JLabel pwdLabel2;
     private javax.swing.JPanel report;
     private javax.swing.JLabel reportIcon;
     private javax.swing.JLabel reportLabel;
@@ -3044,9 +3400,7 @@ public class CashierDashboard extends javax.swing.JFrame {
     private javax.swing.JButton roomUpdateBtn;
     private javax.swing.JPanel user;
     private javax.swing.JButton userChangePwdBtn;
-    private javax.swing.JButton userChangePwdBtn2;
     private javax.swing.JButton userDeleteBtn;
-    private javax.swing.JButton userDeleteBtn2;
     private javax.swing.JTextField userEmail;
     private javax.swing.JTextField userFName;
     private javax.swing.JLabel userIcon;
@@ -3057,16 +3411,13 @@ public class CashierDashboard extends javax.swing.JFrame {
     private javax.swing.JTextField userPassword;
     private javax.swing.JTextField userPhone;
     private javax.swing.JButton userSaveBtn;
-    private javax.swing.JButton userSaveBtn2;
     private javax.swing.JTable userTable;
-    private javax.swing.JTable userTable2;
     private javax.swing.JLabel userTopic;
     private javax.swing.JLabel userTopic1;
     private javax.swing.JLabel userTopic2;
     private javax.swing.JLabel userTopic3;
     private javax.swing.JLabel userTopic4;
     private javax.swing.JButton userUpdateBtn;
-    private javax.swing.JButton userUpdateBtn2;
     private javax.swing.JLabel welcomeName;
     // End of variables declaration//GEN-END:variables
 }
