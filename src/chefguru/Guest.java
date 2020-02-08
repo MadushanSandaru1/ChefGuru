@@ -85,7 +85,8 @@ public class Guest {
         conn = obj.connect();
             
         try {
-            cs = conn.prepareCall("{call createGuestDetails(?,?,?,?,?)}");
+            cs = conn.prepareCall("{call createGuestDetails(?,?,?,?,?,?)}");
+            cs.setString("gId", getId());
             cs.setString("fName", getfName());
             cs.setString("lName", getlName());
             cs.setString("address", getAddress());
@@ -112,7 +113,7 @@ public class Guest {
             
         try {
             cs = conn.prepareCall("{call updateGuestDetails(?,?,?,?,?,?)}");
-            cs.setString("username", editGuestId);
+            cs.setString("gId", editGuestId);
             cs.setString("fName", getfName());
             cs.setString("lName", getlName());
             cs.setString("address", getAddress());
