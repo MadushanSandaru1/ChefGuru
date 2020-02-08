@@ -66,14 +66,12 @@ public class CashierDashboard extends javax.swing.JFrame {
         initComponents();
         
         today = CashierDashboard.dateForUse();
-        checkinCheckInDate.setText(today);
         
         dateTime = "Date: "+CashierDashboard.now();
         date.setText(dateTime);
         welcomeName.setText("Welcome, "+Login.fullname);
         
-        comboBoxCheckInRoomID();
-        comboBoxCheckInDiscountType();
+        viewCheckinDetails();
     }
 
     /**
@@ -95,12 +93,11 @@ public class CashierDashboard extends javax.swing.JFrame {
         LayeredPane = new javax.swing.JLayeredPane();
         checkIn = new javax.swing.JPanel();
         userTopic4 = new javax.swing.JLabel();
-        checkinTransactionId = new javax.swing.JTextField();
+        checkinId = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         checkinRoomRate = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        checkinGuestName = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         checkinSaveBtn = new javax.swing.JButton();
@@ -128,6 +125,7 @@ public class CashierDashboard extends javax.swing.JFrame {
         jLabel32 = new javax.swing.JLabel();
         checkinPendingBalance = new javax.swing.JTextField();
         jLabel33 = new javax.swing.JLabel();
+        checkinGuestId = new javax.swing.JComboBox<>();
         checkout = new javax.swing.JPanel();
         checkOutTopic = new javax.swing.JLabel();
         guest = new javax.swing.JPanel();
@@ -268,15 +266,15 @@ public class CashierDashboard extends javax.swing.JFrame {
         userTopic4.setForeground(new java.awt.Color(51, 51, 51));
         userTopic4.setText("Check In Information");
 
-        checkinTransactionId.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        checkinTransactionId.addActionListener(new java.awt.event.ActionListener() {
+        checkinId.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        checkinId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkinTransactionIdActionPerformed(evt);
+                checkinIdActionPerformed(evt);
             }
         });
-        checkinTransactionId.addKeyListener(new java.awt.event.KeyAdapter() {
+        checkinId.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                checkinTransactionIdKeyTyped(evt);
+                checkinIdKeyTyped(evt);
             }
         });
 
@@ -284,6 +282,7 @@ public class CashierDashboard extends javax.swing.JFrame {
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel19.setText("Transaction ID :");
 
+        checkinRoomRate.setEditable(false);
         checkinRoomRate.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         checkinRoomRate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -293,18 +292,11 @@ public class CashierDashboard extends javax.swing.JFrame {
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel20.setText("Guest Name :");
+        jLabel20.setText("Guest ID :");
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel21.setText("Room No :");
-
-        checkinGuestName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        checkinGuestName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkinGuestNameActionPerformed(evt);
-            }
-        });
+        jLabel21.setText("Room ID :");
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -358,6 +350,7 @@ public class CashierDashboard extends javax.swing.JFrame {
         jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel25.setText("No of Occupancy :");
 
+        checkinNoOfOccupancy.setEditable(false);
         checkinNoOfOccupancy.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         checkinNoOfOccupancy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -365,6 +358,7 @@ public class CashierDashboard extends javax.swing.JFrame {
             }
         });
 
+        checkinRoomType.setEditable(false);
         checkinRoomType.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         checkinRoomType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -372,6 +366,7 @@ public class CashierDashboard extends javax.swing.JFrame {
             }
         });
 
+        checkinCheckInDate.setEditable(false);
         checkinCheckInDate.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         checkinCheckInDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -383,6 +378,7 @@ public class CashierDashboard extends javax.swing.JFrame {
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel26.setText("No of Days :");
 
+        checkinNoOfDays.setEditable(false);
         checkinNoOfDays.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         checkinNoOfDays.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -394,6 +390,7 @@ public class CashierDashboard extends javax.swing.JFrame {
         jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel27.setText("Discount Type :");
 
+        checkinDiscountRate.setEditable(false);
         checkinDiscountRate.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         checkinDiscountRate.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         checkinDiscountRate.addActionListener(new java.awt.event.ActionListener() {
@@ -407,7 +404,7 @@ public class CashierDashboard extends javax.swing.JFrame {
             }
         });
 
-        checkinDiscountType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        checkinDiscountType.setEnabled(false);
         checkinDiscountType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkinDiscountTypeActionPerformed(evt);
@@ -419,6 +416,7 @@ public class CashierDashboard extends javax.swing.JFrame {
         jLabel28.setText("Check out Date :");
 
         checkinCheckOutDate.setDateFormatString("yyyy-MM-dd");
+        checkinCheckOutDate.setEnabled(false);
         checkinCheckOutDate.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 checkinCheckOutDatePropertyChange(evt);
@@ -435,6 +433,7 @@ public class CashierDashboard extends javax.swing.JFrame {
 
         checkinAdvancePayment.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         checkinAdvancePayment.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        checkinAdvancePayment.setEnabled(false);
         checkinAdvancePayment.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 checkinAdvancePaymentKeyReleased(evt);
@@ -448,6 +447,7 @@ public class CashierDashboard extends javax.swing.JFrame {
         jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel31.setText("Sub Total :");
 
+        checkinSubTotal.setEditable(false);
         checkinSubTotal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         checkinSubTotal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         checkinSubTotal.addActionListener(new java.awt.event.ActionListener() {
@@ -456,6 +456,7 @@ public class CashierDashboard extends javax.swing.JFrame {
             }
         });
 
+        checkinTotalBalance.setEditable(false);
         checkinTotalBalance.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         checkinTotalBalance.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         checkinTotalBalance.addActionListener(new java.awt.event.ActionListener() {
@@ -468,6 +469,7 @@ public class CashierDashboard extends javax.swing.JFrame {
         jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel32.setText("Total Balance :");
 
+        checkinPendingBalance.setEditable(false);
         checkinPendingBalance.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         checkinPendingBalance.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         checkinPendingBalance.addActionListener(new java.awt.event.ActionListener() {
@@ -479,6 +481,12 @@ public class CashierDashboard extends javax.swing.JFrame {
         jLabel33.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel33.setText("Pending Balance :");
+
+        checkinGuestId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkinGuestIdActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout checkInLayout = new javax.swing.GroupLayout(checkIn);
         checkIn.setLayout(checkInLayout);
@@ -500,15 +508,16 @@ public class CashierDashboard extends javax.swing.JFrame {
                             .addComponent(jLabel26)
                             .addComponent(jLabel27)
                             .addComponent(jLabel30)
-                            .addComponent(jLabel31)
                             .addComponent(jLabel32)
-                            .addComponent(jLabel33))
+                            .addComponent(jLabel33)
+                            .addComponent(jLabel31))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(checkinTransactionId, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(checkinId, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(checkinAdvancePayment, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(checkInLayout.createSequentialGroup()
                                 .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(checkinGuestName, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(checkinGuestId, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(checkinDiscountType, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -516,7 +525,6 @@ public class CashierDashboard extends javax.swing.JFrame {
                                             .addComponent(checkinRoomId, 0, 150, Short.MAX_VALUE)
                                             .addComponent(checkinCheckInDate))
                                         .addComponent(checkinNoOfDays, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(checkinAdvancePayment)
                                     .addComponent(checkinSubTotal)
                                     .addComponent(checkinTotalBalance)
                                     .addComponent(checkinPendingBalance))
@@ -548,19 +556,19 @@ public class CashierDashboard extends javax.swing.JFrame {
                 .addComponent(userTopic4)
                 .addGap(30, 30, 30)
                 .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(checkinTransactionId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkinId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel19))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(checkinGuestName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel20))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jLabel20)
+                    .addComponent(checkinGuestId, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(checkInLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel21)
-                            .addComponent(checkinRoomId, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(checkinRoomId, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel21))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(checkinRoomRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel22))
@@ -580,9 +588,9 @@ public class CashierDashboard extends javax.swing.JFrame {
                         .addGap(1, 1, 1)
                         .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(checkInLayout.createSequentialGroup()
-                                .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel24)
-                                    .addComponent(checkinRoomType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(checkinRoomType, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel24))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel25)
@@ -595,26 +603,27 @@ public class CashierDashboard extends javax.swing.JFrame {
                             .addComponent(jLabel29)
                             .addComponent(checkinDiscountRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(checkinAdvancePayment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel30))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(checkinSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel31))
+                .addGap(8, 8, 8)
+                .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(checkinAdvancePayment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel30))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(checkinTotalBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel32))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(checkinPendingBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel33)
+                .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(checkinSaveBtn)
                         .addComponent(checkinUpdateBtn)
-                        .addComponent(checkinDeleteBtn)))
-                .addGap(0, 172, Short.MAX_VALUE))
+                        .addComponent(checkinDeleteBtn))
+                    .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(checkinPendingBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel33)))
+                .addGap(0, 187, Short.MAX_VALUE))
         );
 
         LayeredPane.add(checkIn, "card2");
@@ -799,6 +808,11 @@ public class CashierDashboard extends javax.swing.JFrame {
         jScrollPane4.setViewportView(guestTable);
 
         guestPhone.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        guestPhone.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                guestPhoneFocusLost(evt);
+            }
+        });
         guestPhone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 guestPhoneActionPerformed(evt);
@@ -2056,8 +2070,8 @@ public class CashierDashboard extends javax.swing.JFrame {
     private void checkedInPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkedInPanelMouseClicked
         panelDefault();
         checkIn.setVisible(true);
-        checkinCheckInDate.setText(today);
-        
+                
+        viewCheckinDetails();        
     }//GEN-LAST:event_checkedInPanelMouseClicked
 
     private void checkedOutPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkedOutPanelMouseClicked
@@ -2068,19 +2082,21 @@ public class CashierDashboard extends javax.swing.JFrame {
     private void guestPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_guestPanelMouseClicked
         panelDefault();
         guest.setVisible(true);
+        
         viewGuestDetails();
     }//GEN-LAST:event_guestPanelMouseClicked
 
     private void roomPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_roomPanelMouseClicked
         panelDefault();
         room.setVisible(true);
-        comboBoxRoomType();
+        
         viewRoomDetails();
     }//GEN-LAST:event_roomPanelMouseClicked
 
     private void discountPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_discountPanelMouseClicked
         panelDefault();
         discount.setVisible(true);
+        
         viewDiscountDetails();
     }//GEN-LAST:event_discountPanelMouseClicked
 
@@ -2092,6 +2108,7 @@ public class CashierDashboard extends javax.swing.JFrame {
     private void userPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userPanelMouseClicked
         panelDefault();
         user.setVisible(true);
+        
         viewUserDetails();
     }//GEN-LAST:event_userPanelMouseClicked
 
@@ -2559,7 +2576,9 @@ public class CashierDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_guestIdActionPerformed
 
     private void guestIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_guestIdKeyTyped
-        // TODO add your handling code here:
+        if (guestId.getText().length() >= 12){
+            evt.consume();
+        }
     }//GEN-LAST:event_guestIdKeyTyped
 
     private void guestAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guestAddressActionPerformed
@@ -2689,24 +2708,64 @@ public class CashierDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_guestPhoneActionPerformed
 
-    private void checkinTransactionIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinTransactionIdActionPerformed
+    private void checkinIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinIdActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_checkinTransactionIdActionPerformed
+    }//GEN-LAST:event_checkinIdActionPerformed
 
-    private void checkinTransactionIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_checkinTransactionIdKeyTyped
+    private void checkinIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_checkinIdKeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_checkinTransactionIdKeyTyped
+    }//GEN-LAST:event_checkinIdKeyTyped
 
     private void checkinRoomRateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinRoomRateActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_checkinRoomRateActionPerformed
 
-    private void checkinGuestNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinGuestNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_checkinGuestNameActionPerformed
-
     private void checkinSaveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinSaveBtnActionPerformed
-        // TODO add your handling code here:
+        CheckIn checkIn = new CheckIn();
+        
+        String id = checkinId.getText().trim();
+        String guestId = checkinGuestId.getSelectedItem().toString().trim();
+        String roomId = checkinRoomId.getSelectedItem().toString().trim();
+        String checkInDate = checkinCheckInDate.getText().trim().trim();
+        String checkOutDate = dateFormat.format(checkinCheckOutDate.getDate()).toString().trim();
+        String discountId = checkinDiscountType.getSelectedItem().toString().trim();
+        
+        conn = obj.connect();
+        
+        try {
+            cs = conn.prepareCall("{call `getDiscountTypeId`(?)}");
+            cs.setString("dType", discountId);
+            rs = cs.executeQuery();
+
+            while(rs.next()){
+                discountId = rs.getString("id");
+            }
+
+        } catch (SQLException e) {
+            new ErrorMsg().showErr(e.getMessage());
+            //JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        
+        conn = null;
+        
+        String advancePayment = checkinAdvancePayment.getText().trim();
+        String totalBalance = checkinTotalBalance.getText().trim();
+        
+        if(id.isEmpty() || guestId.isEmpty() || roomId.isEmpty() || checkInDate.isEmpty() || checkOutDate.isEmpty() || advancePayment.isEmpty() || totalBalance.isEmpty()){
+            new ErrorMsg().showErr("Please fill all the fields...");
+        } else {
+            checkIn.setId(id);
+            checkIn.setGuestId(guestId);
+            checkIn.setRoomId(roomId);
+            checkIn.setCheckInDate(checkInDate);
+            checkIn.setCheckOutDate(checkOutDate);
+            checkIn.setDiscountId(discountId);
+            checkIn.setAdvancePayment(advancePayment);
+            checkIn.setTotalBalance(totalBalance);
+
+            checkIn.createCheckIn();
+            viewCheckinDetails();
+        }
     }//GEN-LAST:event_checkinSaveBtnActionPerformed
 
     private void checkinUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinUpdateBtnActionPerformed
@@ -2775,7 +2834,7 @@ public class CashierDashboard extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Please enter a valid email", "Error", JOptionPane.ERROR_MESSAGE);
                 guestEmail.requestFocus();
             }
-        } 
+        }
     }//GEN-LAST:event_guestEmailFocusLost
 
     private void userEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_userEmailFocusLost
@@ -2816,6 +2875,7 @@ public class CashierDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_checkinPendingBalanceActionPerformed
 
     private void checkinRoomIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinRoomIdActionPerformed
+        
         viewCheckinRoomDetails();
     }//GEN-LAST:event_checkinRoomIdActionPerformed
 
@@ -2832,9 +2892,16 @@ public class CashierDashboard extends javax.swing.JFrame {
             if(diffDays > 0){
                 checkinNoOfDays.setText(String.valueOf(diffDays));
                 calculateBillStep1();
+                
+                checkinAdvancePayment.setEnabled(true);
+                checkinDiscountType.setEnabled(true);
             } else {
                 checkinCheckOutDate.setDate(null);
                 checkinNoOfDays.setText(null);
+                
+                checkinAdvancePayment.setEnabled(false);
+                checkinDiscountType.setEnabled(false);
+                
                 new ErrorMsg().showErr("Please enter a date after today...");
             }
             
@@ -2848,7 +2915,7 @@ public class CashierDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_checkinCheckInDateActionPerformed
 
     private void checkinDiscountTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinDiscountTypeActionPerformed
-        
+        viewCheckinDiscountDetails();
     }//GEN-LAST:event_checkinDiscountTypeActionPerformed
 
     private void checkinAdvancePaymentKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_checkinAdvancePaymentKeyTyped
@@ -2862,7 +2929,11 @@ public class CashierDashboard extends javax.swing.JFrame {
     private void checkinAdvancePaymentKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_checkinAdvancePaymentKeyReleased
         try {
             if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-                calculateBillStep2();
+                if(checkinAdvancePayment.getText().length() != 0){
+                    calculateBillStep2();
+                } else {
+                    checkinPendingBalance.setText(null);
+                }
             } else {
                 calculateBillStep2();
             }
@@ -2873,6 +2944,14 @@ public class CashierDashboard extends javax.swing.JFrame {
     private void checkinDiscountRateKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_checkinDiscountRateKeyTyped
         
     }//GEN-LAST:event_checkinDiscountRateKeyTyped
+
+    private void guestPhoneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_guestPhoneFocusLost
+        
+    }//GEN-LAST:event_guestPhoneFocusLost
+
+    private void checkinGuestIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinGuestIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkinGuestIdActionPerformed
 
     private void panelDefault(){
         checkIn.setVisible(false);
@@ -3009,6 +3088,8 @@ public class CashierDashboard extends javax.swing.JFrame {
     
     public void viewRoomDetails(){
         
+        comboBoxRoomType();
+        
         conn = obj.connect();
         
         String lastId = "0";
@@ -3057,25 +3138,7 @@ public class CashierDashboard extends javax.swing.JFrame {
         
         conn = obj.connect();
         
-        String lastId = "0";
-
-        try {
-            String sql = "CALL `lastGuestId`()";
-            ps = conn.prepareCall(sql);
-            rs = ps.executeQuery();
-
-            while(rs.next()){
-                lastId = rs.getString("id");
-            }
-
-        } catch (SQLException e) {
-            new ErrorMsg().showErr(e.getMessage());
-            //JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-
-        int nextId = Integer.valueOf(lastId)+1;
-
-        guestId.setText(String.format("%d", nextId));
+        guestId.setText(null);
         guestFName.setText(null);
         guestLName.setText(null);
         guestAddress.setText(null);
@@ -3101,6 +3164,70 @@ public class CashierDashboard extends javax.swing.JFrame {
         
     }
     
+    public void viewCheckinDetails(){
+        
+        comboBoxCheckInRoomID();
+        comboBoxCheckInGuestId();
+        comboBoxCheckInDiscountType();
+        
+        conn = obj.connect();
+        
+        String lastId = "0";
+
+        try {
+            String sql = "CALL `lastTransactionId`()";
+            ps = conn.prepareCall(sql);
+            rs = ps.executeQuery();
+
+            while(rs.next()){
+                lastId = rs.getString("id");
+            }
+
+        } catch (SQLException e) {
+            new ErrorMsg().showErr(e.getMessage());
+            //JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+
+        int nextId = Integer.valueOf(lastId)+1;
+
+        checkinId.setText(String.format("%d", nextId));
+        checkinGuestId.setSelectedIndex(0);
+        checkinRoomId.setSelectedIndex(0);
+        checkinRoomType.setText(null);
+        checkinRoomRate.setText(null);
+        checkinNoOfOccupancy.setText(null);
+        checkinCheckInDate.setText(today);
+        checkinCheckOutDate.setDate(null);
+        checkinCheckOutDate.setEnabled(false);
+        checkinNoOfDays.setText(null);
+        checkinDiscountType.setSelectedIndex(0);
+        checkinDiscountType.setEnabled(false);
+        checkinDiscountRate.setText(null);
+        checkinSubTotal.setText(null);
+        checkinAdvancePayment.setText(null);
+        checkinAdvancePayment.setEnabled(false);
+        checkinTotalBalance.setText(null);
+        checkinPendingBalance.setText(null);
+        
+        checkinSaveBtn.setVisible(true);
+        checkinUpdateBtn.setVisible(false);
+        checkinDeleteBtn.setVisible(false);
+        
+        /*try {
+                cs = conn.prepareCall("{CALL `viewGuestDetails`()}");
+                rs = cs.executeQuery();
+
+                //guestTable.setModel(DbUtils.resultSetToTableModel(rs));
+
+            } catch (SQLException e) {
+                new ErrorMsg().showErr(e.getMessage());
+                //JOptionPane.showMessageDialog(null, e.getMessage());
+            }*/
+        
+        conn = null;
+        
+    }
+    
     public void comboBoxRoomType(){
         
         try {
@@ -3116,6 +3243,31 @@ public class CashierDashboard extends javax.swing.JFrame {
             
             while(rs.next()){
                 roomType.addItem(rs.getString("type"));
+            }
+            
+        } catch (SQLException e) {
+            new ErrorMsg().showErr(e.getMessage());
+        }
+        
+        conn = null;
+    }
+    
+    public void comboBoxCheckInGuestId(){
+        
+        try {
+            checkinGuestId.removeAllItems();
+            checkinGuestId.addItem("");
+        } catch (Exception e) {
+        }
+        
+        conn = obj.connect();
+        
+        try {
+            cs = conn.prepareCall("{CALL `viewGuestDetails`()}");
+            rs = cs.executeQuery();
+            
+            while(rs.next()){
+                checkinGuestId.addItem(rs.getString("Id"));
             }
             
         } catch (SQLException e) {
@@ -3189,11 +3341,53 @@ public class CashierDashboard extends javax.swing.JFrame {
                     checkinRoomType.setText(rs.getString("type"));
                     checkinRoomRate.setText(rs.getString("rate"));
                     checkinNoOfOccupancy.setText(rs.getString("noOfOccupancy"));
+                    
+                    checkinCheckOutDate.setEnabled(true);
+                    
                     break;
                 } else {
                     checkinRoomType.setText(null);
                     checkinRoomRate.setText(null);
                     checkinNoOfOccupancy.setText(null);
+                    
+                    checkinCheckOutDate.setEnabled(false);
+                }
+            }
+            
+        } catch (SQLException e) {
+            new ErrorMsg().showErr(e.getMessage());
+        }
+        
+        conn = null;
+        
+    }
+    
+    public void viewCheckinDiscountDetails() {
+                
+        conn = obj.connect();
+        
+        try {
+            cs = conn.prepareCall("{CALL `discountTypeDetails`()}");
+            rs = cs.executeQuery();
+            
+            while(rs.next()){
+                if(checkinDiscountType.getSelectedItem().toString().equals(rs.getString("type"))){
+                    
+                    int discountRate = Integer.valueOf(rs.getString("rate"));
+                    int subTotal = Integer.valueOf(checkinSubTotal.getText());
+        
+                    discountRate = subTotal*discountRate/100;
+                    
+                    checkinDiscountRate.setText(String.valueOf(discountRate));
+                    
+                    subTotal = subTotal - discountRate;
+                    
+                    checkinTotalBalance.setText(String.valueOf(subTotal));
+                    
+                    break;
+                } else {
+                    checkinDiscountRate.setText(null);
+                    checkinTotalBalance.setText(checkinSubTotal.getText());
                 }
             }
             
@@ -3292,7 +3486,8 @@ public class CashierDashboard extends javax.swing.JFrame {
     private javax.swing.JButton checkinDeleteBtn;
     private javax.swing.JTextField checkinDiscountRate;
     private javax.swing.JComboBox<String> checkinDiscountType;
-    private javax.swing.JTextField checkinGuestName;
+    private javax.swing.JComboBox<String> checkinGuestId;
+    private javax.swing.JTextField checkinId;
     private javax.swing.JTextField checkinNoOfDays;
     private javax.swing.JTextField checkinNoOfOccupancy;
     private javax.swing.JTextField checkinPendingBalance;
@@ -3302,7 +3497,6 @@ public class CashierDashboard extends javax.swing.JFrame {
     private javax.swing.JButton checkinSaveBtn;
     private javax.swing.JTextField checkinSubTotal;
     private javax.swing.JTextField checkinTotalBalance;
-    private javax.swing.JTextField checkinTransactionId;
     private javax.swing.JButton checkinUpdateBtn;
     private javax.swing.JPanel checkout;
     private javax.swing.JLabel closeBtn;

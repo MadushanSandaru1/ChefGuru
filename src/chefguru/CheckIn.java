@@ -24,98 +24,126 @@ public class CheckIn {
     
     DBConnection obj = DBConnection.getDb();
     
-    private String transactionId;
+    private String id;
     private String guestId;
     private String roomId;
     private String checkInDate;
     private String checkOutDate;
-    private String noOfAdult;
-    private String noOfChild;
     private String discountId;
-    private String advance;
-    private String totalPayment;
+    private String advancePayment;
+    private String totalBalance;
 
-    public String getTransactionId() {
-        return transactionId;
+    /**
+     * @return the id
+     */
+    public String getId() {
+        return id;
     }
 
-    public void setTransactionId(String transactionId) {
-        this.transactionId = transactionId;
+    /**
+     * @param id the id to set
+     */
+    public void setId(String id) {
+        this.id = id;
     }
 
+    /**
+     * @return the guestId
+     */
     public String getGuestId() {
         return guestId;
     }
 
+    /**
+     * @param guestId the guestId to set
+     */
     public void setGuestId(String guestId) {
         this.guestId = guestId;
     }
 
+    /**
+     * @return the roomId
+     */
     public String getRoomId() {
         return roomId;
     }
 
+    /**
+     * @param roomId the roomId to set
+     */
     public void setRoomId(String roomId) {
         this.roomId = roomId;
     }
 
+    /**
+     * @return the checkInDate
+     */
     public String getCheckInDate() {
         return checkInDate;
     }
 
+    /**
+     * @param checkInDate the checkInDate to set
+     */
     public void setCheckInDate(String checkInDate) {
         this.checkInDate = checkInDate;
     }
 
+    /**
+     * @return the checkOutDate
+     */
     public String getCheckOutDate() {
         return checkOutDate;
     }
 
+    /**
+     * @param checkOutDate the checkOutDate to set
+     */
     public void setCheckOutDate(String checkOutDate) {
         this.checkOutDate = checkOutDate;
     }
 
-    public String getNoOfAdult() {
-        return noOfAdult;
-    }
-
-    public void setNoOfAdult(String noOfAdult) {
-        this.noOfAdult = noOfAdult;
-    }
-
-    public String getNoOfChild() {
-        return noOfChild;
-    }
-
-    public void setNoOfChild(String noOfChild) {
-        this.noOfChild = noOfChild;
-    }
-
+    /**
+     * @return the discountId
+     */
     public String getDiscountId() {
         return discountId;
     }
 
+    /**
+     * @param discountId the discountId to set
+     */
     public void setDiscountId(String discountId) {
         this.discountId = discountId;
     }
 
-    public String getAdvance() {
-        return advance;
+    /**
+     * @return the advancePayment
+     */
+    public String getAdvancePayment() {
+        return advancePayment;
     }
 
-    public void setAdvance(String advance) {
-        this.advance = advance;
+    /**
+     * @param advancePayment the advancePayment to set
+     */
+    public void setAdvancePayment(String advancePayment) {
+        this.advancePayment = advancePayment;
     }
 
-    public String getTotalPayment() {
-        return totalPayment;
+    /**
+     * @return the totalBalance
+     */
+    public String getTotalBalance() {
+        return totalBalance;
     }
 
-    public void setTotalPayment(String totalPayment) {
-        this.totalPayment = totalPayment;
+    /**
+     * @param totalBalance the totalBalance to set
+     */
+    public void setTotalBalance(String totalBalance) {
+        this.totalBalance = totalBalance;
     }
-
-    
     
     public void createCheckIn()
     {
@@ -123,18 +151,16 @@ public class CheckIn {
         conn = obj.connect();
             
         try {
-            cs = conn.prepareCall("{call createCheckInDetails(?,?,?,?,?,?,?,?,?,?)}");
-            cs.setString("tId", getTransactionId());
+            cs = conn.prepareCall("{call createCheckInDetails(?,?,?,?,?,?,?,?)}");
+            cs.setString("tId", getId());
             cs.setString("gId", getGuestId());
             cs.setString("rId", getRoomId());
-            cs.setString("checkIn", getCheckInDate());
-            cs.setString("checkOut", getCheckOutDate());
-            cs.setString("adult", getNoOfAdult());
-            cs.setString("child", getNoOfChild());
+            cs.setString("checkinDate", getCheckInDate());
+            cs.setString("checkoutDate", getCheckOutDate());
             cs.setString("dId", getDiscountId());
-            cs.setString("advance", getAdvance());
-            cs.setString("totalPayment", getTotalPayment());
-
+            cs.setString("advancePayment", getAdvancePayment());
+            cs.setString("totalBalance", getTotalBalance());
+            
             if(cs.executeUpdate()==2){
                 new ErrorMsg().showErr("Record inserted successfully...");
             } else {
@@ -154,17 +180,15 @@ public class CheckIn {
         conn = obj.connect();
             
         try {
-            cs = conn.prepareCall("{call updateCheckInDetails(?,?,?,?,?,?,?,?,?,?)}");
-            cs.setString("tId", editCheckInId);
+            cs = conn.prepareCall("{call updateCheckInDetails(?,?,?,?,?,?,?,?)}");
+            cs.setString("tId", getId());
             cs.setString("gId", getGuestId());
             cs.setString("rId", getRoomId());
-            cs.setString("checkIn", getCheckInDate());
-            cs.setString("checkOut", getCheckOutDate());
-            cs.setString("adult", getNoOfAdult());
-            cs.setString("child", getNoOfChild());
+            cs.setString("checkinDate", getCheckInDate());
+            cs.setString("checkoutDate", getCheckOutDate());
             cs.setString("dId", getDiscountId());
-            cs.setString("advance", getAdvance());
-            cs.setString("totalPayment", getTotalPayment());
+            cs.setString("advancePayment", getAdvancePayment());
+            cs.setString("totalBalance", getTotalBalance());
 
             if(cs.executeUpdate()==1){
                 new ErrorMsg().showErr("Record updated successfully...");
@@ -179,4 +203,5 @@ public class CheckIn {
         editCheckInId = null;
         conn = null;
     }
+    
 }
