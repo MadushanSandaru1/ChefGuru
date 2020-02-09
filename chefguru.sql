@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 08, 2020 at 09:48 AM
+-- Generation Time: Feb 09, 2020 at 04:38 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -38,11 +38,22 @@ DROP PROCEDURE IF EXISTS `changePassword`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `changePassword` (IN `username` CHAR(6), IN `password` VARCHAR(255))  NO SQL
 UPDATE `user` SET `password`= password WHERE `id` = username$$
 
+DROP PROCEDURE IF EXISTS `checkoutRoomId`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `checkoutRoomId` ()  NO SQL
+SELECT * FROM `room` WHERE (`status` = 1 OR `status` = 2) AND `is_deleted` = 0$$
+
 DROP PROCEDURE IF EXISTS `createCheckInDetails`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `createCheckInDetails` (IN `tId` INT, IN `gId` CHAR(12), IN `rId` INT, IN `checkinDate` DATE, IN `checkoutDate` DATE, IN `dId` INT, IN `advancePayment` FLOAT, IN `totalBalance` FLOAT)  NO SQL
 BEGIN
 	INSERT INTO `checkin`(`id`, `guest_id`, `room_id`, `checkin_date`, `checkout_date`, `discount_id`, `advance_payment`, `total_balance`) VALUES (tId, gId, rId, checkinDate, checkoutDate, dId, advancePayment, totalBalance);
 	UPDATE `room` SET `status`= 2 WHERE `id` = rId;
+END$$
+
+DROP PROCEDURE IF EXISTS `createCheckoutDetails`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `createCheckoutDetails` (IN `rId` INT)  NO SQL
+BEGIN
+	UPDATE `checkin` SET `is_checkout`= 1 WHERE `room_id` = rId AND `is_checkout` = 0 AND `is_deleted` = 0;
+	UPDATE `room` SET `status`= 0 WHERE `id` = rId;
 END$$
 
 DROP PROCEDURE IF EXISTS `createDiscountDetails`$$
@@ -62,6 +73,13 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `createUserDetails` (IN `username` C
 BEGIN
 	INSERT INTO `cashier`(`id`, `firstName`, `lastName`, `email`, `mobile`, `is_deleted`) VALUES (username, fName, lName, email, phone, 0);
     INSERT INTO `user`(`id`, `password`, `role`, `is_deleted`) VALUES (username, password, 'cashier', 0);
+END$$
+
+DROP PROCEDURE IF EXISTS `deleteCheckoutDetails`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteCheckoutDetails` (IN `rId` INT)  NO SQL
+BEGIN
+	UPDATE `checkin` SET `is_deleted`= 1 WHERE `room_id` = rId;
+	UPDATE `room` SET `status`= 0 WHERE `id` = rId;
 END$$
 
 DROP PROCEDURE IF EXISTS `deleteDiscountDetails`$$
@@ -143,6 +161,10 @@ BEGIN
 	UPDATE `cashier` SET `firstName`=fName,`lastName`=lName,`email`=email,`mobile`=phone WHERE `id` = username;
     UPDATE `admin` SET `firstName`=fName,`lastName`=lName,`email`=email,`mobile`=phone WHERE `id` = username;
 END$$
+
+DROP PROCEDURE IF EXISTS `viewCheckoutDetails`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `viewCheckoutDetails` ()  NO SQL
+SELECT `room_id` AS 'Room ID', `id` AS 'Transaction ID', `guest_id` AS 'Guest ID', `checkin_date` AS 'Checkin Date', `checkout_date` AS 'Checkout Date', `total_balance` AS 'Total Balance', `advance_payment` AS 'Advance Payment' FROM `checkin` WHERE `is_checkout`  = 0 AND `is_deleted` = 0 ORDER BY `room_id`$$
 
 DROP PROCEDURE IF EXISTS `viewDiscountDetails`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `viewDiscountDetails` ()  NO SQL
@@ -237,7 +259,15 @@ CREATE TABLE IF NOT EXISTS `checkin` (
   `is_checkout` tinyint(1) NOT NULL DEFAULT 0,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `checkin`
+--
+
+INSERT INTO `checkin` (`id`, `guest_id`, `room_id`, `checkin_date`, `checkout_date`, `discount_id`, `advance_payment`, `total_balance`, `is_checkout`, `is_deleted`) VALUES
+(2, '980171329v', 2, '2020-02-09', '2020-02-17', 3, 26000, 26600, 0, 1),
+(3, '980171329v', 2, '2020-02-09', '2020-02-10', 3, 1500, 3325, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -313,7 +343,7 @@ CREATE TABLE IF NOT EXISTS `room` (
 --
 
 INSERT INTO `room` (`id`, `type`, `rate`, `noOfOccupancy`, `status`, `is_deleted`) VALUES
-(1, 'T01', 2000, 2, 2, 0),
+(1, 'T01', 2000, 2, 0, 0),
 (2, 'T02', 3500, 3, 1, 0);
 
 -- --------------------------------------------------------
