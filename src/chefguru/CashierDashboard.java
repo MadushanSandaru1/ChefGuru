@@ -53,6 +53,7 @@ public class CashierDashboard extends javax.swing.JFrame {
     public static String editDiscountId;
     public static String editRoomId;
     public static String editGuestId;
+    public static String editCheckoutId;
     
     Connection conn = null;
     PreparedStatement ps = null;
@@ -127,7 +128,31 @@ public class CashierDashboard extends javax.swing.JFrame {
         jLabel33 = new javax.swing.JLabel();
         checkinGuestId = new javax.swing.JComboBox<>();
         checkout = new javax.swing.JPanel();
-        checkOutTopic = new javax.swing.JLabel();
+        userTopic5 = new javax.swing.JLabel();
+        checkoutId = new javax.swing.JTextField();
+        jLabel34 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
+        checkoutCheckOutBtn = new javax.swing.JButton();
+        checkoutDeleteBtn = new javax.swing.JButton();
+        checkoutCheckInDate = new javax.swing.JTextField();
+        jLabel43 = new javax.swing.JLabel();
+        jLabel45 = new javax.swing.JLabel();
+        checkoutAdvancePayment = new javax.swing.JTextField();
+        checkoutTotalBalance = new javax.swing.JTextField();
+        jLabel47 = new javax.swing.JLabel();
+        checkoutPendingBalance = new javax.swing.JTextField();
+        jLabel48 = new javax.swing.JLabel();
+        checkoutGuestId = new javax.swing.JTextField();
+        checkoutCheckOutDate = new javax.swing.JTextField();
+        checkoutCash = new javax.swing.JTextField();
+        jLabel49 = new javax.swing.JLabel();
+        checkoutChange = new javax.swing.JTextField();
+        jLabel50 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        checkoutTable = new javax.swing.JTable();
+        checkoutRoomId = new javax.swing.JTextField();
         guest = new javax.swing.JPanel();
         userTopic3 = new javax.swing.JLabel();
         guestId = new javax.swing.JTextField();
@@ -630,24 +655,312 @@ public class CashierDashboard extends javax.swing.JFrame {
 
         checkout.setBackground(new java.awt.Color(255, 255, 255));
 
-        checkOutTopic.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
-        checkOutTopic.setForeground(new java.awt.Color(51, 51, 51));
-        checkOutTopic.setText("Check out Information");
+        userTopic5.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
+        userTopic5.setForeground(new java.awt.Color(51, 51, 51));
+        userTopic5.setText("Check Out Information");
+
+        checkoutId.setEditable(false);
+        checkoutId.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        checkoutId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkoutIdActionPerformed(evt);
+            }
+        });
+        checkoutId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                checkoutIdKeyTyped(evt);
+            }
+        });
+
+        jLabel34.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel34.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel34.setText("Transaction ID :");
+
+        jLabel35.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel35.setText("Guest ID :");
+
+        jLabel36.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel36.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel36.setText("Room ID :");
+
+        jLabel38.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel38.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel38.setText("Check in Date :");
+
+        checkoutCheckOutBtn.setBackground(new java.awt.Color(0, 202, 78));
+        checkoutCheckOutBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        checkoutCheckOutBtn.setForeground(new java.awt.Color(255, 255, 255));
+        checkoutCheckOutBtn.setText("CheckOut");
+        checkoutCheckOutBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkoutCheckOutBtnActionPerformed(evt);
+            }
+        });
+
+        checkoutDeleteBtn.setBackground(new java.awt.Color(255, 96, 92));
+        checkoutDeleteBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        checkoutDeleteBtn.setForeground(new java.awt.Color(255, 255, 255));
+        checkoutDeleteBtn.setText("Delete");
+        checkoutDeleteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkoutDeleteBtnActionPerformed(evt);
+            }
+        });
+
+        checkoutCheckInDate.setEditable(false);
+        checkoutCheckInDate.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        checkoutCheckInDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkoutCheckInDateActionPerformed(evt);
+            }
+        });
+
+        jLabel43.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel43.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel43.setText("Check out Date :");
+
+        jLabel45.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel45.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel45.setText("Advance Payment :");
+
+        checkoutAdvancePayment.setEditable(false);
+        checkoutAdvancePayment.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        checkoutAdvancePayment.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        checkoutAdvancePayment.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                checkoutAdvancePaymentKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                checkoutAdvancePaymentKeyTyped(evt);
+            }
+        });
+
+        checkoutTotalBalance.setEditable(false);
+        checkoutTotalBalance.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        checkoutTotalBalance.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        checkoutTotalBalance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkoutTotalBalanceActionPerformed(evt);
+            }
+        });
+
+        jLabel47.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel47.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel47.setText("Total Balance :");
+
+        checkoutPendingBalance.setEditable(false);
+        checkoutPendingBalance.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        checkoutPendingBalance.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        checkoutPendingBalance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkoutPendingBalanceActionPerformed(evt);
+            }
+        });
+
+        jLabel48.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel48.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel48.setText("Pending Balance :");
+
+        checkoutGuestId.setEditable(false);
+        checkoutGuestId.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        checkoutGuestId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkoutGuestIdActionPerformed(evt);
+            }
+        });
+        checkoutGuestId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                checkoutGuestIdKeyTyped(evt);
+            }
+        });
+
+        checkoutCheckOutDate.setEditable(false);
+        checkoutCheckOutDate.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        checkoutCheckOutDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkoutCheckOutDateActionPerformed(evt);
+            }
+        });
+        checkoutCheckOutDate.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                checkoutCheckOutDateKeyTyped(evt);
+            }
+        });
+
+        checkoutCash.setEditable(false);
+        checkoutCash.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        checkoutCash.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        checkoutCash.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkoutCashActionPerformed(evt);
+            }
+        });
+        checkoutCash.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                checkoutCashKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                checkoutCashKeyTyped(evt);
+            }
+        });
+
+        jLabel49.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel49.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel49.setText("Cash :");
+
+        checkoutChange.setEditable(false);
+        checkoutChange.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        checkoutChange.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        checkoutChange.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkoutChangeActionPerformed(evt);
+            }
+        });
+
+        jLabel50.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel50.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel50.setText("Change :");
+
+        checkoutTable.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        checkoutTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Room ID", "Transaction ID", "Guest ID", "CheckIn Date", "CheckOut Date", "Total Balance", "Advance Payment", "Pending Balance"
+            }
+        ));
+        checkoutTable.setRowHeight(20);
+        checkoutTable.setSelectionBackground(new java.awt.Color(102, 0, 0));
+        checkoutTable.setSelectionForeground(new java.awt.Color(255, 234, 231));
+        checkoutTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                checkoutTableMouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(checkoutTable);
+
+        checkoutRoomId.setEditable(false);
+        checkoutRoomId.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        checkoutRoomId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkoutRoomIdActionPerformed(evt);
+            }
+        });
+        checkoutRoomId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                checkoutRoomIdKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout checkoutLayout = new javax.swing.GroupLayout(checkout);
         checkout.setLayout(checkoutLayout);
         checkoutLayout.setHorizontalGroup(
             checkoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(checkoutLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(checkOutTopic, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(415, Short.MAX_VALUE))
+                .addGroup(checkoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(checkoutLayout.createSequentialGroup()
+                        .addGroup(checkoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(checkoutLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(userTopic5, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(checkoutLayout.createSequentialGroup()
+                                .addGap(111, 111, 111)
+                                .addGroup(checkoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel34)
+                                    .addComponent(jLabel38)
+                                    .addComponent(jLabel36))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(checkoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(checkoutId, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(checkoutLayout.createSequentialGroup()
+                                        .addComponent(checkoutCheckInDate, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(47, 47, 47)
+                                        .addGroup(checkoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel43)
+                                            .addComponent(jLabel35))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(checkoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(checkoutCheckOutDate, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(checkoutGuestId, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(checkoutRoomId, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, checkoutLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(checkoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel47)
+                                    .addComponent(jLabel48)
+                                    .addComponent(jLabel49)
+                                    .addComponent(jLabel50))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(checkoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(checkoutTotalBalance)
+                                    .addComponent(checkoutPendingBalance)
+                                    .addComponent(checkoutCash, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(checkoutChange, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(34, 34, 34)
+                                .addGroup(checkoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(checkoutLayout.createSequentialGroup()
+                                        .addComponent(jLabel45)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(checkoutAdvancePayment, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(checkoutLayout.createSequentialGroup()
+                                        .addComponent(checkoutCheckOutBtn)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(checkoutDeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 142, Short.MAX_VALUE))
+                    .addGroup(checkoutLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane5)))
+                .addContainerGap())
         );
         checkoutLayout.setVerticalGroup(
             checkoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(checkoutLayout.createSequentialGroup()
-                .addComponent(checkOutTopic)
-                .addGap(0, 542, Short.MAX_VALUE))
+                .addComponent(userTopic5)
+                .addGap(29, 29, 29)
+                .addGroup(checkoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel36)
+                    .addComponent(checkoutRoomId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(checkoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(checkoutGuestId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel35)
+                    .addComponent(checkoutId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel34))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(checkoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(checkoutCheckInDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel38)
+                    .addComponent(jLabel43)
+                    .addComponent(checkoutCheckOutDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(checkoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(checkoutTotalBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel47)
+                    .addComponent(checkoutAdvancePayment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel45))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(checkoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(checkoutPendingBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel48))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(checkoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(checkoutCash, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel49))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(checkoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(checkoutChange, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel50)
+                    .addComponent(checkoutCheckOutBtn)
+                    .addComponent(checkoutDeleteBtn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         LayeredPane.add(checkout, "card2");
@@ -2084,6 +2397,8 @@ public class CashierDashboard extends javax.swing.JFrame {
     private void checkedOutPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkedOutPanelMouseClicked
         panelDefault();
         checkout.setVisible(true);
+        
+        viewCheckoutDetails();
     }//GEN-LAST:event_checkedOutPanelMouseClicked
 
     private void guestPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_guestPanelMouseClicked
@@ -2882,7 +3197,6 @@ public class CashierDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_checkinPendingBalanceActionPerformed
 
     private void checkinRoomIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinRoomIdActionPerformed
-        
         viewCheckinRoomDetails();
     }//GEN-LAST:event_checkinRoomIdActionPerformed
 
@@ -2959,6 +3273,173 @@ public class CashierDashboard extends javax.swing.JFrame {
     private void checkinGuestIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinGuestIdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_checkinGuestIdActionPerformed
+
+    private void checkoutIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkoutIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkoutIdActionPerformed
+
+    private void checkoutIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_checkoutIdKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkoutIdKeyTyped
+
+    private void checkoutCheckOutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkoutCheckOutBtnActionPerformed
+        conn = obj.connect();
+        
+        try {
+            if(editCheckoutId.isEmpty()){
+                new ErrorMsg().showErr("Please select record...");
+            } else {
+                if(checkoutCash.getText().isEmpty()){
+                    new ErrorMsg().showErr("Please fill all the fields...");
+                } else {
+                    try {
+                        cs = conn.prepareCall("{call createCheckoutDetails(?)}");
+                        cs.setString("rId", editCheckoutId);
+
+                        cs.executeUpdate();
+
+                        viewCheckoutDetails();
+                        new ErrorMsg().showErr("Successfully...");
+                    } catch (SQLException e) {
+                        new ErrorMsg().showErr(e.getMessage());
+                    }
+                    editCheckoutId = null;
+                }
+            }
+        } catch (HeadlessException e) {
+            new ErrorMsg().showErr("Please select record...");
+        }
+        
+        conn = null;
+    }//GEN-LAST:event_checkoutCheckOutBtnActionPerformed
+
+    private void checkoutDeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkoutDeleteBtnActionPerformed
+        conn = obj.connect();
+        
+        try {
+            if(editCheckoutId.isEmpty()){
+                new ErrorMsg().showErr("Please select record...");
+            } else {
+                int a = JOptionPane.showConfirmDialog(null, "Are you sure ?");
+                if(a==0){
+                    try {
+                        cs = conn.prepareCall("{call deleteCheckoutDetails(?)}");
+                        cs.setString("rId", editCheckoutId);
+                        
+                        cs.executeUpdate();
+                        
+                        viewCheckoutDetails();
+                        new ErrorMsg().showErr("Record deleted successfully...");
+                    } catch (SQLException e) {
+                        new ErrorMsg().showErr(e.getMessage());
+                    }
+                    editCheckoutId = null;
+                }
+            }
+        } catch (HeadlessException e) {
+            new ErrorMsg().showErr("Please select record...");
+        }
+        
+        conn = null;
+    }//GEN-LAST:event_checkoutDeleteBtnActionPerformed
+
+    private void checkoutCheckInDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkoutCheckInDateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkoutCheckInDateActionPerformed
+
+    private void checkoutAdvancePaymentKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_checkoutAdvancePaymentKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkoutAdvancePaymentKeyReleased
+
+    private void checkoutAdvancePaymentKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_checkoutAdvancePaymentKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkoutAdvancePaymentKeyTyped
+
+    private void checkoutTotalBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkoutTotalBalanceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkoutTotalBalanceActionPerformed
+
+    private void checkoutPendingBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkoutPendingBalanceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkoutPendingBalanceActionPerformed
+
+    private void checkoutGuestIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkoutGuestIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkoutGuestIdActionPerformed
+
+    private void checkoutGuestIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_checkoutGuestIdKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkoutGuestIdKeyTyped
+
+    private void checkoutCheckOutDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkoutCheckOutDateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkoutCheckOutDateActionPerformed
+
+    private void checkoutCheckOutDateKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_checkoutCheckOutDateKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkoutCheckOutDateKeyTyped
+
+    private void checkoutCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkoutCashActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkoutCashActionPerformed
+
+    private void checkoutChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkoutChangeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkoutChangeActionPerformed
+
+    private void checkoutTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkoutTableMouseClicked
+        
+        int row = checkoutTable.getSelectedRow();
+
+        editCheckoutId = checkoutTable.getValueAt(row, 0).toString();
+
+        checkoutRoomId.setText(editCheckoutId);
+        checkoutId.setText(checkoutTable.getValueAt(row, 1).toString());
+        checkoutGuestId.setText(checkoutTable.getValueAt(row, 2).toString());
+        checkoutCheckInDate.setText(checkoutTable.getValueAt(row, 3).toString());
+        checkoutCheckOutDate.setText(checkoutTable.getValueAt(row, 4).toString());
+        checkoutTotalBalance.setText(checkoutTable.getValueAt(row, 5).toString());
+        checkoutAdvancePayment.setText(checkoutTable.getValueAt(row, 6).toString());
+        checkoutPendingBalance.setText(String.valueOf(Float.valueOf(checkoutTable.getValueAt(row, 5).toString())-Float.valueOf(checkoutTable.getValueAt(row, 6).toString())));
+        checkoutCash.setText(null);
+        checkoutChange.setText(null);
+        
+        checkoutCash.setEditable(true);
+
+        checkoutCheckOutBtn.setVisible(true);
+        checkoutDeleteBtn.setVisible(true);
+    }//GEN-LAST:event_checkoutTableMouseClicked
+
+    private void checkoutRoomIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkoutRoomIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkoutRoomIdActionPerformed
+
+    private void checkoutRoomIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_checkoutRoomIdKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkoutRoomIdKeyTyped
+
+    private void checkoutCashKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_checkoutCashKeyReleased
+        try {
+            if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+                if(checkoutCash.getText().length() != 0){
+                    calculateCheckout();
+                } else {
+                    checkoutChange.setText(null);
+                }
+            } else {
+                calculateCheckout();
+            }
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_checkoutCashKeyReleased
+
+    private void checkoutCashKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_checkoutCashKeyTyped
+        char enter = evt.getKeyChar();
+
+        if (!(Character.isDigit(enter))){
+            evt.consume();
+        }
+    }//GEN-LAST:event_checkoutCashKeyTyped
 
     private void panelDefault(){
         checkIn.setVisible(false);
@@ -3335,6 +3816,31 @@ public class CashierDashboard extends javax.swing.JFrame {
         conn = null;
     }
     
+    /*public void comboBoxCheckOutRoomID(){
+        
+        try {
+            checkoutRoomId.removeAllItems();
+            checkoutRoomId.addItem("");
+        } catch (Exception e) {
+        }
+        
+        conn = obj.connect();
+        
+        try {
+            cs = conn.prepareCall("{CALL `checkoutRoomId`()}");
+            rs = cs.executeQuery();
+            
+            while(rs.next()){
+                checkoutRoomId.addItem(rs.getString("id"));
+            }
+            
+        } catch (SQLException e) {
+            new ErrorMsg().showErr(e.getMessage());
+        }
+        
+        conn = null;
+    }*/
+    
     public void viewCheckinRoomDetails() {
         
         conn = obj.connect();
@@ -3444,6 +3950,96 @@ public class CashierDashboard extends javax.swing.JFrame {
         }
     }
     
+    public void calculateCheckout() {
+        try {
+            float pendingBalance = Float.valueOf(checkoutPendingBalance.getText());        
+            float cash = 0;
+            float change = 0;
+
+                cash = Float.valueOf(checkoutCash.getText());
+
+                change = cash - pendingBalance;
+
+                checkoutChange.setText(String.valueOf(change));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());//checkoutCash.setText(checkoutCash.getText().substring(0,checkoutCash.getText().length()-1));
+        }
+    }
+    
+    public void viewCheckoutDetails() {
+        
+        conn = obj.connect();
+        
+        editCheckoutId = null;
+        
+        checkoutRoomId.setText(null);
+        checkoutId.setText(null);
+        checkoutGuestId.setText(null);
+        checkoutCheckInDate.setText(null);
+        checkoutCheckOutDate.setText(null);
+        checkoutAdvancePayment.setText(null);
+        checkoutTotalBalance.setText(null);
+        checkoutPendingBalance.setText(null);
+        checkoutCash.setText(null);
+        checkoutChange.setText(null);
+        
+        checkoutCash.setEditable(false);
+        
+        checkoutCheckOutBtn.setVisible(false);
+        checkoutDeleteBtn.setVisible(false);
+        
+        try {
+                cs = conn.prepareCall("{CALL `viewCheckoutDetails`()}");
+                rs = cs.executeQuery();
+
+                checkoutTable.setModel(DbUtils.resultSetToTableModel(rs));
+
+            } catch (SQLException e) {
+                new ErrorMsg().showErr(e.getMessage());
+                //JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        
+        conn = null;
+        
+        /*comboBoxCheckOutRoomID();
+        
+        conn = obj.connect();
+        
+        try {
+            cs = conn.prepareCall("{CALL `viewCheckoutDetails`()}");
+            rs = cs.executeQuery();
+            
+            while(rs.next()){
+                if(checkoutRoomId.getSelectedItem().toString().equals(rs.getString("room_id"))){
+                    checkoutId.setText(rs.getString("id"));
+                    checkoutGuestId.setText(rs.getString("guest_id"));
+                    checkoutCheckInDate.setText(rs.getString("checkin_date"));
+                    checkoutCheckOutDate.setText(rs.getString("checkout_date"));
+                    checkoutAdvancePayment.setText(rs.getString("advance_payment"));
+                    checkoutTotalBalance.setText(rs.getString("total_balance"));
+                    checkoutPendingBalance.setText(String.valueOf(Integer.valueOf(rs.getString("total_balance"))-Integer.valueOf(rs.getString("advance_payment"))));
+                    
+                    break;
+                } else {
+                    checkoutId.setText(null);
+                    checkoutGuestId.setText(null);
+                    checkoutCheckInDate.setText(null);
+                    checkoutCheckOutDate.setText(null);
+                    checkoutAdvancePayment.setText(null);
+                    checkoutTotalBalance.setText(null);
+                    checkoutPendingBalance.setText(null);
+                    
+                }
+            }
+            
+        } catch (SQLException e) {
+            new ErrorMsg().showErr(e.getMessage());
+        }
+        
+        conn = null;*/
+        
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -3483,7 +4079,6 @@ public class CashierDashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLayeredPane LayeredPane;
     private javax.swing.JPanel checkIn;
-    private javax.swing.JLabel checkOutTopic;
     private javax.swing.JLabel checkedInIcon;
     private javax.swing.JLabel checkedInLabel;
     private javax.swing.JPanel checkedInPanel;
@@ -3509,6 +4104,19 @@ public class CashierDashboard extends javax.swing.JFrame {
     private javax.swing.JTextField checkinTotalBalance;
     private javax.swing.JButton checkinUpdateBtn;
     private javax.swing.JPanel checkout;
+    private javax.swing.JTextField checkoutAdvancePayment;
+    private javax.swing.JTextField checkoutCash;
+    private javax.swing.JTextField checkoutChange;
+    private javax.swing.JTextField checkoutCheckInDate;
+    private javax.swing.JButton checkoutCheckOutBtn;
+    private javax.swing.JTextField checkoutCheckOutDate;
+    private javax.swing.JButton checkoutDeleteBtn;
+    private javax.swing.JTextField checkoutGuestId;
+    private javax.swing.JTextField checkoutId;
+    private javax.swing.JTextField checkoutPendingBalance;
+    private javax.swing.JTextField checkoutRoomId;
+    private javax.swing.JTable checkoutTable;
+    private javax.swing.JTextField checkoutTotalBalance;
     private javax.swing.JLabel closeBtn;
     private javax.swing.JLabel copyrights;
     private javax.swing.JPanel dashboarddPane;
@@ -3565,8 +4173,18 @@ public class CashierDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -3575,6 +4193,7 @@ public class CashierDashboard extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JLabel logoIcon;
     private javax.swing.JLabel logoLabel;
@@ -3621,6 +4240,7 @@ public class CashierDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel userTopic2;
     private javax.swing.JLabel userTopic3;
     private javax.swing.JLabel userTopic4;
+    private javax.swing.JLabel userTopic5;
     private javax.swing.JButton userUpdateBtn;
     private javax.swing.JLabel welcomeName;
     // End of variables declaration//GEN-END:variables
