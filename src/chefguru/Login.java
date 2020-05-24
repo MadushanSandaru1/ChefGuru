@@ -320,7 +320,7 @@ public class Login extends javax.swing.JFrame {
                             email = rs.getString("email");
                         }
                         
-                        new CashierDashboard().setVisible(true);
+                        new AdminDashboard().setVisible(true);
                         this.setVisible(false);
                     }
                     else if(pwd.equals(rs.getString("password")) && rs.getString("role").equalsIgnoreCase("cashier"))
