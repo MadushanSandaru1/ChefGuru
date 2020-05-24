@@ -16,7 +16,7 @@ import java.sql.SQLException;
  *
  * @author sanda
  */
-public class Room {
+public class Roomtype {
     Connection conn = null;
     PreparedStatement ps = null;
     CallableStatement cs = null;
@@ -24,15 +24,18 @@ public class Room {
     
     DBConnection obj = DBConnection.getDb();
     
-    private String roomId;
+    private String Id;
     private String roomType;
+    private String description;
+    private String rate;
+    private String image;
 
-    public String getRoomId() {
-        return roomId;
+    public String getId() {
+        return Id;
     }
 
-    public void setRoomId(String roomId) {
-        this.roomId = roomId;
+    public void setId(String Id) {
+        this.Id = Id;
     }
 
     public String getRoomType() {
@@ -43,15 +46,42 @@ public class Room {
         this.roomType = roomType;
     }
 
-    public void createRoom()
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getRate() {
+        return rate;
+    }
+
+    public void setRate(String rate) {
+        this.rate = rate;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+    
+    public void createRoomType()
     {
        
         conn = obj.connect();
             
         try {
-            cs = conn.prepareCall("{CALL createRoomDetails(?,?)}");
-            cs.setString("rId", getRoomId());
+            cs = conn.prepareCall("{CALL createRoomTypeDetails(?,?,?,?,?)}");
+            cs.setString("rId", getId());
             cs.setString("rType", getRoomType());
+            cs.setString("rDescription", getDescription());
+            cs.setString("rRate", getRate());
+            cs.setString("rImage", getImage());
 
             if(cs.executeUpdate()==1){
                 new ErrorMsg().showErr("Record inserted successfully...");
@@ -66,15 +96,17 @@ public class Room {
         conn = null;
     }
     
-    public void updateRoom(String editRoomId)
+    public void updateRoomType(String editRoomTypeId)
     {
        
         conn = obj.connect();
             
         try {
-            cs = conn.prepareCall("{CALL updateRoomDetails(?,?)}");
-            cs.setString("rId", editRoomId);
+            cs = conn.prepareCall("{CALL updateRoomTypeDetails(?,?,?,?)}");
+            cs.setString("rId", editRoomTypeId);
             cs.setString("rType", getRoomType());
+            cs.setString("rDescription", getDescription());
+            cs.setString("rRate", getRate());
 
             if(cs.executeUpdate()==1){
                 new ErrorMsg().showErr("Record updated successfully...");
@@ -86,7 +118,7 @@ public class Room {
             new ErrorMsg().showErr(e.getMessage());
         }
 
-        editRoomId = null;
+        editRoomTypeId = null;
         conn = null;
     }
 }

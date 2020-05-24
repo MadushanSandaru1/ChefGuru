@@ -5,14 +5,23 @@
  */
 package reports_format;
 
+import chefguru.AdminDashboard;
+import chefguru.ErrorMsg;
+import dbconnection.DBConnection;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -23,8 +32,20 @@ public class Room_Information_Report extends javax.swing.JFrame {
     /**
      * Creates new form Guest_Information_Report
      */
+    
+    Connection conn = null;
+    PreparedStatement ps = null;
+    CallableStatement cs = null;
+    ResultSet rs = null;
+    
+    DBConnection obj = DBConnection.getDb();
+    
     public Room_Information_Report() {
         initComponents();
+        
+        upper_date.setText(new AdminDashboard().dateForUse());
+        
+        viewRoomDetails();
     }
 
     /**
@@ -112,25 +133,24 @@ public class Room_Information_Report extends javax.swing.JFrame {
 
         heading.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         heading.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        heading.setText("Guest Information Report");
+        heading.setText("Room Information Report");
 
         date_label.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         date_label.setText("Date:");
 
         upper_date.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        upper_date.setText("2020-05-23");
 
         note.setFont(new java.awt.Font("Cambria Math", 1, 12)); // NOI18N
         note.setText("Note");
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Guest Id", "Name", "Address", "Email", "Phone No"
+                "Id", "Room Type", "Status"
             }
         ));
         table.setGridColor(new java.awt.Color(102, 0, 0));
@@ -167,19 +187,10 @@ public class Room_Information_Report extends javax.swing.JFrame {
                 .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(83, 83, 83))
             .addGroup(report_paneLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
                 .addGroup(report_paneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(report_paneLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(note))
-                    .addGroup(report_paneLayout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addGroup(report_paneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(table_scrollpane, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(report_paneLayout.createSequentialGroup()
-                                .addComponent(date_label)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(upper_date))
-                            .addComponent(heading, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(table_scrollpane, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(heading, javax.swing.GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE))
                 .addGap(38, 38, 38))
             .addGroup(report_paneLayout.createSequentialGroup()
                 .addGap(73, 73, 73)
@@ -191,6 +202,15 @@ public class Room_Information_Report extends javax.swing.JFrame {
                     .addComponent(signature_line, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(signature, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(78, 78, 78))
+            .addGroup(report_paneLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(report_paneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(note)
+                    .addGroup(report_paneLayout.createSequentialGroup()
+                        .addComponent(date_label)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(upper_date, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         report_paneLayout.setVerticalGroup(
             report_paneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,14 +226,14 @@ public class Room_Information_Report extends javax.swing.JFrame {
                         .addComponent(logo)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(middle_line, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(report_paneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(date_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(upper_date, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(heading)
-                .addGap(4, 4, 4)
-                .addGroup(report_paneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(date_label)
-                    .addComponent(upper_date))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(table_scrollpane, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(table_scrollpane, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(report_paneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(date_line)
@@ -296,7 +316,7 @@ public class Room_Information_Report extends javax.swing.JFrame {
     }//GEN-LAST:event_print_btnActionPerformed
 
     private void close_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_close_btnActionPerformed
-        System.exit(0);
+        this.dispose();
     }//GEN-LAST:event_close_btnActionPerformed
 
     /**
@@ -376,6 +396,27 @@ public class Room_Information_Report extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Print Error: " + printerException.getMessage());
             }
         }
+        
+        this.dispose();
+    }
+    
+    public void viewRoomDetails(){
+        
+        conn = obj.connect();
+        
+        try {
+                cs = conn.prepareCall("{CALL `viewRoomDetails`()}");
+                rs = cs.executeQuery();
+
+                table.setModel(DbUtils.resultSetToTableModel(rs));
+
+            } catch (SQLException e) {
+                new ErrorMsg().showErr(e.getMessage());
+                //JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        
+        conn = null;
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -73,7 +73,7 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(102, 0, 0));
         jLabel2.setText("User Name");
 
-        username.setText("adm001");
+        username.setText("csr001");
         username.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 0)));
 
         jLabel3.setForeground(new java.awt.Color(102, 0, 0));
@@ -316,7 +316,7 @@ public class Login extends javax.swing.JFrame {
                         if(rs.next())
                         {
                             id = rs.getString("id");
-                            fullname = rs.getString("firstName")+" "+rs.getString("lastName");
+                            fullname = rs.getString("name");
                             email = rs.getString("email");
                         }
                         
@@ -332,7 +332,7 @@ public class Login extends javax.swing.JFrame {
                         if(rs.next())
                         {
                             id = rs.getString("id");
-                            fullname = rs.getString("firstName")+" "+rs.getString("lastName");
+                            fullname = rs.getString("name");
                             email = rs.getString("email");
                         }
                         

@@ -166,7 +166,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="username">
               <Properties>
-                <Property name="text" type="java.lang.String" value="adm001"/>
+                <Property name="text" type="java.lang.String" value="csr001"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                     <LineBorder>

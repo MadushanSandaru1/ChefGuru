@@ -2476,8 +2476,7 @@ public class CashierDashboard extends javax.swing.JFrame {
             new ErrorMsg().showErr("Please fill all the fields...");
         } else {
             user.setId(id);
-            user.setfName(fName);
-            user.setlName(lName);
+            user.setName(fName);
             user.setEmail(email);
             user.setPhone(phone);
             //user.setPassword(password);
@@ -2567,8 +2566,7 @@ public class CashierDashboard extends javax.swing.JFrame {
             new ErrorMsg().showErr("Please fill all the fields...");
         } else {
             user.setId(id);
-            user.setfName(fName);
-            user.setlName(lName);
+            user.setName(fName);
             user.setEmail(email);
             user.setPhone(phone);
             user.setPassword(password);
@@ -2776,16 +2774,11 @@ public class CashierDashboard extends javax.swing.JFrame {
         
         conn = null;
         
-        String roomRate = this.roomRate.getText().trim();
-        String roomOccupancy = this.roomOccupancy.getText().trim();
-        
-        if(roomId.isEmpty() || roomRate.isEmpty() || roomOccupancy.isEmpty()){
+        if(roomId.isEmpty()){
             new ErrorMsg().showErr("Please fill all the fields...");
         } else {
             room.setRoomId(roomId);
             room.setRoomType(roomType);
-            room.setRoomRate(roomRate);
-            room.setRoomOccupancy(roomOccupancy);
 
             room.createRoom();
             viewRoomDetails();
@@ -2824,8 +2817,6 @@ public class CashierDashboard extends javax.swing.JFrame {
         } else {
             room.setRoomId(roomId);
             room.setRoomType(roomType);
-            room.setRoomRate(roomRate);
-            room.setRoomOccupancy(roomOccupancy);
 
             room.updateRoom(editRoomId);
             viewRoomDetails();

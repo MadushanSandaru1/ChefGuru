@@ -5,26 +5,52 @@
  */
 package reports_format;
 
+import chefguru.AdminDashboard;
+import chefguru.ErrorMsg;
+import dbconnection.DBConnection;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import net.proteanit.sql.DbUtils;
 
 /**
  *
  * @author sanda
  */
-public class Monthly_Transaction_Report extends javax.swing.JFrame {
+public class Transaction_Report extends javax.swing.JFrame {
 
     /**
      * Creates new form Guest_Information_Report
      */
-    public Monthly_Transaction_Report() {
+    
+    Connection conn = null;
+    PreparedStatement ps = null;
+    CallableStatement cs = null;
+    ResultSet rs = null;
+    
+    DBConnection obj = DBConnection.getDb();
+    
+    public Transaction_Report() {
         initComponents();
+        
+        upper_date.setText(new AdminDashboard().dateForUse());
+        
+        filterMonth.setEnabled(false);
+        filterDay.setEnabled(false);
+        
+        viewTransactionDetails();
+        
+        //comboBoxYear();
     }
 
     /**
@@ -54,8 +80,13 @@ public class Monthly_Transaction_Report extends javax.swing.JFrame {
         signature_line = new javax.swing.JLabel();
         date = new javax.swing.JLabel();
         signature = new javax.swing.JLabel();
+        headingDate = new javax.swing.JLabel();
         close_btn = new javax.swing.JButton();
         print_btn = new javax.swing.JButton();
+        filter_btn = new javax.swing.JButton();
+        filterDay = new javax.swing.JComboBox<>();
+        filterMonth = new javax.swing.JComboBox<>();
+        filterYear = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -112,25 +143,24 @@ public class Monthly_Transaction_Report extends javax.swing.JFrame {
 
         heading.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         heading.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        heading.setText("Daily Transaction Report");
+        heading.setText("Transaction Report");
 
         date_label.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         date_label.setText("Date:");
 
         upper_date.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        upper_date.setText("2020-05-23");
 
         note.setFont(new java.awt.Font("Cambria Math", 1, 12)); // NOI18N
         note.setText("Note");
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Guest Id", "Name", "Address", "Email", "Phone No"
+                "Bill Id", "Type", "Date", "Amount (Rs.)"
             }
         ));
         table.setGridColor(new java.awt.Color(102, 0, 0));
@@ -148,6 +178,10 @@ public class Monthly_Transaction_Report extends javax.swing.JFrame {
         signature.setFont(new java.awt.Font("Times New Roman", 0, 11)); // NOI18N
         signature.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         signature.setText("Signature");
+
+        headingDate.setFont(new java.awt.Font("Cambria Math", 1, 14)); // NOI18N
+        headingDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        headingDate.setText("2020");
 
         javax.swing.GroupLayout report_paneLayout = new javax.swing.GroupLayout(report_pane);
         report_pane.setLayout(report_paneLayout);
@@ -167,21 +201,6 @@ public class Monthly_Transaction_Report extends javax.swing.JFrame {
                 .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(83, 83, 83))
             .addGroup(report_paneLayout.createSequentialGroup()
-                .addGroup(report_paneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(report_paneLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(note))
-                    .addGroup(report_paneLayout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addGroup(report_paneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(table_scrollpane, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(report_paneLayout.createSequentialGroup()
-                                .addComponent(date_label)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(upper_date))
-                            .addComponent(heading, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(38, 38, 38))
-            .addGroup(report_paneLayout.createSequentialGroup()
                 .addGap(73, 73, 73)
                 .addGroup(report_paneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -191,6 +210,23 @@ public class Monthly_Transaction_Report extends javax.swing.JFrame {
                     .addComponent(signature_line, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(signature, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(78, 78, 78))
+            .addGroup(report_paneLayout.createSequentialGroup()
+                .addGroup(report_paneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(report_paneLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(note))
+                    .addGroup(report_paneLayout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(report_paneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(table_scrollpane, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
+                            .addComponent(heading, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(headingDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(report_paneLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(date_label)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(upper_date, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         report_paneLayout.setVerticalGroup(
             report_paneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,15 +242,17 @@ public class Monthly_Transaction_Report extends javax.swing.JFrame {
                         .addComponent(logo)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(middle_line, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(report_paneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(date_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(upper_date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(heading)
-                .addGap(4, 4, 4)
-                .addGroup(report_paneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(date_label)
-                    .addComponent(upper_date))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(table_scrollpane, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(headingDate)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(table_scrollpane, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(report_paneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(date_line)
                     .addComponent(signature_line))
@@ -249,6 +287,36 @@ public class Monthly_Transaction_Report extends javax.swing.JFrame {
             }
         });
 
+        filter_btn.setBackground(new java.awt.Color(85, 85, 85));
+        filter_btn.setForeground(new java.awt.Color(255, 255, 255));
+        filter_btn.setText("Reset");
+        filter_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filter_btnActionPerformed(evt);
+            }
+        });
+
+        filterDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Day", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        filterDay.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                filterDayItemStateChanged(evt);
+            }
+        });
+
+        filterMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Month", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
+        filterMonth.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                filterMonthItemStateChanged(evt);
+            }
+        });
+
+        filterYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Year", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
+        filterYear.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                filterYearItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
         background.setLayout(backgroundLayout);
         backgroundLayout.setHorizontalGroup(
@@ -258,7 +326,15 @@ public class Monthly_Transaction_Report extends javax.swing.JFrame {
                 .addComponent(print_btn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(close_btn)
-                .addContainerGap(440, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addComponent(filterYear, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(filterMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(filterDay, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(filter_btn)
+                .addGap(102, 102, 102))
             .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(report_scrollpane, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE))
         );
@@ -268,7 +344,11 @@ public class Monthly_Transaction_Report extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(print_btn)
-                    .addComponent(close_btn))
+                    .addComponent(close_btn)
+                    .addComponent(filter_btn)
+                    .addComponent(filterDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(filterMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(filterYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(541, Short.MAX_VALUE))
             .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
@@ -296,8 +376,45 @@ public class Monthly_Transaction_Report extends javax.swing.JFrame {
     }//GEN-LAST:event_print_btnActionPerformed
 
     private void close_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_close_btnActionPerformed
-        System.exit(0);
+        this.dispose();
     }//GEN-LAST:event_close_btnActionPerformed
+
+    private void filter_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filter_btnActionPerformed
+        filterYear.setSelectedIndex(0);
+        filterMonth.setSelectedIndex(0);
+        filterDay.setSelectedIndex(0);
+        
+        filterMonth.setEnabled(false);
+        filterDay.setEnabled(false);
+        
+        viewTransactionDetails();
+    }//GEN-LAST:event_filter_btnActionPerformed
+
+    private void filterYearItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_filterYearItemStateChanged
+        if(filterYear.getSelectedItem().toString().equalsIgnoreCase("Year")){
+            filterMonth.setSelectedIndex(0);
+            filterDay.setSelectedIndex(0);
+        } else {
+            filterMonth.setEnabled(true);
+        }
+        
+        viewTransactionDetails();
+    }//GEN-LAST:event_filterYearItemStateChanged
+
+    private void filterMonthItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_filterMonthItemStateChanged
+        if(filterMonth.getSelectedItem().toString().equalsIgnoreCase("Month")){
+            filterDay.setSelectedIndex(0);
+        } else {
+            filterDay.setEnabled(true);
+        }
+        
+        viewTransactionDetails();
+    }//GEN-LAST:event_filterMonthItemStateChanged
+
+    private void filterDayItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_filterDayItemStateChanged
+        
+        viewTransactionDetails();
+    }//GEN-LAST:event_filterDayItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -316,13 +433,13 @@ public class Monthly_Transaction_Report extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Monthly_Transaction_Report.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Transaction_Report.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Monthly_Transaction_Report.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Transaction_Report.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Monthly_Transaction_Report.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Transaction_Report.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Monthly_Transaction_Report.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Transaction_Report.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -332,7 +449,7 @@ public class Monthly_Transaction_Report extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Monthly_Transaction_Report().setVisible(true);
+                new Transaction_Report().setVisible(true);
             }
         });
     }
@@ -378,7 +495,139 @@ public class Monthly_Transaction_Report extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Print Error: " + printerException.getMessage());
             }
         }
+        
+        this.dispose();
     }
+    
+    public void viewTransactionDetails(){
+        
+        String search_key = "%";
+        
+        upper_date.setText(new AdminDashboard().dateForUse());
+        
+        String year = filterYear.getSelectedItem().toString();
+        String month = filterMonth.getSelectedItem().toString();
+        String month_int = convertMonthToNumber(month);
+        String day = filterDay.getSelectedItem().toString();
+        
+        if(year.equalsIgnoreCase("Year")) {
+            headingDate.setText(null);
+            search_key = null;
+            search_key = "%";
+        } else if(month.equalsIgnoreCase("Month")) {
+            headingDate.setText(year);
+            search_key = null;
+            search_key = year+"%";
+        } else if(day.equalsIgnoreCase("Day")) {
+            headingDate.setText(year+" - "+month);
+            search_key = null;
+            search_key = year+"-"+month_int+"%";
+        } else {
+            headingDate.setText(year+" - "+month+" - "+day);
+            search_key = null;
+            search_key = year+"-"+month_int+"-"+day+"%";
+        }
+        
+        conn = obj.connect();
+        
+        try {
+                cs = conn.prepareCall("{CALL `filterTransactionDetails`(?)}");
+                cs.setString("search_key", search_key);
+                rs = cs.executeQuery();
+
+                table.setModel(DbUtils.resultSetToTableModel(rs));
+
+            } catch (SQLException e) {
+                new ErrorMsg().showErr(e.getMessage());
+                //JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        
+        conn = null;
+        
+    }
+    
+    public String convertMonthToNumber(String month_of_string){
+        
+        String month_of_int = null;
+        
+        switch (month_of_string) {
+            case "January":
+                month_of_int = "01";
+                break;
+                
+            case "February":
+                month_of_int = "02";
+                break;
+                
+            case "March":
+                month_of_int = "03";
+                break;
+                
+            case "April":
+                month_of_int = "04";
+                break;
+                
+            case "May":
+                month_of_int = "05";
+                break;
+                
+            case "June":
+                month_of_int = "06";
+                break;
+                
+            case "July":
+                month_of_int = "07";
+                break;
+                
+            case "August":
+                month_of_int = "08";
+                break;
+                
+            case "September":
+                month_of_int = "09";
+                break;
+                
+            case "October":
+                month_of_int = "10";
+                break;
+                
+            case "November":
+                month_of_int = "11";
+                break;
+                
+            case "December":
+                month_of_int = "12";
+                break;
+        }
+        
+        return month_of_int;
+    }
+    
+    /*public void comboBoxYear(){
+        
+        try {
+            filterYear.removeAllItems();
+        } catch (Exception e) {
+        }
+        
+        //filterYear.addItem("Year");
+        conn = obj.connect();
+        
+        try {
+        
+            cs = conn.prepareCall("{CALL `getTransactionYears`()}");
+            rs = cs.executeQuery();
+        
+            while(rs.next()){
+                filterYear.addItem(rs.getString("year"));
+            }
+            
+        } catch (SQLException e) {
+            new ErrorMsg().showErr(e.getMessage());
+        }
+        
+        conn = null;
+    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel address;
@@ -387,7 +636,12 @@ public class Monthly_Transaction_Report extends javax.swing.JFrame {
     private javax.swing.JLabel date;
     private javax.swing.JLabel date_label;
     private javax.swing.JLabel date_line;
+    private javax.swing.JComboBox<String> filterDay;
+    private javax.swing.JComboBox<String> filterMonth;
+    private javax.swing.JComboBox<String> filterYear;
+    private javax.swing.JButton filter_btn;
     private javax.swing.JLabel heading;
+    private javax.swing.JLabel headingDate;
     private javax.swing.JLabel logo;
     private javax.swing.JPanel lower_line;
     private javax.swing.JPanel middle_line;

@@ -27,8 +27,7 @@ public class User {
     DBConnection obj = DBConnection.getDb();
     
     private String id;
-    private String fName;
-    private String lName;
+    private String name;
     private String email;
     private String phone;
     private String password;
@@ -48,31 +47,17 @@ public class User {
     }
 
     /**
-     * @return the fName
+     * @return the name
      */
-    public String getfName() {
-        return fName;
+    public String getName() {
+        return name;
     }
 
     /**
-     * @param fName the fName to set
+     * @param name the name to set
      */
-    public void setfName(String fName) {
-        this.fName = fName;
-    }
-
-    /**
-     * @return the lName
-     */
-    public String getlName() {
-        return lName;
-    }
-
-    /**
-     * @param lName the lName to set
-     */
-    public void setlName(String lName) {
-        this.lName = lName;
+    public void setName(String fName) {
+        this.name = fName;
     }
 
     /**
@@ -123,10 +108,9 @@ public class User {
         conn = obj.connect();
             
         try {
-            cs = conn.prepareCall("{call createUserDetails(?,?,?,?,?,?)}");
+            cs = conn.prepareCall("{call createUserDetails(?,?,?,?,?)}");
             cs.setString("username", getId());
-            cs.setString("fName", getfName());
-            cs.setString("lName", getlName());
+            cs.setString("uName", getName());
             cs.setString("email", getEmail());
             cs.setString("phone", getPhone());
             cs.setString("password", getPassword());
@@ -150,10 +134,9 @@ public class User {
         conn = obj.connect();
             
         try {
-            cs = conn.prepareCall("{call updateUserDetails(?,?,?,?,?)}");
+            cs = conn.prepareCall("{call updateUserDetails(?,?,?,?)}");
             cs.setString("username", editUserId);
-            cs.setString("fName", getfName());
-            cs.setString("lName", getlName());
+            cs.setString("uName", getName());
             cs.setString("email", getEmail());
             cs.setString("phone", getPhone());
             //cs.setString("password", getPassword());
