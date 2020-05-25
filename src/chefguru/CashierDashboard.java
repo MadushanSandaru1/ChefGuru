@@ -50,7 +50,7 @@ public class CashierDashboard extends javax.swing.JFrame {
     }
     
     public static String editUserId;
-    public static String editDiscountId;
+    public static String editBookingId;
     public static String editRoomId;
     public static String editGuestId;
     public static String editCheckoutId;
@@ -160,10 +160,8 @@ public class CashierDashboard extends javax.swing.JFrame {
         guestAddress = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         guestEmail = new javax.swing.JTextField();
-        jLabel16 = new javax.swing.JLabel();
         guestFName = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
-        guestLName = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         guestSaveBtn = new javax.swing.JButton();
         guestUpdateBtn = new javax.swing.JButton();
@@ -172,34 +170,21 @@ public class CashierDashboard extends javax.swing.JFrame {
         guestTable = new javax.swing.JTable();
         guestPhone = new javax.swing.JTextField();
         pwdLabel1 = new javax.swing.JLabel();
+        guestCancelBtn = new javax.swing.JButton();
         room = new javax.swing.JPanel();
         userTopic2 = new javax.swing.JLabel();
-        roomId = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        roomOccupancy = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        roomRate = new javax.swing.JTextField();
-        roomSaveBtn = new javax.swing.JButton();
-        roomUpdateBtn = new javax.swing.JButton();
-        roomDeleteBtn = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         roomTable = new javax.swing.JTable();
-        roomType = new javax.swing.JComboBox<>();
-        discount = new javax.swing.JPanel();
+        booking = new javax.swing.JPanel();
         userTopic1 = new javax.swing.JLabel();
-        discountType = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        discountRate = new javax.swing.JTextField();
-        discountSaveBtn = new javax.swing.JButton();
-        discountUpdateBtn = new javax.swing.JButton();
-        discountDeleteBtn = new javax.swing.JButton();
+        bookingCheckInBtn = new javax.swing.JButton();
+        bookingCancelBtn = new javax.swing.JButton();
+        bookingDeleteBtn = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        discountTable = new javax.swing.JTable();
-        discountId = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
+        bookingTable = new javax.swing.JTable();
+        pwdLabel2 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        bookingMessage = new javax.swing.JTextArea();
         report = new javax.swing.JPanel();
         reportTopic = new javax.swing.JLabel();
         user = new javax.swing.JPanel();
@@ -207,12 +192,10 @@ public class CashierDashboard extends javax.swing.JFrame {
         userId = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         userEmail = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
         userPhone = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        userFName = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        userLName = new javax.swing.JTextField();
+        userName = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         userSaveBtn = new javax.swing.JButton();
         userUpdateBtn = new javax.swing.JButton();
@@ -222,6 +205,7 @@ public class CashierDashboard extends javax.swing.JFrame {
         userChangePwdBtn = new javax.swing.JButton();
         userPassword = new javax.swing.JTextField();
         pwdLabel = new javax.swing.JLabel();
+        userCancelBtn = new javax.swing.JButton();
         hrLine = new javax.swing.JPanel();
         logoIcon = new javax.swing.JLabel();
         logoLabel = new javax.swing.JLabel();
@@ -238,7 +222,7 @@ public class CashierDashboard extends javax.swing.JFrame {
         roomPanel = new javax.swing.JPanel();
         roomLabel = new javax.swing.JLabel();
         roomIcon = new javax.swing.JLabel();
-        discountPanel = new javax.swing.JPanel();
+        bookingPanel = new javax.swing.JPanel();
         discountLabel = new javax.swing.JLabel();
         discountIcon = new javax.swing.JLabel();
         reportPanel = new javax.swing.JPanel();
@@ -1001,7 +985,7 @@ public class CashierDashboard extends javax.swing.JFrame {
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel15.setText("First Name :");
+        jLabel15.setText("Name :");
 
         guestEmail.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         guestEmail.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -1031,10 +1015,6 @@ public class CashierDashboard extends javax.swing.JFrame {
             }
         });
 
-        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel16.setText("Last Name :");
-
         guestFName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         guestFName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1050,18 +1030,6 @@ public class CashierDashboard extends javax.swing.JFrame {
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel17.setText("Address :");
-
-        guestLName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        guestLName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                guestLNameActionPerformed(evt);
-            }
-        });
-        guestLName.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                guestLNameKeyTyped(evt);
-            }
-        });
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -1100,14 +1068,14 @@ public class CashierDashboard extends javax.swing.JFrame {
         guestTable.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         guestTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Id", "First Name", "Last Name", "Address", "Email", "Phone No"
+                "Id", "Name", "Address", "Email", "Phone No"
             }
         ));
         guestTable.setRowHeight(20);
@@ -1141,6 +1109,16 @@ public class CashierDashboard extends javax.swing.JFrame {
         pwdLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         pwdLabel1.setText("Phone No :");
 
+        guestCancelBtn.setBackground(new java.awt.Color(85, 85, 85));
+        guestCancelBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        guestCancelBtn.setForeground(new java.awt.Color(255, 255, 255));
+        guestCancelBtn.setText("Cancel");
+        guestCancelBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guestCancelBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout guestLayout = new javax.swing.GroupLayout(guest);
         guest.setLayout(guestLayout);
         guestLayout.setHorizontalGroup(
@@ -1148,39 +1126,45 @@ public class CashierDashboard extends javax.swing.JFrame {
             .addGroup(guestLayout.createSequentialGroup()
                 .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(guestLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(userTopic3, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(guestLayout.createSequentialGroup()
+                        .addGap(103, 103, 103)
+                        .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel15))
+                        .addGap(21, 21, 21)
                         .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(guestId, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(guestFName, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(guestLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 791, Short.MAX_VALUE)
                             .addGroup(guestLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(userTopic3, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(guestLayout.createSequentialGroup()
-                                .addGap(91, 91, 91)
-                                .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel14)
-                                        .addComponent(jLabel17)
-                                        .addComponent(jLabel16)
-                                        .addComponent(jLabel15)
-                                        .addComponent(jLabel18))
+                                .addGap(70, 70, 70)
+                                .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel17)
+                                    .addComponent(jLabel18)
                                     .addComponent(pwdLabel1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(21, 21, 21)
                                 .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(guestLayout.createSequentialGroup()
+                                        .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(guestEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(guestAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(guestLayout.createSequentialGroup()
                                         .addComponent(guestPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(31, 31, 31)
+                                        .addGap(30, 30, 30)
                                         .addComponent(guestSaveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(guestUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(11, 11, 11)
+                                        .addComponent(guestDeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(guestDeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(guestEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(guestId, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(guestAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(guestLName, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(guestFName, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 177, Short.MAX_VALUE))
-                    .addGroup(guestLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane4)))
+                                        .addComponent(guestCancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         guestLayout.setVerticalGroup(
@@ -1197,10 +1181,6 @@ public class CashierDashboard extends javax.swing.JFrame {
                     .addComponent(jLabel15))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(guestLName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(guestAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1208,14 +1188,16 @@ public class CashierDashboard extends javax.swing.JFrame {
                     .addComponent(guestEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel18))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(guestPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pwdLabel1)
-                    .addComponent(guestSaveBtn)
-                    .addComponent(guestUpdateBtn)
-                    .addComponent(guestDeleteBtn))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(guestPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(guestDeleteBtn)
+                        .addComponent(guestSaveBtn)
+                        .addComponent(guestUpdateBtn)
+                        .addComponent(guestCancelBtn))
+                    .addComponent(pwdLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(44, 44, 44)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1227,112 +1209,23 @@ public class CashierDashboard extends javax.swing.JFrame {
         userTopic2.setForeground(new java.awt.Color(51, 51, 51));
         userTopic2.setText("Room Information");
 
-        roomId.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        roomId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                roomIdActionPerformed(evt);
-            }
-        });
-        roomId.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                roomIdKeyTyped(evt);
-            }
-        });
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel10.setText("Room ID :");
-
-        roomOccupancy.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        roomOccupancy.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                roomOccupancyActionPerformed(evt);
-            }
-        });
-        roomOccupancy.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                roomOccupancyKeyTyped(evt);
-            }
-        });
-
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel11.setText("Room Type :");
-
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel12.setText("Room Rate :");
-
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel13.setText("No of Occupancy :");
-
-        roomRate.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        roomRate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                roomRateActionPerformed(evt);
-            }
-        });
-        roomRate.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                roomRateKeyTyped(evt);
-            }
-        });
-
-        roomSaveBtn.setBackground(new java.awt.Color(0, 202, 78));
-        roomSaveBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        roomSaveBtn.setForeground(new java.awt.Color(255, 255, 255));
-        roomSaveBtn.setText("Save");
-        roomSaveBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                roomSaveBtnActionPerformed(evt);
-            }
-        });
-
-        roomUpdateBtn.setBackground(new java.awt.Color(255, 189, 68));
-        roomUpdateBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        roomUpdateBtn.setForeground(new java.awt.Color(255, 255, 255));
-        roomUpdateBtn.setText("Update");
-        roomUpdateBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                roomUpdateBtnActionPerformed(evt);
-            }
-        });
-
-        roomDeleteBtn.setBackground(new java.awt.Color(255, 96, 92));
-        roomDeleteBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        roomDeleteBtn.setForeground(new java.awt.Color(255, 255, 255));
-        roomDeleteBtn.setText("Delete");
-        roomDeleteBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                roomDeleteBtnActionPerformed(evt);
-            }
-        });
-
         roomTable.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         roomTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Id", "Room Type", "Room Rate", "No: of Occupancy", "Status"
+                "Id", "Room Type", "Status"
             }
         ));
         roomTable.setRowHeight(20);
         roomTable.setSelectionBackground(new java.awt.Color(102, 0, 0));
         roomTable.setSelectionForeground(new java.awt.Color(255, 234, 231));
-        roomTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                roomTableMouseClicked(evt);
-            }
-        });
         jScrollPane3.setViewportView(roomTable);
-
-        roomType.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout roomLayout = new javax.swing.GroupLayout(room);
         room.setLayout(roomLayout);
@@ -1341,32 +1234,9 @@ public class CashierDashboard extends javax.swing.JFrame {
             .addGroup(roomLayout.createSequentialGroup()
                 .addGroup(roomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(roomLayout.createSequentialGroup()
-                        .addGroup(roomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(roomLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(userTopic2, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(roomLayout.createSequentialGroup()
-                                .addGap(91, 91, 91)
-                                .addGroup(roomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jLabel13)
-                                    .addComponent(jLabel12)
-                                    .addComponent(jLabel11))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(roomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(roomId, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(roomLayout.createSequentialGroup()
-                                        .addGroup(roomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(roomType, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(roomOccupancy, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
-                                            .addComponent(roomRate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE))
-                                        .addGap(29, 29, 29)
-                                        .addComponent(roomSaveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(roomUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(roomDeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 141, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(userTopic2, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 405, Short.MAX_VALUE))
                     .addGroup(roomLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane3)))
@@ -1376,202 +1246,130 @@ public class CashierDashboard extends javax.swing.JFrame {
             roomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roomLayout.createSequentialGroup()
                 .addComponent(userTopic2)
-                .addGap(30, 30, 30)
-                .addGroup(roomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(roomId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(roomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(roomType, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13)
-                .addGroup(roomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(roomRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(roomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(roomOccupancy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13)
-                    .addComponent(roomSaveBtn)
-                    .addComponent(roomUpdateBtn)
-                    .addComponent(roomDeleteBtn))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         LayeredPane.add(room, "card2");
 
-        discount.setBackground(new java.awt.Color(255, 255, 255));
+        booking.setBackground(new java.awt.Color(255, 255, 255));
 
         userTopic1.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
         userTopic1.setForeground(new java.awt.Color(51, 51, 51));
-        userTopic1.setText("Discount Information");
+        userTopic1.setText("Booking Information");
 
-        discountType.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        discountType.addActionListener(new java.awt.event.ActionListener() {
+        bookingCheckInBtn.setBackground(new java.awt.Color(0, 202, 78));
+        bookingCheckInBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        bookingCheckInBtn.setForeground(new java.awt.Color(255, 255, 255));
+        bookingCheckInBtn.setText("Check In");
+        bookingCheckInBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                discountTypeActionPerformed(evt);
-            }
-        });
-        discountType.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                discountTypeKeyTyped(evt);
+                bookingCheckInBtnActionPerformed(evt);
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel7.setText("Discount Type :");
-
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel8.setText("Discount Rate (%) :");
-
-        discountRate.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        discountRate.addActionListener(new java.awt.event.ActionListener() {
+        bookingCancelBtn.setBackground(new java.awt.Color(255, 189, 68));
+        bookingCancelBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        bookingCancelBtn.setForeground(new java.awt.Color(255, 255, 255));
+        bookingCancelBtn.setText("Cancel");
+        bookingCancelBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                discountRateActionPerformed(evt);
-            }
-        });
-        discountRate.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                discountRateKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                discountRateKeyTyped(evt);
+                bookingCancelBtnActionPerformed(evt);
             }
         });
 
-        discountSaveBtn.setBackground(new java.awt.Color(0, 202, 78));
-        discountSaveBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        discountSaveBtn.setForeground(new java.awt.Color(255, 255, 255));
-        discountSaveBtn.setText("Save");
-        discountSaveBtn.addActionListener(new java.awt.event.ActionListener() {
+        bookingDeleteBtn.setBackground(new java.awt.Color(255, 96, 92));
+        bookingDeleteBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        bookingDeleteBtn.setForeground(new java.awt.Color(255, 255, 255));
+        bookingDeleteBtn.setText("Delete");
+        bookingDeleteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                discountSaveBtnActionPerformed(evt);
+                bookingDeleteBtnActionPerformed(evt);
             }
         });
 
-        discountUpdateBtn.setBackground(new java.awt.Color(255, 189, 68));
-        discountUpdateBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        discountUpdateBtn.setForeground(new java.awt.Color(255, 255, 255));
-        discountUpdateBtn.setText("Update");
-        discountUpdateBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                discountUpdateBtnActionPerformed(evt);
-            }
-        });
-
-        discountDeleteBtn.setBackground(new java.awt.Color(255, 96, 92));
-        discountDeleteBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        discountDeleteBtn.setForeground(new java.awt.Color(255, 255, 255));
-        discountDeleteBtn.setText("Delete");
-        discountDeleteBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                discountDeleteBtnActionPerformed(evt);
-            }
-        });
-
-        discountTable.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        discountTable.setModel(new javax.swing.table.DefaultTableModel(
+        bookingTable.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        bookingTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Discount Type", "Discount Rate (%)"
+                "Id", "Name", "Email", "Phone", "Check In Date", "No of Room", "Message"
             }
         ));
-        discountTable.setRowHeight(20);
-        discountTable.setSelectionBackground(new java.awt.Color(102, 0, 0));
-        discountTable.setSelectionForeground(new java.awt.Color(255, 234, 231));
-        discountTable.addMouseListener(new java.awt.event.MouseAdapter() {
+        bookingTable.setRowHeight(20);
+        bookingTable.setSelectionBackground(new java.awt.Color(102, 0, 0));
+        bookingTable.setSelectionForeground(new java.awt.Color(255, 234, 231));
+        bookingTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                discountTableMouseClicked(evt);
+                bookingTableMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(discountTable);
+        jScrollPane2.setViewportView(bookingTable);
 
-        discountId.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        discountId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                discountIdActionPerformed(evt);
-            }
-        });
-        discountId.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                discountIdKeyTyped(evt);
-            }
-        });
+        pwdLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        pwdLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        pwdLabel2.setText("Message :");
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel9.setText("Id :");
+        bookingMessage.setColumns(20);
+        bookingMessage.setLineWrap(true);
+        bookingMessage.setRows(5);
+        jScrollPane6.setViewportView(bookingMessage);
 
-        javax.swing.GroupLayout discountLayout = new javax.swing.GroupLayout(discount);
-        discount.setLayout(discountLayout);
-        discountLayout.setHorizontalGroup(
-            discountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(discountLayout.createSequentialGroup()
-                .addGroup(discountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(discountLayout.createSequentialGroup()
-                        .addGroup(discountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(discountLayout.createSequentialGroup()
+        javax.swing.GroupLayout bookingLayout = new javax.swing.GroupLayout(booking);
+        booking.setLayout(bookingLayout);
+        bookingLayout.setHorizontalGroup(
+            bookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bookingLayout.createSequentialGroup()
+                .addGroup(bookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(bookingLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 791, Short.MAX_VALUE))
+                    .addGroup(bookingLayout.createSequentialGroup()
+                        .addGroup(bookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(bookingLayout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(userTopic1, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(discountLayout.createSequentialGroup()
-                                .addGap(91, 91, 91)
-                                .addGroup(discountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel9))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(discountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(discountType, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(discountLayout.createSequentialGroup()
-                                        .addComponent(discountRate, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(31, 31, 31)
-                                        .addComponent(discountSaveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(discountUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(discountDeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(discountId, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 131, Short.MAX_VALUE))
-                    .addGroup(discountLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2)))
+                            .addGroup(bookingLayout.createSequentialGroup()
+                                .addGap(39, 39, 39)
+                                .addComponent(bookingCheckInBtn)
+                                .addGap(18, 18, 18)
+                                .addComponent(bookingCancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(bookingDeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(bookingLayout.createSequentialGroup()
+                .addGap(130, 130, 130)
+                .addComponent(pwdLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(111, 111, 111))
         );
-        discountLayout.setVerticalGroup(
-            discountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(discountLayout.createSequentialGroup()
+        bookingLayout.setVerticalGroup(
+            bookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bookingLayout.createSequentialGroup()
                 .addComponent(userTopic1)
-                .addGap(30, 30, 30)
-                .addGroup(discountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(discountId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(discountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(discountType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(discountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(discountRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(discountSaveBtn)
-                    .addComponent(discountUpdateBtn)
-                    .addComponent(discountDeleteBtn)
-                    .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(bookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bookingCheckInBtn)
+                    .addComponent(bookingCancelBtn)
+                    .addComponent(bookingDeleteBtn))
+                .addGap(18, 18, 18)
+                .addGroup(bookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pwdLabel2)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        LayeredPane.add(discount, "card2");
+        LayeredPane.add(booking, "card2");
 
         report.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1601,7 +1399,7 @@ public class CashierDashboard extends javax.swing.JFrame {
 
         userTopic.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
         userTopic.setForeground(new java.awt.Color(51, 51, 51));
-        userTopic.setText("User Information");
+        userTopic.setText("Account Setting");
 
         userId.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         userId.addActionListener(new java.awt.event.ActionListener() {
@@ -1617,7 +1415,7 @@ public class CashierDashboard extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel2.setText("User Name :");
+        jLabel2.setText("Id :");
 
         userEmail.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         userEmail.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -1636,10 +1434,6 @@ public class CashierDashboard extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel3.setText("First Name :");
-
         userPhone.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         userPhone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1657,33 +1451,21 @@ public class CashierDashboard extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel4.setText("Last Name :");
-
-        userFName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        userFName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userFNameActionPerformed(evt);
-            }
-        });
-        userFName.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                userFNameKeyTyped(evt);
-            }
-        });
+        jLabel4.setText("Name :");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel5.setText("Email :");
 
-        userLName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        userLName.addActionListener(new java.awt.event.ActionListener() {
+        userName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        userName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userLNameActionPerformed(evt);
+                userNameActionPerformed(evt);
             }
         });
-        userLName.addKeyListener(new java.awt.event.KeyAdapter() {
+        userName.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                userLNameKeyTyped(evt);
+                userNameKeyTyped(evt);
             }
         });
 
@@ -1724,14 +1506,14 @@ public class CashierDashboard extends javax.swing.JFrame {
         userTable.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         userTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Id", "First Name", "Last Name", "Email", "Phone No"
+                "Id", "Name", "Email", "Phone No"
             }
         ));
         userTable.setRowHeight(20);
@@ -1765,6 +1547,16 @@ public class CashierDashboard extends javax.swing.JFrame {
         pwdLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         pwdLabel.setText("Password :");
 
+        userCancelBtn.setBackground(new java.awt.Color(85, 85, 85));
+        userCancelBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        userCancelBtn.setForeground(new java.awt.Color(255, 255, 255));
+        userCancelBtn.setText("Cancel");
+        userCancelBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userCancelBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout userLayout = new javax.swing.GroupLayout(user);
         user.setLayout(userLayout);
         userLayout.setHorizontalGroup(
@@ -1781,19 +1573,17 @@ public class CashierDashboard extends javax.swing.JFrame {
                                 .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel5)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel3)
                                     .addComponent(jLabel6)
-                                    .addComponent(pwdLabel))
+                                    .addComponent(pwdLabel)
+                                    .addComponent(jLabel4))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(userPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(userId, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(userName, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(userEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(userLayout.createSequentialGroup()
-                                        .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(userEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(userLName, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(userFName, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(userPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(31, 31, 31)
                                         .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(userChangePwdBtn)
@@ -1802,11 +1592,10 @@ public class CashierDashboard extends javax.swing.JFrame {
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(userUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(userDeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                            .addGroup(userLayout.createSequentialGroup()
-                                .addGap(168, 168, 168)
-                                .addComponent(userPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 174, Short.MAX_VALUE))
+                                                .addComponent(userDeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(userCancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                        .addGap(0, 94, Short.MAX_VALUE))
                     .addGroup(userLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1)))
@@ -1822,13 +1611,9 @@ public class CashierDashboard extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(userFName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(userLName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(userName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(userEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
@@ -1838,14 +1623,15 @@ public class CashierDashboard extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(userSaveBtn)
                     .addComponent(userUpdateBtn)
-                    .addComponent(userDeleteBtn))
-                .addGap(35, 35, 35)
+                    .addComponent(userDeleteBtn)
+                    .addComponent(userCancelBtn))
+                .addGap(31, 31, 31)
                 .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(userChangePwdBtn)
                     .addComponent(userPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pwdLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pwdLabel)
+                    .addComponent(userChangePwdBtn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -2061,41 +1847,41 @@ public class CashierDashboard extends javax.swing.JFrame {
             .addComponent(roomIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        discountPanel.setBackground(new java.awt.Color(102, 0, 0));
-        discountPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+        bookingPanel.setBackground(new java.awt.Color(102, 0, 0));
+        bookingPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                discountPanelMouseClicked(evt);
+                bookingPanelMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                discountPanelMouseEntered(evt);
+                bookingPanelMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                discountPanelMouseExited(evt);
+                bookingPanelMouseExited(evt);
             }
         });
 
         discountLabel.setFont(new java.awt.Font("Berlin Sans FB", 0, 20)); // NOI18N
         discountLabel.setForeground(new java.awt.Color(255, 255, 255));
-        discountLabel.setText("Discount");
+        discountLabel.setText("Booking");
         discountLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         discountIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/discount.png"))); // NOI18N
         discountIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        javax.swing.GroupLayout discountPanelLayout = new javax.swing.GroupLayout(discountPanel);
-        discountPanel.setLayout(discountPanelLayout);
-        discountPanelLayout.setHorizontalGroup(
-            discountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(discountPanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout bookingPanelLayout = new javax.swing.GroupLayout(bookingPanel);
+        bookingPanel.setLayout(bookingPanelLayout);
+        bookingPanelLayout.setHorizontalGroup(
+            bookingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bookingPanelLayout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(discountIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(discountLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        discountPanelLayout.setVerticalGroup(
-            discountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(discountPanelLayout.createSequentialGroup()
+        bookingPanelLayout.setVerticalGroup(
+            bookingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bookingPanelLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(discountLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(discountIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -2240,7 +2026,7 @@ public class CashierDashboard extends javax.swing.JFrame {
                             .addComponent(checkedOutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(guestPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(roomPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(discountPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bookingPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(reportPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(userPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(logoutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -2269,7 +2055,7 @@ public class CashierDashboard extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(roomPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(discountPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bookingPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(reportPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2357,15 +2143,15 @@ public class CashierDashboard extends javax.swing.JFrame {
         roomIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/room.png")));
     }//GEN-LAST:event_roomPanelMouseExited
 
-    private void discountPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_discountPanelMouseEntered
-        discountPanel.setBackground(new java.awt.Color(70, 0, 0));
+    private void bookingPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bookingPanelMouseEntered
+        bookingPanel.setBackground(new java.awt.Color(70, 0, 0));
         discountIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/discount_filled.png")));
-    }//GEN-LAST:event_discountPanelMouseEntered
+    }//GEN-LAST:event_bookingPanelMouseEntered
 
-    private void discountPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_discountPanelMouseExited
-        discountPanel.setBackground(new java.awt.Color(102, 0, 0));
+    private void bookingPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bookingPanelMouseExited
+        bookingPanel.setBackground(new java.awt.Color(102, 0, 0));
         discountIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/discount.png")));
-    }//GEN-LAST:event_discountPanelMouseExited
+    }//GEN-LAST:event_bookingPanelMouseExited
 
     private void logoutPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutPanelMouseEntered
         logoutPanel.setBackground(new java.awt.Color(70, 0, 0));
@@ -2415,12 +2201,12 @@ public class CashierDashboard extends javax.swing.JFrame {
         viewRoomDetails();
     }//GEN-LAST:event_roomPanelMouseClicked
 
-    private void discountPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_discountPanelMouseClicked
+    private void bookingPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bookingPanelMouseClicked
         panelDefault();
-        discount.setVisible(true);
+        booking.setVisible(true);
         
-        viewDiscountDetails();
-    }//GEN-LAST:event_discountPanelMouseClicked
+        viewBookingDetails();
+    }//GEN-LAST:event_bookingPanelMouseClicked
 
     private void reportPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportPanelMouseClicked
         panelDefault();
@@ -2450,13 +2236,9 @@ public class CashierDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_userPhoneActionPerformed
 
-    private void userFNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userFNameActionPerformed
+    private void userNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_userFNameActionPerformed
-
-    private void userLNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userLNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_userLNameActionPerformed
+    }//GEN-LAST:event_userNameActionPerformed
 
     private void userPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userPasswordActionPerformed
         // TODO add your handling code here:
@@ -2466,17 +2248,16 @@ public class CashierDashboard extends javax.swing.JFrame {
         User user = new User();
         
         String id = this.userId.getText().trim();
-        String fName = this.userFName.getText().trim();
-        String lName = this.userLName.getText().trim();
+        String name = this.userName.getText().trim();
         String email = this.userEmail.getText().trim();
         String phone = this.userPhone.getText().trim();
         //String password = this.password.getText().trim();
         
-        if(id.isEmpty() || fName.isEmpty() || lName.isEmpty() || email.isEmpty() || phone.isEmpty()){
+        if(id.isEmpty() || name.isEmpty() || email.isEmpty() || phone.isEmpty()){
             new ErrorMsg().showErr("Please fill all the fields...");
         } else {
             user.setId(id);
-            user.setName(fName);
+            user.setName(name);
             user.setEmail(email);
             user.setPhone(phone);
             //user.setPassword(password);
@@ -2524,10 +2305,9 @@ public class CashierDashboard extends javax.swing.JFrame {
         editUserId = userTable.getValueAt(row, 0).toString();
 
         userId.setText(editUserId);
-        userFName.setText(userTable.getValueAt(row, 1).toString());
-        userLName.setText(userTable.getValueAt(row, 2).toString());
-        userEmail.setText(userTable.getValueAt(row, 3).toString());
-        userPhone.setText(userTable.getValueAt(row, 4).toString());
+        userName.setText(userTable.getValueAt(row, 1).toString());
+        userEmail.setText(userTable.getValueAt(row, 2).toString());
+        userPhone.setText(userTable.getValueAt(row, 3).toString());
 
         //self deleting disabled
         if(!editUserId.equalsIgnoreCase(Login.id)){
@@ -2539,6 +2319,8 @@ public class CashierDashboard extends javax.swing.JFrame {
                 userDeleteBtn.setVisible(true);
             }
             userSaveBtn.setVisible(false);
+            userCancelBtn.setVisible(true);
+            
             pwdLabel.setEnabled(false);
             userPassword.setEnabled(false);
             userChangePwdBtn.setEnabled(false);
@@ -2546,6 +2328,8 @@ public class CashierDashboard extends javax.swing.JFrame {
             userSaveBtn.setVisible(false);
             userUpdateBtn.setVisible(true);
             userDeleteBtn.setVisible(false);
+            userCancelBtn.setVisible(true);
+            
             pwdLabel.setEnabled(true);
             userPassword.setEnabled(true);
             userChangePwdBtn.setEnabled(true);
@@ -2556,17 +2340,16 @@ public class CashierDashboard extends javax.swing.JFrame {
         User user = new User();
         
         String id = this.userId.getText().trim();
-        String fName = this.userFName.getText().trim();
-        String lName = this.userLName.getText().trim();
+        String name = this.userName.getText().trim();
         String email = this.userEmail.getText().trim();
         String phone = this.userPhone.getText().trim();
         String password = "123";
         
-        if(id.isEmpty() || fName.isEmpty() || lName.isEmpty() || email.isEmpty() || phone.isEmpty()){
+        if(id.isEmpty() || name.isEmpty() || email.isEmpty() || phone.isEmpty()){
             new ErrorMsg().showErr("Please fill all the fields...");
         } else {
             user.setId(id);
-            user.setName(fName);
+            user.setName(name);
             user.setEmail(email);
             user.setPhone(phone);
             user.setPassword(password);
@@ -2609,280 +2392,47 @@ public class CashierDashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_userChangePwdBtnActionPerformed
 
-    private void discountTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_discountTypeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_discountTypeActionPerformed
-
-    private void discountTypeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_discountTypeKeyTyped
-        if (discountType.getText().length() >= 20){
-            evt.consume();
-        }
-    }//GEN-LAST:event_discountTypeKeyTyped
-
-    private void discountRateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_discountRateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_discountRateActionPerformed
-
-    private void discountSaveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_discountSaveBtnActionPerformed
-        Discount discount = new Discount();
+    private void bookingCheckInBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookingCheckInBtnActionPerformed
+        Booking booking = new Booking();
         
-        String id = this.discountId.getText().trim();
-        String type = this.discountType.getText().trim();
-        String rate = this.discountRate.getText().trim();
-        
-        if(id.isEmpty() || type.isEmpty() || rate.isEmpty()){
-            new ErrorMsg().showErr("Please fill all the fields...");
-        } else {
-            discount.setId(id);
-            discount.setType(type);
-            discount.setRate(rate);
-
-            discount.createDiscount();
-            viewDiscountDetails();
-        }
-    }//GEN-LAST:event_discountSaveBtnActionPerformed
-
-    private void discountUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_discountUpdateBtnActionPerformed
-        Discount discount = new Discount();
-        
-        String id = this.discountId.getText().trim();
-        String type = this.discountType.getText().trim();
-        String rate = this.discountRate.getText().trim();
-        
-        if(id.isEmpty() || type.isEmpty() || rate.isEmpty()){
-            new ErrorMsg().showErr("Please fill all the fields...");
-        } else {
-            discount.setId(id);
-            discount.setType(type);
-            discount.setRate(rate);
-
-            discount.updateDiscount(editDiscountId);
-            viewDiscountDetails();
-        }
-    }//GEN-LAST:event_discountUpdateBtnActionPerformed
-
-    private void discountDeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_discountDeleteBtnActionPerformed
-        conn = obj.connect();
-        
-        try {
-            if(editDiscountId.isEmpty()){
-                new ErrorMsg().showErr("Please select record...");
-            } else {
-                int a = JOptionPane.showConfirmDialog(null, "Are you sure ?");
-                if(a==0){
-                    try {
-                        cs = conn.prepareCall("{call deleteDiscountDetails(?)}");
-                        cs.setString("dId", editDiscountId);
-                        
-                        if(cs.executeUpdate()==1){
-                            viewDiscountDetails();
-                            new ErrorMsg().showErr("Record deleted successfully...");
-                        }
-                    } catch (SQLException e) {
-                        new ErrorMsg().showErr(e.getMessage());
-                    }
-                    editDiscountId = null;
-                }
-            }
-        } catch (HeadlessException e) {
+        if(editBookingId.isEmpty()){
             new ErrorMsg().showErr("Please select record...");
+        } else {
+            booking.setId(editBookingId);
+
+            viewBookingDetails();
         }
         
-        conn = null;
-    }//GEN-LAST:event_discountDeleteBtnActionPerformed
+        editBookingId = null;
+    }//GEN-LAST:event_bookingCheckInBtnActionPerformed
 
-    private void discountTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_discountTableMouseClicked
+    private void bookingCancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookingCancelBtnActionPerformed
+        Booking booking = new Booking();
+        
+        if(editBookingId.isEmpty()){
+            new ErrorMsg().showErr("Please select record...");
+        } else {
+            booking.setId(editBookingId);
+
+            booking.cancelBooking();
+            viewBookingDetails();
+        }
+        
+        editBookingId = null;
+    }//GEN-LAST:event_bookingCancelBtnActionPerformed
+
+    private void bookingTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bookingTableMouseClicked
         DefaultTableModel model = (DefaultTableModel) userTable.getModel();
-        int row = discountTable.getSelectedRow();
+        int row = bookingTable.getSelectedRow();
 
-        editDiscountId = discountTable.getValueAt(row, 0).toString();
+        editBookingId = bookingTable.getValueAt(row, 0).toString();
 
-        discountId.setText(editDiscountId);
-        discountType.setText(discountTable.getValueAt(row, 1).toString());
-        discountRate.setText(discountTable.getValueAt(row, 2).toString());
+        bookingMessage.setText(bookingTable.getValueAt(row, 6).toString());
 
-        discountSaveBtn.setVisible(false);
-        discountUpdateBtn.setVisible(true);
-        discountDeleteBtn.setVisible(true);
-    }//GEN-LAST:event_discountTableMouseClicked
-
-    private void discountIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_discountIdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_discountIdActionPerformed
-
-    private void discountIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_discountIdKeyTyped
-        char enter = evt.getKeyChar();
-        
-        if ((!(Character.isDigit(enter)))){
-            evt.consume();
-        }
-    }//GEN-LAST:event_discountIdKeyTyped
-
-    private void discountRateKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_discountRateKeyTyped
-        char enter = evt.getKeyChar();
-        
-        if ((discountRate.getText().length() >= 3 ) || (!(Character.isDigit(enter)))){
-            evt.consume();
-        }
-    }//GEN-LAST:event_discountRateKeyTyped
-
-    private void discountRateKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_discountRateKeyPressed
-        
-    }//GEN-LAST:event_discountRateKeyPressed
-
-    private void roomIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomIdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_roomIdActionPerformed
-
-    private void roomIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_roomIdKeyTyped
-        char enter = evt.getKeyChar();
-        
-        if ((!(Character.isDigit(enter)))){
-            evt.consume();
-        }
-    }//GEN-LAST:event_roomIdKeyTyped
-
-    private void roomOccupancyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomOccupancyActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_roomOccupancyActionPerformed
-
-    private void roomRateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomRateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_roomRateActionPerformed
-
-    private void roomSaveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomSaveBtnActionPerformed
-        Room room = new Room();
-        
-        String roomId = this.roomId.getText().trim();
-        String roomType = this.roomType.getSelectedItem().toString();
-        
-        conn = obj.connect();
-        
-        try {
-            cs = conn.prepareCall("{call `getRoomTypeId`(?)}");
-            cs.setString("rType", roomType);
-            rs = cs.executeQuery();
-
-            while(rs.next()){
-                roomType = rs.getString("id");
-            }
-
-        } catch (SQLException e) {
-            new ErrorMsg().showErr(e.getMessage());
-            //JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-        
-        conn = null;
-        
-        if(roomId.isEmpty()){
-            new ErrorMsg().showErr("Please fill all the fields...");
-        } else {
-            room.setRoomId(roomId);
-            room.setRoomType(roomType);
-
-            room.createRoom();
-            viewRoomDetails();
-        }
-    }//GEN-LAST:event_roomSaveBtnActionPerformed
-
-    private void roomUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomUpdateBtnActionPerformed
-        Room room = new Room();
-        
-        String roomId = this.roomId.getText().trim();
-        String roomType = this.roomType.getSelectedItem().toString();
-        
-        conn = obj.connect();
-        
-        try {
-            cs = conn.prepareCall("{call `getRoomTypeId`(?)}");
-            cs.setString("rType", roomType);
-            rs = cs.executeQuery();
-
-            while(rs.next()){
-                roomType = rs.getString("id");
-            }
-
-        } catch (SQLException e) {
-            new ErrorMsg().showErr(e.getMessage());
-            //JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-        
-        conn = null;
-        
-        String roomRate = this.roomRate.getText().trim();
-        String roomOccupancy = this.roomOccupancy.getText().trim();
-        
-        if(roomId.isEmpty() || roomRate.isEmpty() || roomOccupancy.isEmpty()){
-            new ErrorMsg().showErr("Please fill all the fields...");
-        } else {
-            room.setRoomId(roomId);
-            room.setRoomType(roomType);
-
-            room.updateRoom(editRoomId);
-            viewRoomDetails();
-        }
-    }//GEN-LAST:event_roomUpdateBtnActionPerformed
-
-    private void roomDeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomDeleteBtnActionPerformed
-        conn = obj.connect();
-        
-        try {
-            if(editRoomId.isEmpty()){
-                new ErrorMsg().showErr("Please select record...");
-            } else {
-                int a = JOptionPane.showConfirmDialog(null, "Are you sure ?");
-                if(a==0){
-                    try {
-                        cs = conn.prepareCall("{call deleteRoomDetails(?)}");
-                        cs.setString("rId", editRoomId);
-                        
-                        if(cs.executeUpdate()==1){
-                            viewRoomDetails();
-                            new ErrorMsg().showErr("Record deleted successfully...");
-                        }
-                    } catch (SQLException e) {
-                        new ErrorMsg().showErr(e.getMessage());
-                    }
-                    editRoomId = null;
-                }
-            }
-        } catch (HeadlessException e) {
-            new ErrorMsg().showErr("Please select record...");
-        }
-        
-        conn = null;
-    }//GEN-LAST:event_roomDeleteBtnActionPerformed
-
-    private void roomTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_roomTableMouseClicked
-        int row = roomTable.getSelectedRow();
-
-        editRoomId = roomTable.getValueAt(row, 0).toString();
-
-        roomId.setText(editRoomId);
-        roomType.setSelectedItem(roomTable.getValueAt(row, 1).toString());
-        roomRate.setText(roomTable.getValueAt(row, 2).toString());
-        roomOccupancy.setText(roomTable.getValueAt(row, 3).toString());
-
-        roomSaveBtn.setVisible(false);
-        roomUpdateBtn.setVisible(true);
-        roomDeleteBtn.setVisible(true);
-    }//GEN-LAST:event_roomTableMouseClicked
-
-    private void roomRateKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_roomRateKeyTyped
-        char enter = evt.getKeyChar();
-        
-        if ((!(Character.isDigit(enter)))){
-            evt.consume();
-        }
-    }//GEN-LAST:event_roomRateKeyTyped
-
-    private void roomOccupancyKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_roomOccupancyKeyTyped
-        char enter = evt.getKeyChar();
-        
-        if ((!(Character.isDigit(enter)))){
-            evt.consume();
-        }
-    }//GEN-LAST:event_roomOccupancyKeyTyped
+        bookingCheckInBtn.setVisible(true);
+        bookingCancelBtn.setVisible(true);
+        bookingDeleteBtn.setVisible(true);
+    }//GEN-LAST:event_bookingTableMouseClicked
 
     private void guestIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guestIdActionPerformed
         // TODO add your handling code here:
@@ -2916,26 +2466,20 @@ public class CashierDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_guestFNameActionPerformed
 
-    private void guestLNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guestLNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_guestLNameActionPerformed
-
     private void guestSaveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guestSaveBtnActionPerformed
         Guest guest = new Guest();
         
         String id = this.guestId.getText().trim();
-        String fName = this.guestFName.getText().trim();
-        String lName = this.guestLName.getText().trim();
+        String name = this.guestFName.getText().trim();
         String address = this.guestAddress.getText().trim();
         String email = this.guestEmail.getText().trim();
         String phone = this.guestPhone.getText().trim();
         
-        if(id.isEmpty() || fName.isEmpty() || lName.isEmpty() || address.isEmpty() || email.isEmpty() || phone.isEmpty()){
+        if(id.isEmpty() || name.isEmpty() || address.isEmpty() || email.isEmpty() || phone.isEmpty()){
             new ErrorMsg().showErr("Please fill all the fields...");
         } else {
             guest.setId(id);
-            guest.setfName(fName);
-            guest.setlName(lName);
+            guest.setName(name);
             guest.setAddress(address);
             guest.setEmail(email);
             guest.setPhone(phone);
@@ -2948,18 +2492,16 @@ public class CashierDashboard extends javax.swing.JFrame {
     private void guestUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guestUpdateBtnActionPerformed
         Guest guest = new Guest();
         
-        String fName = this.guestFName.getText().trim();
-        String lName = this.guestLName.getText().trim();
+        String name = this.guestFName.getText().trim();
         String address = this.guestAddress.getText().trim();
         String email = this.guestEmail.getText().trim();
         String phone = this.guestPhone.getText().trim();
         
-        if(fName.isEmpty() || lName.isEmpty() || address.isEmpty() || email.isEmpty() || phone.isEmpty()){
+        if(name.isEmpty() || address.isEmpty() || email.isEmpty() || phone.isEmpty()){
             new ErrorMsg().showErr("Please fill all the fields...");
         } else {
             guest.setId(editGuestId);
-            guest.setfName(fName);
-            guest.setlName(lName);
+            guest.setName(name);
             guest.setAddress(address);
             guest.setEmail(email);
             guest.setPhone(phone);
@@ -3007,14 +2549,14 @@ public class CashierDashboard extends javax.swing.JFrame {
 
         guestId.setText(editGuestId);
         guestFName.setText(guestTable.getValueAt(row, 1).toString());
-        guestLName.setText(guestTable.getValueAt(row, 2).toString());
-        guestAddress.setText(guestTable.getValueAt(row, 3).toString());
-        guestEmail.setText(guestTable.getValueAt(row, 4).toString());
-        guestPhone.setText(guestTable.getValueAt(row, 5).toString());
+        guestAddress.setText(guestTable.getValueAt(row, 2).toString());
+        guestEmail.setText(guestTable.getValueAt(row, 3).toString());
+        guestPhone.setText(guestTable.getValueAt(row, 4).toString());
 
         guestSaveBtn.setVisible(false);
         guestUpdateBtn.setVisible(true);
         guestDeleteBtn.setVisible(true);
+        guestCancelBtn.setVisible(true);
     }//GEN-LAST:event_guestTableMouseClicked
 
     private void guestPhoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guestPhoneActionPerformed
@@ -3089,17 +2631,11 @@ public class CashierDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_checkinDeleteBtnActionPerformed
 
-    private void userFNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_userFNameKeyTyped
-        if (userFName.getText().length() >= 20){
+    private void userNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_userNameKeyTyped
+        if (userName.getText().length() >= 20){
             evt.consume();
         }
-    }//GEN-LAST:event_userFNameKeyTyped
-
-    private void userLNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_userLNameKeyTyped
-        if (userLName.getText().length() >= 20){
-            evt.consume();
-        }
-    }//GEN-LAST:event_userLNameKeyTyped
+    }//GEN-LAST:event_userNameKeyTyped
 
     private void userEmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_userEmailKeyTyped
         if (userEmail.getText().length() >= 100){
@@ -3112,12 +2648,6 @@ public class CashierDashboard extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_guestFNameKeyTyped
-
-    private void guestLNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_guestLNameKeyTyped
-        if (guestLName.getText().length() >= 20){
-            evt.consume();
-        }
-    }//GEN-LAST:event_guestLNameKeyTyped
 
     private void guestAddressKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_guestAddressKeyTyped
         if (guestAddress.getText().length() >= 200){
@@ -3432,12 +2962,41 @@ public class CashierDashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_checkoutCashKeyTyped
 
+    private void guestCancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guestCancelBtnActionPerformed
+        panelDefault();
+        guest.setVisible(true);
+        
+        viewGuestDetails();
+    }//GEN-LAST:event_guestCancelBtnActionPerformed
+
+    private void bookingDeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookingDeleteBtnActionPerformed
+        Booking booking = new Booking();
+        
+        if(editBookingId.isEmpty()){
+            new ErrorMsg().showErr("Please select record...");
+        } else {
+            booking.setId(editBookingId);
+
+            booking.deleteBooking();
+            viewBookingDetails();
+        }
+        
+        editBookingId = null;
+    }//GEN-LAST:event_bookingDeleteBtnActionPerformed
+
+    private void userCancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userCancelBtnActionPerformed
+        panelDefault();
+        user.setVisible(true);
+        
+        viewUserDetails();
+    }//GEN-LAST:event_userCancelBtnActionPerformed
+
     private void panelDefault(){
         checkIn.setVisible(false);
         checkout.setVisible(false);
         guest.setVisible(false);
         room.setVisible(false);
-        discount.setVisible(false);
+        booking.setVisible(false);
         report.setVisible(false);
         user.setVisible(false);
     }
@@ -3471,8 +3030,7 @@ public class CashierDashboard extends javax.swing.JFrame {
             userId.setText("CSR"+String.format("%03d", nextId));
         }
             
-        userFName.setText(null);
-        userLName.setText(null);
+        userName.setText(null);
         userEmail.setText(null);
         userPhone.setText(null);
         userPassword.setText(null);
@@ -3486,6 +3044,7 @@ public class CashierDashboard extends javax.swing.JFrame {
         
         userUpdateBtn.setVisible(false);
         userDeleteBtn.setVisible(false);
+        userCancelBtn.setVisible(false);
         
         pwdLabel.setEnabled(false);
         userPassword.setEnabled(false);
@@ -3520,41 +3079,21 @@ public class CashierDashboard extends javax.swing.JFrame {
         
     }
     
-    public void viewDiscountDetails(){
+    public void viewBookingDetails(){
         
         conn = obj.connect();
         
-        String lastId = "0";
-
-        try {
-            String sql = "CALL `lastDiscountId`()";
-            ps = conn.prepareCall(sql);
-            rs = ps.executeQuery();
-
-            while(rs.next()){
-                lastId = rs.getString("id");
-            }
-
-        } catch (SQLException e) {
-            new ErrorMsg().showErr(e.getMessage());
-            //JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-
-        int nextId = Integer.valueOf(lastId)+1;
-
-        discountId.setText(String.format("%d", nextId));
-        discountType.setText(null);
-        discountRate.setText(null);
+        bookingMessage.setText(null);
         
-        discountSaveBtn.setVisible(true);
-        discountUpdateBtn.setVisible(false);
-        discountDeleteBtn.setVisible(false);
+        bookingCheckInBtn.setVisible(false);
+        bookingCancelBtn.setVisible(false);
+        bookingDeleteBtn.setVisible(false);
         
         try {
-                cs = conn.prepareCall("{CALL `viewDiscountDetails`()}");
+                cs = conn.prepareCall("{CALL `viewBookingDetails`()}");
                 rs = cs.executeQuery();
 
-                discountTable.setModel(DbUtils.resultSetToTableModel(rs));
+                bookingTable.setModel(DbUtils.resultSetToTableModel(rs));
 
             } catch (SQLException e) {
                 new ErrorMsg().showErr(e.getMessage());
@@ -3567,47 +3106,18 @@ public class CashierDashboard extends javax.swing.JFrame {
     
     public void viewRoomDetails(){
         
-        comboBoxRoomType();
-        
         conn = obj.connect();
         
-        String lastId = "0";
-
         try {
-            String sql = "CALL `lastRoomId`()";
-            ps = conn.prepareCall(sql);
-            rs = ps.executeQuery();
+            cs = conn.prepareCall("{CALL `viewRoomDetails`()}");
+            rs = cs.executeQuery();
 
-            while(rs.next()){
-                lastId = rs.getString("id");
-            }
+            roomTable.setModel(DbUtils.resultSetToTableModel(rs));
 
         } catch (SQLException e) {
             new ErrorMsg().showErr(e.getMessage());
             //JOptionPane.showMessageDialog(null, e.getMessage());
         }
-
-        int nextId = Integer.valueOf(lastId)+1;
-
-        roomId.setText(String.format("%d", nextId));
-        roomType.setSelectedIndex(0);
-        roomRate.setText(null);
-        roomOccupancy.setText(null);
-        
-        roomSaveBtn.setVisible(true);
-        roomUpdateBtn.setVisible(false);
-        roomDeleteBtn.setVisible(false);
-        
-        try {
-                cs = conn.prepareCall("{CALL `viewRoomDetails`()}");
-                rs = cs.executeQuery();
-
-                roomTable.setModel(DbUtils.resultSetToTableModel(rs));
-
-            } catch (SQLException e) {
-                new ErrorMsg().showErr(e.getMessage());
-                //JOptionPane.showMessageDialog(null, e.getMessage());
-            }
         
         conn = null;
         
@@ -3619,7 +3129,6 @@ public class CashierDashboard extends javax.swing.JFrame {
         
         guestId.setText(null);
         guestFName.setText(null);
-        guestLName.setText(null);
         guestAddress.setText(null);
         guestEmail.setText(null);
         guestPhone.setText(null);
@@ -3627,6 +3136,7 @@ public class CashierDashboard extends javax.swing.JFrame {
         guestSaveBtn.setVisible(true);
         guestUpdateBtn.setVisible(false);
         guestDeleteBtn.setVisible(false);
+        guestCancelBtn.setVisible(false);
         
         try {
                 cs = conn.prepareCall("{CALL `viewGuestDetails`()}");
@@ -3705,30 +3215,6 @@ public class CashierDashboard extends javax.swing.JFrame {
         
         conn = null;
         
-    }
-    
-    public void comboBoxRoomType(){
-        
-        try {
-            roomType.removeAllItems();
-        } catch (Exception e) {
-        }
-        
-        conn = obj.connect();
-        
-        try {
-            cs = conn.prepareCall("{CALL `roomTypeDetails`()}");
-            rs = cs.executeQuery();
-            
-            while(rs.next()){
-                roomType.addItem(rs.getString("type"));
-            }
-            
-        } catch (SQLException e) {
-            new ErrorMsg().showErr(e.getMessage());
-        }
-        
-        conn = null;
     }
     
     public void comboBoxCheckInGuestId(){
@@ -4069,6 +3555,13 @@ public class CashierDashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLayeredPane LayeredPane;
+    private javax.swing.JPanel booking;
+    private javax.swing.JButton bookingCancelBtn;
+    private javax.swing.JButton bookingCheckInBtn;
+    private javax.swing.JButton bookingDeleteBtn;
+    private javax.swing.JTextArea bookingMessage;
+    private javax.swing.JPanel bookingPanel;
+    private javax.swing.JTable bookingTable;
     private javax.swing.JPanel checkIn;
     private javax.swing.JLabel checkedInIcon;
     private javax.swing.JLabel checkedInLabel;
@@ -4112,25 +3605,16 @@ public class CashierDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel copyrights;
     private javax.swing.JPanel dashboarddPane;
     private static javax.swing.JLabel date;
-    private javax.swing.JPanel discount;
-    private javax.swing.JButton discountDeleteBtn;
     private javax.swing.JLabel discountIcon;
-    private javax.swing.JTextField discountId;
     private javax.swing.JLabel discountLabel;
-    private javax.swing.JPanel discountPanel;
-    private javax.swing.JTextField discountRate;
-    private javax.swing.JButton discountSaveBtn;
-    private javax.swing.JTable discountTable;
-    private javax.swing.JTextField discountType;
-    private javax.swing.JButton discountUpdateBtn;
     private javax.swing.JPanel guest;
     private javax.swing.JTextField guestAddress;
+    private javax.swing.JButton guestCancelBtn;
     private javax.swing.JButton guestDeleteBtn;
     private javax.swing.JTextField guestEmail;
     private javax.swing.JTextField guestFName;
     private javax.swing.JLabel guestIcon;
     private javax.swing.JTextField guestId;
-    private javax.swing.JTextField guestLName;
     private javax.swing.JLabel guestLabel;
     private javax.swing.JPanel guestPanel;
     private javax.swing.JTextField guestPhone;
@@ -4138,13 +3622,8 @@ public class CashierDashboard extends javax.swing.JFrame {
     private javax.swing.JTable guestTable;
     private javax.swing.JButton guestUpdateBtn;
     private javax.swing.JPanel hrLine;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -4159,7 +3638,6 @@ public class CashierDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
@@ -4177,14 +3655,12 @@ public class CashierDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JLabel logoIcon;
     private javax.swing.JLabel logoLabel;
@@ -4195,32 +3671,26 @@ public class CashierDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel pane;
     private javax.swing.JLabel pwdLabel;
     private javax.swing.JLabel pwdLabel1;
+    private javax.swing.JLabel pwdLabel2;
     private javax.swing.JPanel report;
     private javax.swing.JLabel reportIcon;
     private javax.swing.JLabel reportLabel;
     private javax.swing.JPanel reportPanel;
     private javax.swing.JLabel reportTopic;
     private javax.swing.JPanel room;
-    private javax.swing.JButton roomDeleteBtn;
     private javax.swing.JLabel roomIcon;
-    private javax.swing.JTextField roomId;
     private javax.swing.JLabel roomLabel;
-    private javax.swing.JTextField roomOccupancy;
     private javax.swing.JPanel roomPanel;
-    private javax.swing.JTextField roomRate;
-    private javax.swing.JButton roomSaveBtn;
     private javax.swing.JTable roomTable;
-    private javax.swing.JComboBox<String> roomType;
-    private javax.swing.JButton roomUpdateBtn;
     private javax.swing.JPanel user;
+    private javax.swing.JButton userCancelBtn;
     private javax.swing.JButton userChangePwdBtn;
     private javax.swing.JButton userDeleteBtn;
     private javax.swing.JTextField userEmail;
-    private javax.swing.JTextField userFName;
     private javax.swing.JLabel userIcon;
     private javax.swing.JTextField userId;
-    private javax.swing.JTextField userLName;
     private javax.swing.JLabel userLabel;
+    private javax.swing.JTextField userName;
     private javax.swing.JPanel userPanel;
     private javax.swing.JTextField userPassword;
     private javax.swing.JTextField userPhone;

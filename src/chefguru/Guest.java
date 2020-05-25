@@ -25,8 +25,7 @@ public class Guest {
     DBConnection obj = DBConnection.getDb();
     
     private String id;
-    private String fName;
-    private String lName;
+    private String name;
     private String address;
     private String email;
     private String phone;
@@ -35,12 +34,12 @@ public class Guest {
         return id;
     }
 
-    public String getfName() {
-        return fName;
+    public String getName() {
+        return name;
     }
 
-    public String getlName() {
-        return lName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getAddress() {
@@ -57,14 +56,6 @@ public class Guest {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public void setfName(String fName) {
-        this.fName = fName;
-    }
-
-    public void setlName(String lName) {
-        this.lName = lName;
     }
 
     public void setAddress(String address) {
@@ -85,13 +76,12 @@ public class Guest {
         conn = obj.connect();
             
         try {
-            cs = conn.prepareCall("{call createGuestDetails(?,?,?,?,?,?)}");
+            cs = conn.prepareCall("{call createGuestDetails(?,?,?,?,?)}");
             cs.setString("gId", getId());
-            cs.setString("fName", getfName());
-            cs.setString("lName", getlName());
-            cs.setString("address", getAddress());
-            cs.setString("email", getEmail());
-            cs.setString("phone", getPhone());
+            cs.setString("gName", getName());
+            cs.setString("gAddress", getAddress());
+            cs.setString("gEmail", getEmail());
+            cs.setString("gPhone", getPhone());
 
             if(cs.executeUpdate()==1){
                 new ErrorMsg().showErr("Record inserted successfully...");
@@ -112,13 +102,12 @@ public class Guest {
         conn = obj.connect();
             
         try {
-            cs = conn.prepareCall("{call updateGuestDetails(?,?,?,?,?,?)}");
+            cs = conn.prepareCall("{call updateGuestDetails(?,?,?,?,?)}");
             cs.setString("gId", editGuestId);
-            cs.setString("fName", getfName());
-            cs.setString("lName", getlName());
-            cs.setString("address", getAddress());
-            cs.setString("email", getEmail());
-            cs.setString("phone", getPhone());
+            cs.setString("gName", getName());
+            cs.setString("gAddress", getAddress());
+            cs.setString("gEmail", getEmail());
+            cs.setString("gPhone", getPhone());
 
             if(cs.executeUpdate()==1){
                 new ErrorMsg().showErr("Record updated successfully...");
