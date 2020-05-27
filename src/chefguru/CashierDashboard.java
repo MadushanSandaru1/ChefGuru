@@ -23,6 +23,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
 import reports_format.Checkout_Invoice;
+import reports_format.Food_Bill;
 
 /**
  *
@@ -99,20 +100,15 @@ public class CashierDashboard extends javax.swing.JFrame {
         LayeredPane = new javax.swing.JLayeredPane();
         checkIn = new javax.swing.JPanel();
         userTopic4 = new javax.swing.JLabel();
-        checkinId = new javax.swing.JTextField();
-        jLabel19 = new javax.swing.JLabel();
         checkinRoomRate = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         checkinSaveBtn = new javax.swing.JButton();
-        checkinUpdateBtn = new javax.swing.JButton();
-        checkinDeleteBtn = new javax.swing.JButton();
+        checkinCancelBtn = new javax.swing.JButton();
         checkinRoomId = new javax.swing.JComboBox<>();
         jLabel24 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
-        checkinNoOfOccupancy = new javax.swing.JTextField();
         checkinRoomType = new javax.swing.JTextField();
         checkinCheckInDate = new javax.swing.JTextField();
         jLabel26 = new javax.swing.JLabel();
@@ -132,6 +128,8 @@ public class CashierDashboard extends javax.swing.JFrame {
         checkinPendingBalance = new javax.swing.JTextField();
         jLabel33 = new javax.swing.JLabel();
         checkinGuestId = new javax.swing.JComboBox<>();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        checkinTable = new javax.swing.JTable();
         checkout = new javax.swing.JPanel();
         userTopic6 = new javax.swing.JLabel();
         checkoutTabbedPane = new javax.swing.JTabbedPane();
@@ -211,10 +209,25 @@ public class CashierDashboard extends javax.swing.JFrame {
         jScrollPane6 = new javax.swing.JScrollPane();
         bookingMessage = new javax.swing.JTextArea();
         food = new javax.swing.JPanel();
-        reportTopic = new javax.swing.JLabel();
-        foodTabbedPane = new javax.swing.JTabbedPane();
-        foodNewBill = new javax.swing.JPanel();
-        foodUpdateBill = new javax.swing.JPanel();
+        foodTopic = new javax.swing.JLabel();
+        updateBill = new javax.swing.JPanel();
+        reportTopic1 = new javax.swing.JLabel();
+        foodRoomId = new javax.swing.JComboBox<>();
+        jLabel25 = new javax.swing.JLabel();
+        foodUpdateBillAmount = new javax.swing.JTextField();
+        jLabel37 = new javax.swing.JLabel();
+        foodUpdateBillCancelBtn = new javax.swing.JButton();
+        foodUpdateBillSaveBtn = new javax.swing.JButton();
+        newBill = new javax.swing.JPanel();
+        reportTopic2 = new javax.swing.JLabel();
+        foodNewBillCancelBtn = new javax.swing.JButton();
+        foodNewBillSaveBtn = new javax.swing.JButton();
+        foodNewBillAmount = new javax.swing.JTextField();
+        jLabel41 = new javax.swing.JLabel();
+        jLabel42 = new javax.swing.JLabel();
+        foodNewBillCash = new javax.swing.JTextField();
+        jLabel44 = new javax.swing.JLabel();
+        foodNewBillChange = new javax.swing.JTextField();
         user = new javax.swing.JPanel();
         userTopic = new javax.swing.JLabel();
         userId = new javax.swing.JTextField();
@@ -238,10 +251,10 @@ public class CashierDashboard extends javax.swing.JFrame {
         logoIcon = new javax.swing.JLabel();
         logoLabel = new javax.swing.JLabel();
         copyrights = new javax.swing.JLabel();
-        checkedInPanel = new javax.swing.JPanel();
+        checkInPanel = new javax.swing.JPanel();
         checkedInIcon = new javax.swing.JLabel();
         checkedInLabel = new javax.swing.JLabel();
-        checkedOutPanel = new javax.swing.JPanel();
+        checkOutPanel = new javax.swing.JPanel();
         checkedOutIcon = new javax.swing.JLabel();
         checkedOutLabel = new javax.swing.JLabel();
         guestPanel = new javax.swing.JPanel();
@@ -303,22 +316,6 @@ public class CashierDashboard extends javax.swing.JFrame {
         userTopic4.setForeground(new java.awt.Color(51, 51, 51));
         userTopic4.setText("Check In Information");
 
-        checkinId.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        checkinId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkinIdActionPerformed(evt);
-            }
-        });
-        checkinId.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                checkinIdKeyTyped(evt);
-            }
-        });
-
-        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel19.setText("Transaction ID :");
-
         checkinRoomRate.setEditable(false);
         checkinRoomRate.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         checkinRoomRate.addActionListener(new java.awt.event.ActionListener() {
@@ -353,23 +350,13 @@ public class CashierDashboard extends javax.swing.JFrame {
             }
         });
 
-        checkinUpdateBtn.setBackground(new java.awt.Color(255, 189, 68));
-        checkinUpdateBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        checkinUpdateBtn.setForeground(new java.awt.Color(255, 255, 255));
-        checkinUpdateBtn.setText("Update");
-        checkinUpdateBtn.addActionListener(new java.awt.event.ActionListener() {
+        checkinCancelBtn.setBackground(new java.awt.Color(85, 85, 85));
+        checkinCancelBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        checkinCancelBtn.setForeground(new java.awt.Color(255, 255, 255));
+        checkinCancelBtn.setText("Cancel");
+        checkinCancelBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkinUpdateBtnActionPerformed(evt);
-            }
-        });
-
-        checkinDeleteBtn.setBackground(new java.awt.Color(255, 96, 92));
-        checkinDeleteBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        checkinDeleteBtn.setForeground(new java.awt.Color(255, 255, 255));
-        checkinDeleteBtn.setText("Delete");
-        checkinDeleteBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkinDeleteBtnActionPerformed(evt);
+                checkinCancelBtnActionPerformed(evt);
             }
         });
 
@@ -382,18 +369,6 @@ public class CashierDashboard extends javax.swing.JFrame {
         jLabel24.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel24.setText("Room Type :");
-
-        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel25.setText("No of Occupancy :");
-
-        checkinNoOfOccupancy.setEditable(false);
-        checkinNoOfOccupancy.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        checkinNoOfOccupancy.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkinNoOfOccupancyActionPerformed(evt);
-            }
-        });
 
         checkinRoomType.setEditable(false);
         checkinRoomType.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -525,6 +500,29 @@ public class CashierDashboard extends javax.swing.JFrame {
             }
         });
 
+        checkinTable.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        checkinTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Guest ID", "Room ID", "CheckIn Date", "CheckOut Date", "Discount Id", "Advance Payment"
+            }
+        ));
+        checkinTable.setRowHeight(20);
+        checkinTable.setSelectionBackground(new java.awt.Color(102, 0, 0));
+        checkinTable.setSelectionForeground(new java.awt.Color(255, 234, 231));
+        checkinTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                checkinTableMouseClicked(evt);
+            }
+        });
+        jScrollPane8.setViewportView(checkinTable);
+
         javax.swing.GroupLayout checkInLayout = new javax.swing.GroupLayout(checkIn);
         checkIn.setLayout(checkInLayout);
         checkInLayout.setHorizontalGroup(
@@ -535,132 +533,109 @@ public class CashierDashboard extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(userTopic4, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(checkInLayout.createSequentialGroup()
-                        .addGap(91, 91, 91)
+                        .addGap(111, 111, 111)
                         .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel19)
                             .addComponent(jLabel22)
                             .addComponent(jLabel21)
                             .addComponent(jLabel20)
                             .addComponent(jLabel23)
-                            .addComponent(jLabel26)
                             .addComponent(jLabel27)
-                            .addComponent(jLabel30)
                             .addComponent(jLabel32)
-                            .addComponent(jLabel33)
-                            .addComponent(jLabel31))
+                            .addComponent(jLabel31)
+                            .addComponent(jLabel26))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(checkinId, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(checkinAdvancePayment, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(checkInLayout.createSequentialGroup()
-                                .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(checkinGuestId, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(checkinDiscountType, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(checkinNoOfDays, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(checkInLayout.createSequentialGroup()
+                                    .addComponent(checkinSaveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(checkinCancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(checkInLayout.createSequentialGroup()
+                                    .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(checkinDiscountType, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(checkinRoomRate, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(checkinRoomId, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(checkinCheckInDate, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(checkinGuestId, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(checkinSubTotal)
+                                        .addComponent(checkinTotalBalance))
+                                    .addGap(34, 34, 34)
+                                    .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel24)
+                                        .addComponent(jLabel28)
+                                        .addComponent(jLabel29)
+                                        .addComponent(jLabel33)
+                                        .addComponent(jLabel30))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(checkinAdvancePayment, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(checkinRoomRate)
-                                            .addComponent(checkinRoomId, 0, 150, Short.MAX_VALUE)
-                                            .addComponent(checkinCheckInDate))
-                                        .addComponent(checkinNoOfDays, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(checkinSubTotal)
-                                    .addComponent(checkinTotalBalance)
-                                    .addComponent(checkinPendingBalance))
-                                .addGap(39, 39, 39)
-                                .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(checkInLayout.createSequentialGroup()
-                                        .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel25, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel28, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel29, javax.swing.GroupLayout.Alignment.TRAILING))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(checkinNoOfOccupancy)
                                             .addComponent(checkinRoomType)
-                                            .addComponent(checkinCheckOutDate, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                            .addComponent(checkinDiscountRate)))
-                                    .addGroup(checkInLayout.createSequentialGroup()
-                                        .addComponent(checkinSaveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(checkinUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(checkinDeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addContainerGap(152, Short.MAX_VALUE))
+                                            .addComponent(checkinDiscountRate)
+                                            .addComponent(checkinCheckOutDate, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(checkinPendingBalance, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
+                .addGap(74, 152, Short.MAX_VALUE))
+            .addGroup(checkInLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane8)
+                .addContainerGap())
         );
         checkInLayout.setVerticalGroup(
             checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(checkInLayout.createSequentialGroup()
                 .addComponent(userTopic4)
-                .addGap(30, 30, 30)
+                .addGap(28, 28, 28)
                 .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(checkinId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel19))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(checkinGuestId, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel20))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel20)
-                    .addComponent(checkinGuestId, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(checkinRoomId, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21)
+                    .addComponent(jLabel24)
+                    .addComponent(checkinRoomType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(checkinRoomRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel22))
+                .addGap(11, 11, 11)
                 .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(checkInLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(checkinRoomId, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel21))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(checkinRoomRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel22))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel23)
-                            .addComponent(checkinCheckInDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel26)
-                            .addComponent(checkinNoOfDays, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel27)
-                            .addComponent(checkinDiscountType, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(checkInLayout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(checkInLayout.createSequentialGroup()
-                                .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(checkinRoomType, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel24))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel25)
-                                    .addComponent(checkinNoOfOccupancy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel28))
-                            .addComponent(checkinCheckOutDate, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(43, 43, 43)
-                        .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel29)
-                            .addComponent(checkinDiscountRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel23)
+                        .addComponent(checkinCheckInDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel28))
+                    .addComponent(checkinCheckOutDate, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel26)
+                    .addComponent(checkinNoOfDays, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
+                .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel27)
+                    .addComponent(checkinDiscountType, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkinDiscountRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel29))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(checkinSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel31))
-                .addGap(8, 8, 8)
-                .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel31)
                     .addComponent(checkinAdvancePayment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel30))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(checkinTotalBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel32))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel32)
                     .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(checkinSaveBtn)
-                        .addComponent(checkinUpdateBtn)
-                        .addComponent(checkinDeleteBtn))
-                    .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(checkinTotalBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(checkinPendingBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel33)))
-                .addGap(0, 220, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(checkInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(checkinSaveBtn)
+                    .addComponent(checkinCancelBtn))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         LayeredPane.add(checkIn, "card2");
@@ -1625,9 +1600,9 @@ public class CashierDashboard extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(bookingLayout.createSequentialGroup()
-                .addGap(130, 130, 130)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(pwdLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(111, 111, 111))
         );
@@ -1653,43 +1628,242 @@ public class CashierDashboard extends javax.swing.JFrame {
 
         food.setBackground(new java.awt.Color(255, 255, 255));
 
-        reportTopic.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
-        reportTopic.setForeground(new java.awt.Color(51, 51, 51));
-        reportTopic.setText("Food Billing");
+        foodTopic.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
+        foodTopic.setForeground(new java.awt.Color(51, 51, 51));
+        foodTopic.setText("Food Billing");
 
-        foodTabbedPane.setBackground(new java.awt.Color(255, 255, 255));
-        foodTabbedPane.setForeground(new java.awt.Color(102, 0, 0));
-        foodTabbedPane.setFont(new java.awt.Font("Cambria Math", 1, 12)); // NOI18N
+        updateBill.setBackground(new java.awt.Color(255, 255, 255));
+        updateBill.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 0)));
 
-        foodNewBill.setBackground(new java.awt.Color(255, 255, 255));
+        reportTopic1.setFont(new java.awt.Font("Cambria Math", 1, 14)); // NOI18N
+        reportTopic1.setForeground(new java.awt.Color(51, 51, 51));
+        reportTopic1.setText("Update Bill");
 
-        javax.swing.GroupLayout foodNewBillLayout = new javax.swing.GroupLayout(foodNewBill);
-        foodNewBill.setLayout(foodNewBillLayout);
-        foodNewBillLayout.setHorizontalGroup(
-            foodNewBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 806, Short.MAX_VALUE)
+        foodRoomId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                foodRoomIdActionPerformed(evt);
+            }
+        });
+
+        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel25.setText("Room ID :");
+
+        foodUpdateBillAmount.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        foodUpdateBillAmount.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        foodUpdateBillAmount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                foodUpdateBillAmountActionPerformed(evt);
+            }
+        });
+        foodUpdateBillAmount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                foodUpdateBillAmountKeyTyped(evt);
+            }
+        });
+
+        jLabel37.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel37.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel37.setText("Amount :");
+
+        foodUpdateBillCancelBtn.setBackground(new java.awt.Color(85, 85, 85));
+        foodUpdateBillCancelBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        foodUpdateBillCancelBtn.setForeground(new java.awt.Color(255, 255, 255));
+        foodUpdateBillCancelBtn.setText("Cancel");
+        foodUpdateBillCancelBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                foodUpdateBillCancelBtnActionPerformed(evt);
+            }
+        });
+
+        foodUpdateBillSaveBtn.setBackground(new java.awt.Color(0, 202, 78));
+        foodUpdateBillSaveBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        foodUpdateBillSaveBtn.setForeground(new java.awt.Color(255, 255, 255));
+        foodUpdateBillSaveBtn.setText("Save");
+        foodUpdateBillSaveBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                foodUpdateBillSaveBtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout updateBillLayout = new javax.swing.GroupLayout(updateBill);
+        updateBill.setLayout(updateBillLayout);
+        updateBillLayout.setHorizontalGroup(
+            updateBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(updateBillLayout.createSequentialGroup()
+                .addComponent(reportTopic1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(updateBillLayout.createSequentialGroup()
+                .addGap(123, 123, 123)
+                .addGroup(updateBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(updateBillLayout.createSequentialGroup()
+                        .addComponent(foodUpdateBillSaveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(foodUpdateBillCancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(updateBillLayout.createSequentialGroup()
+                        .addGroup(updateBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel37)
+                            .addComponent(jLabel25))
+                        .addGap(18, 18, 18)
+                        .addGroup(updateBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(foodRoomId, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(foodUpdateBillAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        foodNewBillLayout.setVerticalGroup(
-            foodNewBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 540, Short.MAX_VALUE)
+        updateBillLayout.setVerticalGroup(
+            updateBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(updateBillLayout.createSequentialGroup()
+                .addComponent(reportTopic1)
+                .addGap(51, 51, 51)
+                .addGroup(updateBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(updateBillLayout.createSequentialGroup()
+                        .addComponent(jLabel25)
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel37))
+                    .addGroup(updateBillLayout.createSequentialGroup()
+                        .addComponent(foodRoomId, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(foodUpdateBillAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(updateBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(foodUpdateBillCancelBtn)
+                    .addComponent(foodUpdateBillSaveBtn))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
 
-        foodTabbedPane.addTab("New Bill", foodNewBill);
+        newBill.setBackground(new java.awt.Color(255, 255, 255));
+        newBill.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 0)));
 
-        foodUpdateBill.setBackground(new java.awt.Color(255, 255, 255));
+        reportTopic2.setFont(new java.awt.Font("Cambria Math", 1, 14)); // NOI18N
+        reportTopic2.setForeground(new java.awt.Color(51, 51, 51));
+        reportTopic2.setText("New Bill");
 
-        javax.swing.GroupLayout foodUpdateBillLayout = new javax.swing.GroupLayout(foodUpdateBill);
-        foodUpdateBill.setLayout(foodUpdateBillLayout);
-        foodUpdateBillLayout.setHorizontalGroup(
-            foodUpdateBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 806, Short.MAX_VALUE)
+        foodNewBillCancelBtn.setBackground(new java.awt.Color(85, 85, 85));
+        foodNewBillCancelBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        foodNewBillCancelBtn.setForeground(new java.awt.Color(255, 255, 255));
+        foodNewBillCancelBtn.setText("Cancel");
+        foodNewBillCancelBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                foodNewBillCancelBtnActionPerformed(evt);
+            }
+        });
+
+        foodNewBillSaveBtn.setBackground(new java.awt.Color(0, 202, 78));
+        foodNewBillSaveBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        foodNewBillSaveBtn.setForeground(new java.awt.Color(255, 255, 255));
+        foodNewBillSaveBtn.setText("Save");
+        foodNewBillSaveBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                foodNewBillSaveBtnActionPerformed(evt);
+            }
+        });
+
+        foodNewBillAmount.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        foodNewBillAmount.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        foodNewBillAmount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                foodNewBillAmountActionPerformed(evt);
+            }
+        });
+        foodNewBillAmount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                foodNewBillAmountKeyTyped(evt);
+            }
+        });
+
+        jLabel41.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel41.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel41.setText("Amount :");
+
+        jLabel42.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel42.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel42.setText("Cash :");
+
+        foodNewBillCash.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        foodNewBillCash.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        foodNewBillCash.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                foodNewBillCashActionPerformed(evt);
+            }
+        });
+        foodNewBillCash.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                foodNewBillCashKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                foodNewBillCashKeyTyped(evt);
+            }
+        });
+
+        jLabel44.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel44.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel44.setText("Change :");
+
+        foodNewBillChange.setEditable(false);
+        foodNewBillChange.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        foodNewBillChange.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        foodNewBillChange.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                foodNewBillChangeActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout newBillLayout = new javax.swing.GroupLayout(newBill);
+        newBill.setLayout(newBillLayout);
+        newBillLayout.setHorizontalGroup(
+            newBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(newBillLayout.createSequentialGroup()
+                .addComponent(reportTopic2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(newBillLayout.createSequentialGroup()
+                .addGap(125, 125, 125)
+                .addGroup(newBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(newBillLayout.createSequentialGroup()
+                        .addComponent(jLabel44)
+                        .addGap(18, 18, 18)
+                        .addComponent(foodNewBillChange, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(newBillLayout.createSequentialGroup()
+                        .addComponent(jLabel42)
+                        .addGap(18, 18, 18)
+                        .addComponent(foodNewBillCash, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(newBillLayout.createSequentialGroup()
+                        .addComponent(foodNewBillSaveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(foodNewBillCancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(newBillLayout.createSequentialGroup()
+                        .addComponent(jLabel41)
+                        .addGap(18, 18, 18)
+                        .addComponent(foodNewBillAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        foodUpdateBillLayout.setVerticalGroup(
-            foodUpdateBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 540, Short.MAX_VALUE)
+        newBillLayout.setVerticalGroup(
+            newBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(newBillLayout.createSequentialGroup()
+                .addComponent(reportTopic2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                .addGroup(newBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(newBillLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(jLabel41))
+                    .addComponent(foodNewBillAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(newBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(newBillLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(jLabel42))
+                    .addComponent(foodNewBillCash, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(newBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(newBillLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(jLabel44))
+                    .addComponent(foodNewBillChange, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(newBillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(foodNewBillCancelBtn)
+                    .addComponent(foodNewBillSaveBtn))
+                .addGap(73, 73, 73))
         );
-
-        foodTabbedPane.addTab("Update Bill", foodUpdateBill);
 
         javax.swing.GroupLayout foodLayout = new javax.swing.GroupLayout(food);
         food.setLayout(foodLayout);
@@ -1697,16 +1871,23 @@ public class CashierDashboard extends javax.swing.JFrame {
             foodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(foodLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(reportTopic, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(foodTabbedPane)
+                .addGroup(foodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(foodLayout.createSequentialGroup()
+                        .addComponent(foodTopic, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 405, Short.MAX_VALUE))
+                    .addComponent(updateBill, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(newBill, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         foodLayout.setVerticalGroup(
             foodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(foodLayout.createSequentialGroup()
-                .addComponent(reportTopic)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(foodTabbedPane))
+                .addComponent(foodTopic)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(updateBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(newBill, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         LayeredPane.add(food, "card2");
@@ -2002,18 +2183,18 @@ public class CashierDashboard extends javax.swing.JFrame {
 
         copyrights.setForeground(new java.awt.Color(204, 204, 204));
         copyrights.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        copyrights.setText("©Team_DigiMart");
+        copyrights.setText("©Team_Semicolon;");
 
-        checkedInPanel.setBackground(new java.awt.Color(102, 0, 0));
-        checkedInPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+        checkInPanel.setBackground(new java.awt.Color(102, 0, 0));
+        checkInPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                checkedInPanelMouseClicked(evt);
+                checkInPanelMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                checkedInPanelMouseEntered(evt);
+                checkInPanelMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                checkedInPanelMouseExited(evt);
+                checkInPanelMouseExited(evt);
             }
         });
 
@@ -2025,34 +2206,34 @@ public class CashierDashboard extends javax.swing.JFrame {
         checkedInLabel.setText("Check In");
         checkedInLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        javax.swing.GroupLayout checkedInPanelLayout = new javax.swing.GroupLayout(checkedInPanel);
-        checkedInPanel.setLayout(checkedInPanelLayout);
-        checkedInPanelLayout.setHorizontalGroup(
-            checkedInPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(checkedInPanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout checkInPanelLayout = new javax.swing.GroupLayout(checkInPanel);
+        checkInPanel.setLayout(checkInPanelLayout);
+        checkInPanelLayout.setHorizontalGroup(
+            checkInPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(checkInPanelLayout.createSequentialGroup()
                 .addGap(8, 8, 8)
                 .addComponent(checkedInIcon)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(checkedInLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        checkedInPanelLayout.setVerticalGroup(
-            checkedInPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        checkInPanelLayout.setVerticalGroup(
+            checkInPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(checkedInIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(checkedInPanelLayout.createSequentialGroup()
+            .addGroup(checkInPanelLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(checkedInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        checkedOutPanel.setBackground(new java.awt.Color(102, 0, 0));
-        checkedOutPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+        checkOutPanel.setBackground(new java.awt.Color(102, 0, 0));
+        checkOutPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                checkedOutPanelMouseClicked(evt);
+                checkOutPanelMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                checkedOutPanelMouseEntered(evt);
+                checkOutPanelMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                checkedOutPanelMouseExited(evt);
+                checkOutPanelMouseExited(evt);
             }
         });
 
@@ -2064,21 +2245,21 @@ public class CashierDashboard extends javax.swing.JFrame {
         checkedOutLabel.setText("Check Out");
         checkedOutLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        javax.swing.GroupLayout checkedOutPanelLayout = new javax.swing.GroupLayout(checkedOutPanel);
-        checkedOutPanel.setLayout(checkedOutPanelLayout);
-        checkedOutPanelLayout.setHorizontalGroup(
-            checkedOutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(checkedOutPanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout checkOutPanelLayout = new javax.swing.GroupLayout(checkOutPanel);
+        checkOutPanel.setLayout(checkOutPanelLayout);
+        checkOutPanelLayout.setHorizontalGroup(
+            checkOutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(checkOutPanelLayout.createSequentialGroup()
                 .addGap(8, 8, 8)
                 .addComponent(checkedOutIcon)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(checkedOutLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        checkedOutPanelLayout.setVerticalGroup(
-            checkedOutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        checkOutPanelLayout.setVerticalGroup(
+            checkOutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(checkedOutIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(checkedOutPanelLayout.createSequentialGroup()
+            .addGroup(checkOutPanelLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(checkedOutLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -2332,14 +2513,14 @@ public class CashierDashboard extends javax.swing.JFrame {
                 .addGroup(dashboarddPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(hrLine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(copyrights, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(checkedInPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(checkInPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(dashboarddPaneLayout.createSequentialGroup()
                         .addGroup(dashboarddPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(dashboarddPaneLayout.createSequentialGroup()
                                 .addComponent(logoIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(logoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(checkedOutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(checkOutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(guestPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(roomPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(bookingPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2363,9 +2544,9 @@ public class CashierDashboard extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(hrLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
-                        .addComponent(checkedInPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(checkInPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(checkedOutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(checkOutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(guestPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2409,15 +2590,15 @@ public class CashierDashboard extends javax.swing.JFrame {
         this.setState(JFrame.ICONIFIED);
     }//GEN-LAST:event_minimizeBtnMouseClicked
 
-    private void checkedInPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkedInPanelMouseEntered
-        checkedInPanel.setBackground(new java.awt.Color(70, 0, 0));
+    private void checkInPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkInPanelMouseEntered
+        checkInPanel.setBackground(new java.awt.Color(70, 0, 0));
         checkedInIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/checked_filled.png")));
-    }//GEN-LAST:event_checkedInPanelMouseEntered
+    }//GEN-LAST:event_checkInPanelMouseEntered
 
-    private void checkedInPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkedInPanelMouseExited
-        checkedInPanel.setBackground(new java.awt.Color(102, 0, 0));
+    private void checkInPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkInPanelMouseExited
+        checkInPanel.setBackground(new java.awt.Color(102, 0, 0));
         checkedInIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/checked.png")));
-    }//GEN-LAST:event_checkedInPanelMouseExited
+    }//GEN-LAST:event_checkInPanelMouseExited
 
     private void foodPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_foodPanelMouseEntered
         foodPanel.setBackground(new java.awt.Color(70, 0, 0));
@@ -2429,15 +2610,15 @@ public class CashierDashboard extends javax.swing.JFrame {
         reportIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/report.png")));
     }//GEN-LAST:event_foodPanelMouseExited
 
-    private void checkedOutPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkedOutPanelMouseEntered
-        checkedOutPanel.setBackground(new java.awt.Color(70, 0, 0));
+    private void checkOutPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkOutPanelMouseEntered
+        checkOutPanel.setBackground(new java.awt.Color(70, 0, 0));
         checkedOutIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/checked_filled.png")));
-    }//GEN-LAST:event_checkedOutPanelMouseEntered
+    }//GEN-LAST:event_checkOutPanelMouseEntered
 
-    private void checkedOutPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkedOutPanelMouseExited
-        checkedOutPanel.setBackground(new java.awt.Color(102, 0, 0));
+    private void checkOutPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkOutPanelMouseExited
+        checkOutPanel.setBackground(new java.awt.Color(102, 0, 0));
         checkedOutIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/checked.png")));
-    }//GEN-LAST:event_checkedOutPanelMouseExited
+    }//GEN-LAST:event_checkOutPanelMouseExited
 
     private void guestPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_guestPanelMouseEntered
         guestPanel.setBackground(new java.awt.Color(70, 0, 0));
@@ -2489,19 +2670,20 @@ public class CashierDashboard extends javax.swing.JFrame {
         userIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/setting.png")));
     }//GEN-LAST:event_userPanelMouseExited
 
-    private void checkedInPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkedInPanelMouseClicked
+    private void checkInPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkInPanelMouseClicked
         panelDefault();
         checkIn.setVisible(true);
                 
         viewCheckinDetails();        
-    }//GEN-LAST:event_checkedInPanelMouseClicked
+    }//GEN-LAST:event_checkInPanelMouseClicked
 
-    private void checkedOutPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkedOutPanelMouseClicked
+    private void checkOutPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkOutPanelMouseClicked
         panelDefault();
         checkout.setVisible(true);
         
+        viewCheckoutDetailsByGuest();
         viewCheckoutDetailsByRoom();
-    }//GEN-LAST:event_checkedOutPanelMouseClicked
+    }//GEN-LAST:event_checkOutPanelMouseClicked
 
     private void guestPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_guestPanelMouseClicked
         panelDefault();
@@ -2527,6 +2709,8 @@ public class CashierDashboard extends javax.swing.JFrame {
     private void foodPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_foodPanelMouseClicked
         panelDefault();
         food.setVisible(true);
+        
+        viewFoodDetails();
     }//GEN-LAST:event_foodPanelMouseClicked
 
     private void userPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userPanelMouseClicked
@@ -2715,8 +2899,8 @@ public class CashierDashboard extends javax.swing.JFrame {
             new ErrorMsg().showErr("Please select record...");
         } else {
             booking.setId(editBookingId);
-
-            viewBookingDetails();
+            
+            booking.checkingBooking();
         }
         
         editBookingId = null;
@@ -2879,14 +3063,6 @@ public class CashierDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_guestPhoneActionPerformed
 
-    private void checkinIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinIdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_checkinIdActionPerformed
-
-    private void checkinIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_checkinIdKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_checkinIdKeyTyped
-
     private void checkinRoomRateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinRoomRateActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_checkinRoomRateActionPerformed
@@ -2894,7 +3070,26 @@ public class CashierDashboard extends javax.swing.JFrame {
     private void checkinSaveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinSaveBtnActionPerformed
         CheckIn checkIn = new CheckIn();
         
-        String id = checkinId.getText().trim();
+        conn = obj.connect();
+        
+        String lastId = "0";
+
+        try {
+            String sql = "CALL `lastCheckInId`()";
+            ps = conn.prepareCall(sql);
+            rs = ps.executeQuery();
+
+            while(rs.next()){
+                lastId = rs.getString("id");
+            }
+
+        } catch (SQLException e) {
+            new ErrorMsg().showErr(e.getMessage());
+            //JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+
+        int nextId = Integer.valueOf(lastId)+1;
+
         String guestId = checkinGuestId.getSelectedItem().toString().trim();
         String roomId = checkinRoomId.getSelectedItem().toString().trim();
         String checkInDate = checkinCheckInDate.getText().trim().trim();
@@ -2916,36 +3111,37 @@ public class CashierDashboard extends javax.swing.JFrame {
             new ErrorMsg().showErr(e.getMessage());
             //JOptionPane.showMessageDialog(null, e.getMessage());
         }
+                
+        if(discountId.isEmpty()){
+            discountId = "0";
+        }
         
         conn = null;
         
         String advancePayment = checkinAdvancePayment.getText().trim();
-        String totalBalance = checkinTotalBalance.getText().trim();
         
-        if(id.isEmpty() || guestId.isEmpty() || roomId.isEmpty() || checkInDate.isEmpty() || checkOutDate.isEmpty() || advancePayment.isEmpty() || totalBalance.isEmpty()){
+        if(guestId.isEmpty() || roomId.isEmpty() || checkInDate.isEmpty() || checkOutDate.isEmpty() || advancePayment.isEmpty()){
             new ErrorMsg().showErr("Please fill all the fields...");
         } else {
-            checkIn.setId(id);
+            checkIn.setId(String.format("%d", nextId));
             checkIn.setGuestId(guestId);
             checkIn.setRoomId(roomId);
             checkIn.setCheckInDate(checkInDate);
             checkIn.setCheckOutDate(checkOutDate);
             checkIn.setDiscountId(discountId);
             checkIn.setAdvancePayment(advancePayment);
-            checkIn.setTotalBalance(totalBalance);
 
             checkIn.createCheckIn();
             viewCheckinDetails();
         }
     }//GEN-LAST:event_checkinSaveBtnActionPerformed
 
-    private void checkinUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinUpdateBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_checkinUpdateBtnActionPerformed
-
-    private void checkinDeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinDeleteBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_checkinDeleteBtnActionPerformed
+    private void checkinCancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinCancelBtnActionPerformed
+        panelDefault();
+        checkIn.setVisible(true);
+        
+        viewCheckinDetails();
+    }//GEN-LAST:event_checkinCancelBtnActionPerformed
 
     private void userNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_userNameKeyTyped
         if (userName.getText().length() >= 20){
@@ -3004,10 +3200,6 @@ public class CashierDashboard extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_userEmailFocusLost
-
-    private void checkinNoOfOccupancyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinNoOfOccupancyActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_checkinNoOfOccupancyActionPerformed
 
     private void checkinRoomTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinRoomTypeActionPerformed
         // TODO add your handling code here:
@@ -3431,9 +3623,9 @@ public class CashierDashboard extends javax.swing.JFrame {
             checkoutByGuestGuestId.setText(editCheckoutId);
             checkoutByGuestRoomId.setText(checkoutByGuestTable.getValueAt(row, 1).toString());
             checkoutByGuestAdvancePayment.setText(checkoutByGuestTable.getValueAt(row, 2).toString());
-
+            
             checkoutByGuestTotalBalance.setText(String.valueOf(calculateCheckoutTotalBalanceByGuest(editCheckoutId)));
-            checkoutByGuestPendingBalance.setText(String.valueOf(Float.valueOf(checkoutByGuestTotalBalance.getText().toString())-Float.valueOf(checkoutByGuestTable.getValueAt(row, 2).toString())));
+            checkoutByGuestPendingBalance.setText(String.valueOf(Float.valueOf(checkoutByGuestTotalBalance.getText())-Float.valueOf(checkoutByGuestTable.getValueAt(row, 2).toString())));
 
             checkoutByGuestCash.setText(null);
             checkoutByGuestChange.setText(null);
@@ -3456,6 +3648,146 @@ public class CashierDashboard extends javax.swing.JFrame {
     private void checkoutByGuestRoomIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_checkoutByGuestRoomIdKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_checkoutByGuestRoomIdKeyTyped
+
+    private void checkinTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkinTableMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkinTableMouseClicked
+
+    private void foodRoomIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_foodRoomIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_foodRoomIdActionPerformed
+
+    private void foodUpdateBillAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_foodUpdateBillAmountActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_foodUpdateBillAmountActionPerformed
+
+    private void foodUpdateBillCancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_foodUpdateBillCancelBtnActionPerformed
+        comboBoxFoodRoomId();
+        
+        foodRoomId.setSelectedIndex(0);
+        foodUpdateBillAmount.setText(null);
+    }//GEN-LAST:event_foodUpdateBillCancelBtnActionPerformed
+
+    private void foodUpdateBillSaveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_foodUpdateBillSaveBtnActionPerformed
+        
+        String food_room_id = foodRoomId.getSelectedItem().toString();
+        String food_amount = foodUpdateBillAmount.getText().toString();
+        
+        conn = obj.connect();
+        
+        try {
+            if(food_room_id.isEmpty() || food_amount.isEmpty()){
+                new ErrorMsg().showErr("Please fill all the fields...");
+            } else {
+                try {
+                    cs = conn.prepareCall("{call updateFoodBill(?,?)}");
+                    cs.setString("roomId", food_room_id);
+                    cs.setFloat("foodAmount", Float.valueOf(food_amount));
+
+                    cs.executeUpdate();
+                    
+                    viewFoodDetails();
+                    
+                    new ErrorMsg().showErr("Successfully...");
+
+                } catch (SQLException e) {
+                    new ErrorMsg().showErr(e.getMessage());
+                }
+            }
+        } catch (HeadlessException e) {
+            new ErrorMsg().showErr(e.getMessage());
+        }
+        
+        conn = null;
+    }//GEN-LAST:event_foodUpdateBillSaveBtnActionPerformed
+
+    private void foodNewBillCancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_foodNewBillCancelBtnActionPerformed
+        foodNewBillAmount.setText(null);
+        foodNewBillCash.setText(null);
+        foodNewBillChange.setText(null);
+    }//GEN-LAST:event_foodNewBillCancelBtnActionPerformed
+
+    private void foodNewBillSaveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_foodNewBillSaveBtnActionPerformed
+        
+        String food_amount = foodNewBillAmount.getText().toString();
+        String food_cash = foodNewBillCash.getText().toString();
+        String food_change = foodNewBillChange.getText().toString();
+        
+        conn = obj.connect();
+        
+        if(food_amount.isEmpty()){
+                new ErrorMsg().showErr("Please fill all the fields...");
+            } else {
+                try {
+                    cs = conn.prepareCall("{call newFoodBill(?)}");
+                    cs.setFloat("foodAmount", Float.valueOf(food_amount));
+
+                    cs.executeUpdate();
+
+                    viewFoodDetails();
+                    new ErrorMsg().showErr("Successfully...");
+
+                    Food_Bill food_Bill = new Food_Bill(food_amount, food_cash, food_change);
+                    food_Bill.setVisible(true);
+
+                } catch (SQLException e) {
+                    new ErrorMsg().showErr(e.getMessage());
+                }
+            }
+        
+        conn = null;
+    }//GEN-LAST:event_foodNewBillSaveBtnActionPerformed
+
+    private void foodNewBillAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_foodNewBillAmountActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_foodNewBillAmountActionPerformed
+
+    private void foodNewBillCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_foodNewBillCashActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_foodNewBillCashActionPerformed
+
+    private void foodNewBillChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_foodNewBillChangeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_foodNewBillChangeActionPerformed
+
+    private void foodNewBillCashKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_foodNewBillCashKeyReleased
+        try {
+            if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+                if(foodNewBillCash.getText().length() != 0){
+                    calculateFoodNewBillChange();
+                } else {
+                    foodNewBillChange.setText(null);
+                }
+            } else {
+                calculateFoodNewBillChange();
+            }
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_foodNewBillCashKeyReleased
+
+    private void foodNewBillCashKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_foodNewBillCashKeyTyped
+        char enter = evt.getKeyChar();
+
+        if (!(Character.isDigit(enter))){
+            evt.consume();
+        }
+    }//GEN-LAST:event_foodNewBillCashKeyTyped
+
+    private void foodUpdateBillAmountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_foodUpdateBillAmountKeyTyped
+        char enter = evt.getKeyChar();
+
+        if (!(Character.isDigit(enter))){
+            evt.consume();
+        }
+    }//GEN-LAST:event_foodUpdateBillAmountKeyTyped
+
+    private void foodNewBillAmountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_foodNewBillAmountKeyTyped
+        char enter = evt.getKeyChar();
+
+        if (!(Character.isDigit(enter))){
+            evt.consume();
+        }
+    }//GEN-LAST:event_foodNewBillAmountKeyTyped
 
     private void panelDefault(){
         checkIn.setVisible(false);
@@ -3547,6 +3879,8 @@ public class CashierDashboard extends javax.swing.JFrame {
     
     public void viewBookingDetails(){
         
+        cancelAutoTimeoutBooking();
+        
         conn = obj.connect();
         
         bookingMessage.setText(null);
@@ -3567,6 +3901,33 @@ public class CashierDashboard extends javax.swing.JFrame {
             }
         
         conn = null;
+        
+    }
+    
+    public void cancelAutoTimeoutBooking(){
+        conn = obj.connect();
+            
+        try {
+            cs = conn.prepareCall("{call cancelAutoTimeoutBooking()}");
+            cs.executeUpdate();
+           
+        } catch (SQLException e) {
+            new ErrorMsg().showErr(e.getMessage());
+        }
+
+        conn = null;
+    }
+    
+    public void viewFoodDetails(){
+        
+        comboBoxFoodRoomId();
+        
+        foodRoomId.setSelectedIndex(0);
+        foodUpdateBillAmount.setText(null);
+        
+        foodNewBillAmount.setText(null);
+        foodNewBillCash.setText(null);
+        foodNewBillChange.setText(null);
         
     }
     
@@ -3625,33 +3986,11 @@ public class CashierDashboard extends javax.swing.JFrame {
         comboBoxCheckInGuestId();
         comboBoxCheckInDiscountType();
         
-        conn = obj.connect();
-        
-        String lastId = "0";
-
-        try {
-            String sql = "CALL `lastTransactionId`()";
-            ps = conn.prepareCall(sql);
-            rs = ps.executeQuery();
-
-            while(rs.next()){
-                lastId = rs.getString("id");
-            }
-
-        } catch (SQLException e) {
-            new ErrorMsg().showErr(e.getMessage());
-            //JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-
-        int nextId = Integer.valueOf(lastId)+1;
-
-        checkinId.setText(String.format("%d", nextId));
         checkinGuestId.setSelectedIndex(0);
         checkinRoomId.setSelectedIndex(0);
         checkinRoomType.setText(null);
         checkinRoomRate.setText(null);
-        checkinNoOfOccupancy.setText(null);
-        checkinCheckInDate.setText(today);
+        checkinCheckInDate.setText(dateForReport());
         checkinCheckOutDate.setDate(null);
         checkinCheckOutDate.setEnabled(false);
         checkinNoOfDays.setText(null);
@@ -3665,19 +4004,20 @@ public class CashierDashboard extends javax.swing.JFrame {
         checkinPendingBalance.setText(null);
         
         checkinSaveBtn.setVisible(true);
-        checkinUpdateBtn.setVisible(false);
-        checkinDeleteBtn.setVisible(false);
+        checkinCancelBtn.setVisible(false);
         
-        /*try {
-                cs = conn.prepareCall("{CALL `viewGuestDetails`()}");
+        conn = obj.connect();
+        
+        try {
+                cs = conn.prepareCall("{CALL `viewCheckinDetails`()}");
                 rs = cs.executeQuery();
 
-                //guestTable.setModel(DbUtils.resultSetToTableModel(rs));
+                checkinTable.setModel(DbUtils.resultSetToTableModel(rs));
 
             } catch (SQLException e) {
                 new ErrorMsg().showErr(e.getMessage());
                 //JOptionPane.showMessageDialog(null, e.getMessage());
-            }*/
+            }
         
         conn = null;
         
@@ -3719,7 +4059,7 @@ public class CashierDashboard extends javax.swing.JFrame {
         conn = obj.connect();
         
         try {
-            cs = conn.prepareCall("{CALL `roomIdDetails`()}");
+            cs = conn.prepareCall("{CALL `roomDetailsById`()}");
             rs = cs.executeQuery();
             
             while(rs.next()){
@@ -3745,11 +4085,36 @@ public class CashierDashboard extends javax.swing.JFrame {
         conn = obj.connect();
         
         try {
-            cs = conn.prepareCall("{CALL `discountTypeDetails`()}");
+            cs = conn.prepareCall("{CALL `discountDetailsByType`()}");
             rs = cs.executeQuery();
             
             while(rs.next()){
                 checkinDiscountType.addItem(rs.getString("type"));
+            }
+            
+        } catch (SQLException e) {
+            new ErrorMsg().showErr(e.getMessage());
+        }
+        
+        conn = null;
+    }
+    
+    public void comboBoxFoodRoomId(){
+        
+        try {
+            foodRoomId.removeAllItems();
+            foodRoomId.addItem("");
+        } catch (Exception e) {
+        }
+        
+        conn = obj.connect();
+        
+        try {
+            cs = conn.prepareCall("{CALL `roomIdForFood`()}");
+            rs = cs.executeQuery();
+            
+            while(rs.next()){
+                foodRoomId.addItem(rs.getString("id"));
             }
             
         } catch (SQLException e) {
@@ -3789,14 +4154,13 @@ public class CashierDashboard extends javax.swing.JFrame {
         conn = obj.connect();
         
         try {
-            cs = conn.prepareCall("{CALL `roomIdDetails`()}");
+            cs = conn.prepareCall("{CALL `roomDetailsById`()}");
             rs = cs.executeQuery();
             
             while(rs.next()){
                 if(checkinRoomId.getSelectedItem().toString().equals(rs.getString("id"))){
                     checkinRoomType.setText(rs.getString("type"));
                     checkinRoomRate.setText(rs.getString("rate"));
-                    checkinNoOfOccupancy.setText(rs.getString("noOfOccupancy"));
                     
                     checkinCheckOutDate.setEnabled(true);
                     
@@ -3804,7 +4168,6 @@ public class CashierDashboard extends javax.swing.JFrame {
                 } else {
                     checkinRoomType.setText(null);
                     checkinRoomRate.setText(null);
-                    checkinNoOfOccupancy.setText(null);
                     
                     checkinCheckOutDate.setEnabled(false);
                 }
@@ -3823,14 +4186,14 @@ public class CashierDashboard extends javax.swing.JFrame {
         conn = obj.connect();
         
         try {
-            cs = conn.prepareCall("{CALL `discountTypeDetails`()}");
+            cs = conn.prepareCall("{CALL `discountDetailsByType`()}");
             rs = cs.executeQuery();
             
             while(rs.next()){
                 if(checkinDiscountType.getSelectedItem().toString().equals(rs.getString("type"))){
                     
-                    int discountRate = Integer.valueOf(rs.getString("rate"));
-                    int subTotal = Integer.valueOf(checkinSubTotal.getText());
+                    float discountRate = Float.valueOf(rs.getString("rate"));
+                    float subTotal = Float.valueOf(checkinSubTotal.getText());
         
                     discountRate = subTotal*discountRate/100;
                     
@@ -3872,7 +4235,10 @@ public class CashierDashboard extends javax.swing.JFrame {
             rs = cs.executeQuery();
             
             while(rs.next()){
-                foodAmount = Float.valueOf(rs.getString("foodAmount"));
+                try {
+                    foodAmount = Float.valueOf(rs.getString("foodAmount"));
+                } catch (Exception e) {
+                }
             }
             
         } catch (SQLException e) {
@@ -3922,7 +4288,10 @@ public class CashierDashboard extends javax.swing.JFrame {
             rs = cs.executeQuery();
             
             while(rs.next()){
-                foodAmount = Float.valueOf(rs.getString("foodAmount"));
+                try {
+                    foodAmount = Float.valueOf(rs.getString("foodAmount"));
+                } catch (Exception e) {
+                }
             }
             
         } catch (SQLException e) {
@@ -3959,11 +4328,11 @@ public class CashierDashboard extends javax.swing.JFrame {
     
     public void calculateBillStep1() {
         
-        int roomrate = Integer.parseInt(checkinRoomRate.getText());        
+        float roomrate = Float.valueOf(checkinRoomRate.getText());        
         int noOfDays = Integer.parseInt(checkinNoOfDays.getText());
         
-        int subTotal = roomrate * noOfDays;
-        int totalBalance = subTotal;
+        float subTotal = roomrate * noOfDays;
+        float totalBalance = subTotal;
         
         checkinSubTotal.setText(String.valueOf(subTotal));
         checkinTotalBalance.setText(String.valueOf(totalBalance));
@@ -3971,11 +4340,11 @@ public class CashierDashboard extends javax.swing.JFrame {
     
     public void calculateBillStep2() {
         try {
-            if (Integer.parseInt(checkinTotalBalance.getText()) < Integer.parseInt(checkinAdvancePayment.getText())){
+            if (Float.valueOf(checkinTotalBalance.getText()) < Float.valueOf(checkinAdvancePayment.getText())){
                 checkinAdvancePayment.setText(checkinAdvancePayment.getText().substring(0,checkinAdvancePayment.getText().length()-1));
             } else {
-                int totalBalance = Integer.parseInt(checkinTotalBalance.getText());        
-                int advancePayment;
+                float totalBalance = Float.valueOf(checkinTotalBalance.getText());        
+                float advancePayment;
 
                 if(checkinAdvancePayment.getText().length() <= 0){
                     advancePayment = 0;
@@ -3983,7 +4352,7 @@ public class CashierDashboard extends javax.swing.JFrame {
                     advancePayment = Integer.parseInt(checkinAdvancePayment.getText());
                 }
 
-                int pendingBalance = totalBalance - advancePayment;
+                float pendingBalance = totalBalance - advancePayment;
 
                 checkinPendingBalance.setText(String.valueOf(pendingBalance));
             }
@@ -4019,6 +4388,22 @@ public class CashierDashboard extends javax.swing.JFrame {
                 change = cash - pendingBalance;
 
                 checkoutByGuestChange.setText(String.valueOf(change));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());//checkoutCash.setText(checkoutCash.getText().substring(0,checkoutCash.getText().length()-1));
+        }
+    }
+    
+    public void calculateFoodNewBillChange() {
+        try {
+            float foodAmount = Float.valueOf(foodNewBillAmount.getText());        
+            float cash = 0;
+            float change = 0;
+
+                cash = Float.valueOf(foodNewBillCash.getText());
+
+                change = cash - foodAmount;
+
+                foodNewBillChange.setText(String.valueOf(change));
         } catch (Exception e) {
             System.out.println(e.getMessage());//checkoutCash.setText(checkoutCash.getText().substring(0,checkoutCash.getText().length()-1));
         }
@@ -4177,30 +4562,28 @@ public class CashierDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel bookingPanel;
     private javax.swing.JTable bookingTable;
     private javax.swing.JPanel checkIn;
+    private javax.swing.JPanel checkInPanel;
+    private javax.swing.JPanel checkOutPanel;
     private javax.swing.JLabel checkedInIcon;
     private javax.swing.JLabel checkedInLabel;
-    private javax.swing.JPanel checkedInPanel;
     private javax.swing.JLabel checkedOutIcon;
     private javax.swing.JLabel checkedOutLabel;
-    private javax.swing.JPanel checkedOutPanel;
     private javax.swing.JTextField checkinAdvancePayment;
+    private javax.swing.JButton checkinCancelBtn;
     private javax.swing.JTextField checkinCheckInDate;
     private com.toedter.calendar.JDateChooser checkinCheckOutDate;
-    private javax.swing.JButton checkinDeleteBtn;
     private javax.swing.JTextField checkinDiscountRate;
     private javax.swing.JComboBox<String> checkinDiscountType;
     private javax.swing.JComboBox<String> checkinGuestId;
-    private javax.swing.JTextField checkinId;
     private javax.swing.JTextField checkinNoOfDays;
-    private javax.swing.JTextField checkinNoOfOccupancy;
     private javax.swing.JTextField checkinPendingBalance;
     private javax.swing.JComboBox<String> checkinRoomId;
     private javax.swing.JTextField checkinRoomRate;
     private javax.swing.JTextField checkinRoomType;
     private javax.swing.JButton checkinSaveBtn;
     private javax.swing.JTextField checkinSubTotal;
+    private javax.swing.JTable checkinTable;
     private javax.swing.JTextField checkinTotalBalance;
-    private javax.swing.JButton checkinUpdateBtn;
     private javax.swing.JPanel checkout;
     private javax.swing.JPanel checkoutByGuest;
     private javax.swing.JTextField checkoutByGuestAdvancePayment;
@@ -4234,10 +4617,17 @@ public class CashierDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel discountIcon;
     private javax.swing.JLabel discountLabel;
     private javax.swing.JPanel food;
-    private javax.swing.JPanel foodNewBill;
+    private javax.swing.JTextField foodNewBillAmount;
+    private javax.swing.JButton foodNewBillCancelBtn;
+    private javax.swing.JTextField foodNewBillCash;
+    private javax.swing.JTextField foodNewBillChange;
+    private javax.swing.JButton foodNewBillSaveBtn;
     private javax.swing.JPanel foodPanel;
-    private javax.swing.JTabbedPane foodTabbedPane;
-    private javax.swing.JPanel foodUpdateBill;
+    private javax.swing.JComboBox<String> foodRoomId;
+    private javax.swing.JLabel foodTopic;
+    private javax.swing.JTextField foodUpdateBillAmount;
+    private javax.swing.JButton foodUpdateBillCancelBtn;
+    private javax.swing.JButton foodUpdateBillSaveBtn;
     private javax.swing.JPanel guest;
     private javax.swing.JTextField guestAddress;
     private javax.swing.JButton guestCancelBtn;
@@ -4257,7 +4647,6 @@ public class CashierDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
@@ -4276,11 +4665,15 @@ public class CashierDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
@@ -4300,24 +4693,28 @@ public class CashierDashboard extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JLabel logoIcon;
     private javax.swing.JLabel logoLabel;
     private javax.swing.JLabel logoutIcon;
     private javax.swing.JLabel logoutLabel;
     private javax.swing.JPanel logoutPanel;
     private javax.swing.JLabel minimizeBtn;
+    private javax.swing.JPanel newBill;
     private javax.swing.JPanel pane;
     private javax.swing.JLabel pwdLabel;
     private javax.swing.JLabel pwdLabel1;
     private javax.swing.JLabel pwdLabel2;
     private javax.swing.JLabel reportIcon;
     private javax.swing.JLabel reportLabel;
-    private javax.swing.JLabel reportTopic;
+    private javax.swing.JLabel reportTopic1;
+    private javax.swing.JLabel reportTopic2;
     private javax.swing.JPanel room;
     private javax.swing.JLabel roomIcon;
     private javax.swing.JLabel roomLabel;
     private javax.swing.JPanel roomPanel;
     private javax.swing.JTable roomTable;
+    private javax.swing.JPanel updateBill;
     private javax.swing.JPanel user;
     private javax.swing.JButton userCancelBtn;
     private javax.swing.JButton userChangePwdBtn;

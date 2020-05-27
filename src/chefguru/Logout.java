@@ -132,7 +132,7 @@ public class Logout extends javax.swing.JFrame {
     }//GEN-LAST:event_noBtnActionPerformed
 
     private void yesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yesBtnActionPerformed
-        System.exit(0);       
+        System.exit(0);
     }//GEN-LAST:event_yesBtnActionPerformed
 
     private void noBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_noBtnMouseEntered

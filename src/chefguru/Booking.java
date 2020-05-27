@@ -34,7 +34,7 @@ public class Booking {
         this.id = id;
     }
     
-    public void deleteBooking()
+    public void checkingBooking()
     {
        
         conn = obj.connect();
@@ -47,6 +47,28 @@ public class Booking {
                 new ErrorMsg().showErr("Record updated successfully...");
             } else {
                 new ErrorMsg().showErr("Record not updated...");
+            }
+           
+        } catch (SQLException e) {
+            new ErrorMsg().showErr(e.getMessage());
+        }
+
+        conn = null;
+    }
+    
+    public void deleteBooking()
+    {
+       
+        conn = obj.connect();
+            
+        try {
+            cs = conn.prepareCall("{call checkInBookingDetails(?)}");
+            cs.setString("bId", getId());
+
+            if(cs.executeUpdate()==1){
+                new ErrorMsg().showErr("Record deleted successfully...");
+            } else {
+                new ErrorMsg().showErr("Record not deleted...");
             }
            
         } catch (SQLException e) {

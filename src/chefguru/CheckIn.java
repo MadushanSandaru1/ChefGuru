@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import reports_format.Checkin_Invoice;
 
 /**
  *
@@ -31,7 +32,6 @@ public class CheckIn {
     private String checkOutDate;
     private String discountId;
     private String advancePayment;
-    private String totalBalance;
 
     /**
      * @return the id
@@ -130,20 +130,6 @@ public class CheckIn {
     public void setAdvancePayment(String advancePayment) {
         this.advancePayment = advancePayment;
     }
-
-    /**
-     * @return the totalBalance
-     */
-    public String getTotalBalance() {
-        return totalBalance;
-    }
-
-    /**
-     * @param totalBalance the totalBalance to set
-     */
-    public void setTotalBalance(String totalBalance) {
-        this.totalBalance = totalBalance;
-    }
     
     public void createCheckIn()
     {
@@ -151,7 +137,7 @@ public class CheckIn {
         conn = obj.connect();
             
         try {
-            cs = conn.prepareCall("{call createCheckInDetails(?,?,?,?,?,?,?,?)}");
+            cs = conn.prepareCall("{call createCheckInDetails(?,?,?,?,?,?,?)}");
             cs.setString("tId", getId());
             cs.setString("gId", getGuestId());
             cs.setString("rId", getRoomId());
@@ -159,10 +145,12 @@ public class CheckIn {
             cs.setString("checkoutDate", getCheckOutDate());
             cs.setString("dId", getDiscountId());
             cs.setString("advancePayment", getAdvancePayment());
-            cs.setString("totalBalance", getTotalBalance());
             
-            if(cs.executeUpdate()==2){
+            if(cs.executeUpdate()==3){
                 new ErrorMsg().showErr("Record inserted successfully...");
+                
+                Checkin_Invoice checkin_Invoice = new Checkin_Invoice(getRoomId(), getCheckOutDate(), getAdvancePayment());
+                checkin_Invoice.setVisible(true);
             } else {
                 new ErrorMsg().showErr("Record not inserted...");
             }
@@ -171,36 +159,6 @@ public class CheckIn {
             new ErrorMsg().showErr(e.getMessage());
         }
 
-        conn = null;
-    }
-    
-    public void updateCheckIn(String editCheckInId)
-    {
-       
-        conn = obj.connect();
-            
-        try {
-            cs = conn.prepareCall("{call updateCheckInDetails(?,?,?,?,?,?,?,?)}");
-            cs.setString("tId", getId());
-            cs.setString("gId", getGuestId());
-            cs.setString("rId", getRoomId());
-            cs.setString("checkinDate", getCheckInDate());
-            cs.setString("checkoutDate", getCheckOutDate());
-            cs.setString("dId", getDiscountId());
-            cs.setString("advancePayment", getAdvancePayment());
-            cs.setString("totalBalance", getTotalBalance());
-
-            if(cs.executeUpdate()==1){
-                new ErrorMsg().showErr("Record updated successfully...");
-            } else {
-                new ErrorMsg().showErr("Record not updated...");
-            }
-           
-        } catch (SQLException e) {
-           new ErrorMsg().showErr(e.getMessage());
-        }
-       
-        editCheckInId = null;
         conn = null;
     }
     
