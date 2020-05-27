@@ -2969,6 +2969,26 @@ public class CashierDashboard extends javax.swing.JFrame {
     private void guestSaveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guestSaveBtnActionPerformed
         Guest guest = new Guest();
         
+        conn = obj.connect();
+        
+        String lastId = "0";
+
+        try {
+            String sql = "CALL `lastGuestNo`()";
+            ps = conn.prepareCall(sql);
+            rs = ps.executeQuery();
+
+            while(rs.next()){
+                lastId = rs.getString("no");
+            }
+
+        } catch (SQLException e) {
+            new ErrorMsg().showErr(e.getMessage());
+            //JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+
+        int nextId = Integer.valueOf(lastId)+1;
+        
         String id = this.guestId.getText().trim();
         String name = this.guestFName.getText().trim();
         String address = this.guestAddress.getText().trim();
@@ -2978,6 +2998,7 @@ public class CashierDashboard extends javax.swing.JFrame {
         if(id.isEmpty() || name.isEmpty() || address.isEmpty() || email.isEmpty() || phone.isEmpty()){
             new ErrorMsg().showErr("Please fill all the fields...");
         } else {
+            guest.setNo(nextId);
             guest.setId(id);
             guest.setName(name);
             guest.setAddress(address);

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 25, 2020 at 01:19 AM
+-- Generation Time: May 27, 2020 at 11:39 AM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.4.0
 
@@ -30,6 +30,10 @@ DROP PROCEDURE IF EXISTS `adminDetails`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `adminDetails` (IN `username` CHAR(6))  NO SQL
 select * from `admin` where `id`=username AND `is_deleted` = 0 LIMIT 1$$
 
+DROP PROCEDURE IF EXISTS `cancelAutoTimeoutBooking`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cancelAutoTimeoutBooking` ()  NO SQL
+UPDATE `room_book` SET `is_canceled` = 1 WHERE `is_canceled` = 0 AND `is_deleted` = 0 AND `check_in_date` < CURRENT_DATE()$$
+
 DROP PROCEDURE IF EXISTS `cancelBookingDetails`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `cancelBookingDetails` (IN `bId` INT)  NO SQL
 UPDATE `room_book` SET `is_canceled` = 1 WHERE `id` = bId$$
@@ -47,17 +51,29 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `checkoutRoomId` ()  NO SQL
 SELECT * FROM `room` WHERE (`status` = 1 OR `status` = 2) AND `is_deleted` = 0$$
 
 DROP PROCEDURE IF EXISTS `createCheckInDetails`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `createCheckInDetails` (IN `tId` INT, IN `gId` CHAR(12), IN `rId` INT, IN `checkinDate` DATE, IN `checkoutDate` DATE, IN `dId` INT, IN `advancePayment` FLOAT, IN `totalBalance` FLOAT)  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `createCheckInDetails` (IN `tId` INT, IN `gId` VARCHAR(20), IN `rId` INT, IN `checkinDate` DATETIME, IN `checkoutDate` DATETIME, IN `dId` INT, IN `advancePayment` FLOAT)  NO SQL
 BEGIN
-	INSERT INTO `checkin`(`id`, `guest_id`, `room_id`, `checkin_date`, `checkout_date`, `discount_id`, `advance_payment`, `total_balance`) VALUES (tId, gId, rId, checkinDate, checkoutDate, dId, advancePayment, totalBalance);
+	INSERT INTO `checkin`(`id`, `guest_id`, `room_id`, `checkin_date`, `checkout_date`, `discount_id`, `advance_payment`) VALUES (tId, gId, rId, checkinDate, checkoutDate, dId, advancePayment);
 	UPDATE `room` SET `status`= 2 WHERE `id` = rId;
+    INSERT INTO `transaction`(`type`, `amount`) VALUES ('R',advancePayment);
 END$$
 
-DROP PROCEDURE IF EXISTS `createCheckoutDetails`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `createCheckoutDetails` (IN `rId` INT)  NO SQL
+DROP PROCEDURE IF EXISTS `createCheckoutByGuestDetails`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `createCheckoutByGuestDetails` (IN `gId` VARCHAR(20), IN `pendingAmount` FLOAT)  NO SQL
+BEGIN
+	UPDATE `room` SET `status`= 0 WHERE `id` IN (SELECT `room_id` FROM `checkin` WHERE `guest_id` = gId AND `is_checkout` = 0 AND `is_deleted` = 0);
+    UPDATE `room_food` SET `is_deleted`= 1 WHERE `room_id` IN (SELECT `room_id` FROM `checkin` WHERE `guest_id` = gId AND `is_checkout` = 0 AND `is_deleted` = 0);
+    UPDATE `checkin` SET `is_checkout`= 1 WHERE `guest_id` = gId AND `is_checkout` = 0 AND `is_deleted` = 0;
+	INSERT INTO `transaction`(`type`, `amount`) VALUES ('R',pendingAmount);
+END$$
+
+DROP PROCEDURE IF EXISTS `createCheckoutByRoomDetails`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `createCheckoutByRoomDetails` (IN `rId` INT, IN `pendingAmount` FLOAT)  NO SQL
 BEGIN
 	UPDATE `checkin` SET `is_checkout`= 1 WHERE `room_id` = rId AND `is_checkout` = 0 AND `is_deleted` = 0;
 	UPDATE `room` SET `status`= 0 WHERE `id` = rId;
+    UPDATE `room_food` SET `is_deleted`= 1 WHERE `room_id` = rId;
+    INSERT INTO `transaction`(`type`, `amount`) VALUES ('R',pendingAmount);
 END$$
 
 DROP PROCEDURE IF EXISTS `createDiscountDetails`$$
@@ -65,8 +81,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `createDiscountDetails` (IN `dId` IN
 INSERT INTO `discount`(`id`, `type`, `rate`, `is_deleted`) VALUES (dId, dType, dRate, 0)$$
 
 DROP PROCEDURE IF EXISTS `createGuestDetails`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `createGuestDetails` (IN `gId` CHAR(20), IN `gName` VARCHAR(30), IN `gAddress` VARCHAR(200), IN `gEmail` VARCHAR(50), IN `gPhone` CHAR(20))  NO SQL
-INSERT INTO `guest`(`identity`, `name`, `address`, `email`, `phone`) VALUES (gId, gName, gAddress, gEmail, gPhone)$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `createGuestDetails` (IN `gId` CHAR(20), IN `gName` VARCHAR(30), IN `gAddress` VARCHAR(200), IN `gEmail` VARCHAR(50), IN `gPhone` CHAR(20), IN `gNo` INT)  NO SQL
+INSERT INTO `guest`(`no`, `identity`, `name`, `address`, `email`, `phone`) VALUES (gNo,gId, gName, gAddress, gEmail, gPhone)$$
 
 DROP PROCEDURE IF EXISTS `createRoomDetails`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `createRoomDetails` (IN `rId` INT, IN `rType` CHAR(3))  NO SQL
@@ -96,7 +112,10 @@ END$$
 
 DROP PROCEDURE IF EXISTS `deleteDiscountDetails`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteDiscountDetails` (IN `dId` INT)  NO SQL
-UPDATE `discount` SET `is_deleted`= 1 WHERE `id` = dId$$
+BEGIN
+UPDATE `discount` SET `is_deleted`= 1 WHERE `id` = dId;
+UPDATE `checkin` SET `discount_id` = 0 WHERE `discount_id` = dId;
+END$$
 
 DROP PROCEDURE IF EXISTS `deleteGuestDetails`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteGuestDetails` (IN `gId` CHAR(20))  NO SQL
@@ -117,16 +136,16 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteUserDetails` (IN `username` C
 	UPDATE `cashier` SET `is_deleted` = 1 WHERE `id` = username;
 END$$
 
-DROP PROCEDURE IF EXISTS `discountTypeDetails`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `discountTypeDetails` ()  NO SQL
-SELECT * FROM `discount` WHERE `is_deleted` = 0$$
+DROP PROCEDURE IF EXISTS `discountDetailsByType`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `discountDetailsByType` ()  NO SQL
+SELECT * FROM `discount` WHERE `id` != 0 AND `is_deleted` = 0$$
 
 DROP PROCEDURE IF EXISTS `filterTransactionDetails`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `filterTransactionDetails` (IN `search_key` VARCHAR(30))  NO SQL
-SELECT `bill_id` AS 'Bill Id', IF(`type`='R','Room', 'Kitchen') AS 'Type', `date` AS 'Date', `amount` AS 'Amount (Rs.)' FROM `transaction` WHERE `date` LIKE search_key ORDER BY `date` DESC$$
+SELECT `bill_id` AS 'Bill Id', IF(`type`='R','Room', 'Food') AS 'Type', `date` AS 'Date', `amount` AS 'Amount (Rs.)' FROM `transaction` WHERE `date` LIKE search_key ORDER BY `date` DESC$$
 
-DROP PROCEDURE IF EXISTS `getDiscountTypeId`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getDiscountTypeId` (IN `dType` VARCHAR(15))  NO SQL
+DROP PROCEDURE IF EXISTS `getDiscountIdByType`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getDiscountIdByType` (IN `dType` VARCHAR(15))  NO SQL
 SELECT * FROM `discount` WHERE `type` = dType AND `is_deleted` = 0$$
 
 DROP PROCEDURE IF EXISTS `getRoomTypeId`$$
@@ -137,9 +156,21 @@ DROP PROCEDURE IF EXISTS `getTransactionYears`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getTransactionYears` ()  NO SQL
 SELECT DISTINCT YEAR(`date`) AS 'year' FROM `transaction` ORDER BY `date` ASC$$
 
+DROP PROCEDURE IF EXISTS `lastBillId`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `lastBillId` ()  NO SQL
+SELECT `bill_id` AS 'lastBillId' FROM `transaction` ORDER BY `bill_id` DESC LIMIT 1$$
+
+DROP PROCEDURE IF EXISTS `lastCheckInId`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `lastCheckInId` ()  NO SQL
+SELECT * FROM `checkin` ORDER BY `id` DESC LIMIT 1$$
+
 DROP PROCEDURE IF EXISTS `lastDiscountId`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `lastDiscountId` ()  NO SQL
 SELECT * FROM `discount` ORDER BY `id` DESC LIMIT 1$$
+
+DROP PROCEDURE IF EXISTS `lastGuestNo`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `lastGuestNo` ()  NO SQL
+SELECT `no` FROM `guest` ORDER BY `no` DESC LIMIT 1$$
 
 DROP PROCEDURE IF EXISTS `lastId`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `lastId` ()  NO SQL
@@ -153,27 +184,53 @@ DROP PROCEDURE IF EXISTS `lastRoomTypeId`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `lastRoomTypeId` ()  NO SQL
 SELECT * FROM `room_type` ORDER BY `id` DESC LIMIT 1$$
 
-DROP PROCEDURE IF EXISTS `lastTransactionId`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `lastTransactionId` ()  NO SQL
-SELECT * FROM `checkin` ORDER BY `id` DESC LIMIT 1$$
-
 DROP PROCEDURE IF EXISTS `login`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `login` (IN `username` CHAR(6))  NO SQL
 select * from `user` where `id`=username AND `is_deleted` = 0 LIMIT 1$$
 
-DROP PROCEDURE IF EXISTS `roomIdDetails`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `roomIdDetails` ()  NO SQL
-SELECT r.`id`, t.`type` FROM `room` r, `room_type` t WHERE r.`type` = t.`id` AND r.`status` = 0 AND r.`is_deleted` = 0$$
+DROP PROCEDURE IF EXISTS `newFoodBill`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `newFoodBill` (IN `foodAmount` FLOAT)  NO SQL
+INSERT INTO `transaction`(`type`, `amount`) VALUES ('F', foodAmount)$$
+
+DROP PROCEDURE IF EXISTS `roomDetailsById`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `roomDetailsById` ()  NO SQL
+SELECT r.`id`, t.`type`, t.`rate` FROM `room` r, `room_type` t WHERE r.`type` = t.`id` AND r.`status` = 0 AND r.`is_deleted` = 0$$
+
+DROP PROCEDURE IF EXISTS `roomIdForFood`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `roomIdForFood` ()  NO SQL
+SELECT `id` FROM `room` WHERE `is_deleted` = 0 AND `status` = 2$$
 
 DROP PROCEDURE IF EXISTS `roomTypeDetails`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `roomTypeDetails` ()  NO SQL
 SELECT * FROM `room_type` WHERE `is_deleted` = 0$$
+
+DROP PROCEDURE IF EXISTS `sumFoodAmountByGuest`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sumFoodAmountByGuest` (IN `guestId` VARCHAR(20))  NO SQL
+SELECT SUM(rf.`amount`) AS 'foodAmount' FROM `room_food` rf, `checkin` c WHERE rf.`is_deleted` = 0 AND rf.`room_id` = c.`room_id` AND c.`is_checkout` = 0 AND c.`is_deleted` = 0 AND c.`guest_id` = guestId$$
+
+DROP PROCEDURE IF EXISTS `sumFoodAmountByRoom`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sumFoodAmountByRoom` (IN `roomId` INT)  NO SQL
+BEGIN
+SELECT SUM(`amount`) AS 'foodAmount' FROM `room_food` WHERE `room_id` = roomId AND `is_deleted` = 0;
+END$$
+
+DROP PROCEDURE IF EXISTS `sumRoomAmountByGuest`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sumRoomAmountByGuest` (IN `guestId` VARCHAR(20))  NO SQL
+SELECT rt.`rate` * DATEDIFF(IF(CURRENT_TIMESTAMP()<`checkout_date`,`checkout_date`,CURRENT_TIMESTAMP()),c.`checkin_date`) AS 'roomAmount',d.`rate` AS 'discountRate' FROM `checkin` c, `discount` d, `room` r, `room_type` rt WHERE c.`guest_id` = guestId AND c.`discount_id` = d.`id` AND r.`id` = c.`room_id` AND r.`type` = rt.`id` AND c.`is_checkout` = 0 AND c.`is_deleted` = 0$$
+
+DROP PROCEDURE IF EXISTS `sumRoomAmountByRoom`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sumRoomAmountByRoom` (IN `roomId` INT)  NO SQL
+SELECT rt.`rate` * DATEDIFF(IF(CURRENT_TIMESTAMP()<`checkout_date`,`checkout_date`,CURRENT_TIMESTAMP()),c.`checkin_date`) AS 'roomAmount',d.`rate` AS 'discountRate' FROM `checkin` c, `discount` d, `room` r, `room_type` rt WHERE c.`room_id` = roomId AND c.`discount_id` = d.`id` AND r.`id` = c.`room_id` AND r.`type` = rt.`id` AND c.`is_checkout` = 0 AND c.`is_deleted` = 0$$
 
 DROP PROCEDURE IF EXISTS `updateDiscountDetails`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateDiscountDetails` (IN `dId` INT, IN `dType` VARCHAR(15), IN `dRate` INT(3))  NO SQL
 BEGIN
     UPDATE `discount` SET `type`= dType,`rate`= dRate WHERE `id` = dId;
 END$$
+
+DROP PROCEDURE IF EXISTS `updateFoodBill`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateFoodBill` (IN `roomId` INT, IN `foodAmount` FLOAT)  NO SQL
+INSERT INTO `room_food`(`room_id`, `amount`) VALUES (roomId, foodAmount)$$
 
 DROP PROCEDURE IF EXISTS `updateGuestDetails`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateGuestDetails` (IN `gId` CHAR(12), IN `gName` VARCHAR(50), IN `gAddress` VARCHAR(200), IN `gEmail` VARCHAR(100), IN `gPhone` CHAR(20))  NO SQL
@@ -202,13 +259,21 @@ DROP PROCEDURE IF EXISTS `viewBookingDetails`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `viewBookingDetails` ()  NO SQL
 SELECT `id` AS 'Id', `name` AS 'Name', `email` AS 'Email', `phone` AS 'Phone No', `check_in_date` AS 'Check In Date', `no_of_room` AS 'No of Room', `message` AS 'Message' FROM `room_book` WHERE `is_canceled` = 0 AND `is_deleted` = 0 ORDER BY `check_in_date` ASC$$
 
-DROP PROCEDURE IF EXISTS `viewCheckoutDetails`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `viewCheckoutDetails` ()  NO SQL
-SELECT `room_id` AS 'Room ID', `id` AS 'Transaction ID', `guest_id` AS 'Guest ID', `checkin_date` AS 'Checkin Date', `checkout_date` AS 'Checkout Date', `total_balance` AS 'Total Balance', `advance_payment` AS 'Advance Payment' FROM `checkin` WHERE `is_checkout`  = 0 AND `is_deleted` = 0 ORDER BY `room_id`$$
+DROP PROCEDURE IF EXISTS `viewCheckinDetails`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `viewCheckinDetails` ()  NO SQL
+SELECT `guest_id` AS 'Guest Id', `room_id` AS 'Room Id', `checkin_date` AS 'Check In', `checkout_date` AS 'Check Out', IF(`discount_id`=0,'-',`discount_id`) AS 'Discount Id', `advance_payment` AS 'Advance Payment' FROM `checkin` WHERE `is_checkout` = 0 AND `is_deleted` = 0 ORDER BY `checkin_date` DESC$$
+
+DROP PROCEDURE IF EXISTS `viewCheckoutDetailsByGuest`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `viewCheckoutDetailsByGuest` ()  NO SQL
+SELECT  `guest_id` AS 'Guest ID',GROUP_CONCAT(`room_id`) AS 'Room IDs', SUM(`advance_payment`) AS 'Total of Advance Payments' FROM `checkin` WHERE `is_checkout`  = 0 AND `is_deleted` = 0 GROUP BY `guest_id`$$
+
+DROP PROCEDURE IF EXISTS `viewCheckoutDetailsByRoom`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `viewCheckoutDetailsByRoom` ()  NO SQL
+SELECT  `id` AS 'No',`room_id` AS 'Room ID', `guest_id` AS 'Guest ID', `checkin_date` AS 'Checkin Date', `checkout_date` AS 'Checkout Date', `advance_payment` AS 'Advance Payment' FROM `checkin` WHERE `is_checkout`  = 0 AND `is_deleted` = 0 ORDER BY `room_id`$$
 
 DROP PROCEDURE IF EXISTS `viewDiscountDetails`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `viewDiscountDetails` ()  NO SQL
-SELECT `id` AS 'ID', `type` AS 'Discount Type', `rate` AS 'Discount Rate (%)' FROM `discount` WHERE `is_deleted` = 0$$
+SELECT `id` AS 'ID', `type` AS 'Discount Type', `rate` AS 'Discount Rate (%)' FROM `discount` WHERE `id` != 0 AND `is_deleted` = 0$$
 
 DROP PROCEDURE IF EXISTS `viewGuestDetails`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `viewGuestDetails` ()  NO SQL
@@ -234,7 +299,7 @@ SELECT `id` AS 'Id', `name` AS 'Name', `email` AS 'Email', `mobile` AS 'Phone No
 
 DROP PROCEDURE IF EXISTS `viewTransactionDetails`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `viewTransactionDetails` ()  NO SQL
-SELECT `bill_id` AS 'Bill Id', IF(`type`='R','Room', 'Kitchen') AS 'Type', `date` AS 'Date', `amount` AS 'Amount (Rs.)' FROM `transaction` ORDER BY `date` DESC$$
+SELECT `bill_id` AS 'Bill Id', IF(`type`='R','Room', 'Food') AS 'Type', `date` AS 'Date', `amount` AS 'Amount (Rs.)' FROM `transaction` ORDER BY `date` DESC$$
 
 DROP PROCEDURE IF EXISTS `viewUserDetails`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `viewUserDetails` ()  NO SQL
@@ -265,7 +330,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
 --
 
 INSERT INTO `admin` (`id`, `name`, `email`, `mobile`, `is_deleted`) VALUES
-('ADM001', 'Chefguru', 'tg2017233@gmail.com', '0771637551', 0);
+('ADM001', 'Chefguru', 'admin@chefguru.com', '0712345678', 0);
 
 -- --------------------------------------------------------
 
@@ -288,8 +353,9 @@ CREATE TABLE IF NOT EXISTS `cashier` (
 --
 
 INSERT INTO `cashier` (`id`, `name`, `email`, `mobile`, `is_deleted`) VALUES
-('CSR001', 'Madushan', 'sandaru1wgm@gmail.com', '0718925949', 0),
-('CSR002', 'Sandaru', 'sandaru@chefguru.com', '0778321006', 0);
+('CSR001', 'Madushan', 'masha@chefguru.com', '0718925949', 0),
+('CSR002', 'Sandaru', 'sandaru@chefguru.com', '0778321006', 0),
+('CSR003', 'Karunasena', 'karunasena@chefguru.com', '0748596321', 0);
 
 -- --------------------------------------------------------
 
@@ -300,25 +366,24 @@ INSERT INTO `cashier` (`id`, `name`, `email`, `mobile`, `is_deleted`) VALUES
 DROP TABLE IF EXISTS `checkin`;
 CREATE TABLE IF NOT EXISTS `checkin` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `guest_id` char(12) NOT NULL,
+  `guest_id` varchar(20) NOT NULL,
   `room_id` int(11) NOT NULL,
-  `checkin_date` date NOT NULL,
-  `checkout_date` date NOT NULL,
-  `discount_id` int(11) NOT NULL,
+  `checkin_date` datetime NOT NULL DEFAULT current_timestamp(),
+  `checkout_date` datetime NOT NULL,
+  `discount_id` int(11) NOT NULL DEFAULT 0,
   `advance_payment` float NOT NULL,
-  `total_balance` float NOT NULL,
   `is_checkout` tinyint(1) NOT NULL DEFAULT 0,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `checkin`
 --
 
-INSERT INTO `checkin` (`id`, `guest_id`, `room_id`, `checkin_date`, `checkout_date`, `discount_id`, `advance_payment`, `total_balance`, `is_checkout`, `is_deleted`) VALUES
-(2, '980171329v', 2, '2020-02-09', '2020-02-17', 3, 26000, 26600, 0, 1),
-(3, '980171329v', 2, '2020-02-09', '2020-02-10', 3, 1500, 3325, 1, 0);
+INSERT INTO `checkin` (`id`, `guest_id`, `room_id`, `checkin_date`, `checkout_date`, `discount_id`, `advance_payment`, `is_checkout`, `is_deleted`) VALUES
+(1, '980171329V', 3, '2020-05-27 17:01:07', '2020-05-30 00:00:00', 0, 2000, 1, 0),
+(2, '654128501V', 7, '2020-05-27 17:02:23', '2020-05-31 00:00:00', 2, 10000, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -336,16 +401,15 @@ CREATE TABLE IF NOT EXISTS `customer_message` (
   `received_time` datetime NOT NULL DEFAULT current_timestamp(),
   `is_replied` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `customer_message`
 --
 
 INSERT INTO `customer_message` (`id`, `name`, `email`, `phone`, `message`, `received_time`, `is_replied`) VALUES
-(1, 'Madushan Sandaruwan Karunasena', 'madushansandaru1@gmail.com', '+94771637551', 'hiii', '2020-05-24 23:02:13', 0),
-(7, 'Madushan Sandaruwan Karunasena', 'madushansandaru1@gmail.com', '+94771637551', 'hiii', '2020-05-24 23:18:28', 0),
-(8, 'dsa', 'edfergvrd`', '58552', 'hfu uygy', '2020-05-24 23:20:40', 0);
+(9, 'Tester', 'test@test.com', '0774521839', 'What is the difference between a Double room and a Twin room', '2020-05-27 16:59:33', 0),
+(10, 'Tester', 'test@test.com', '0774521839', 'What is the difference between a Double room and a Twin room', '2020-05-27 16:59:57', 0);
 
 -- --------------------------------------------------------
 
@@ -357,20 +421,20 @@ DROP TABLE IF EXISTS `discount`;
 CREATE TABLE IF NOT EXISTS `discount` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(15) NOT NULL,
-  `rate` int(3) NOT NULL,
+  `rate` float NOT NULL,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `discount`
 --
 
 INSERT INTO `discount` (`id`, `type`, `rate`, `is_deleted`) VALUES
-(1, 'holi', 1, 0),
-(2, 'New Year- 2020', 30, 0),
-(3, 'Christmas', 5, 0),
-(4, 'Test', 45, 1);
+(0, 'do_not_delete', 0, 0),
+(1, 'New Year', 3, 0),
+(2, 'Holi', 2, 0),
+(3, 'Christmas', 5, 0);
 
 -- --------------------------------------------------------
 
@@ -388,18 +452,15 @@ CREATE TABLE IF NOT EXISTS `guest` (
   `phone` char(20) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`no`)
-) ENGINE=MyISAM AUTO_INCREMENT=980171331 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=980171333 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `guest`
 --
 
 INSERT INTO `guest` (`no`, `identity`, `name`, `address`, `email`, `phone`, `is_deleted`) VALUES
-(1, '980171329V', 'madushan', 'tton', 'tg2017233@gmail.com', '0771637551', 0),
-(2, '3', 'dul', 'k', 'bh@mk.co', '7854', 0),
-(3, '6', 'gd', 'rew', 'g@hbj.j', '989', 0),
-(4, '2', 'mmm', 'hhhhh', 'mas@gm.co', '0741253698', 0),
-(980171330, '123', 'mashan', 'ssssssss', 'hdhhdh@gmail.com', '4444444444', 1);
+(1, '980171329V', 'Madushan', 'Bambaragala, Koththallena, Hatton', 'tg2017233@gmail.com', '0771637551', 0),
+(2, '654128501V', 'Test', 'Kamburupitiya, Matara', 'test@test.com', '0524136710', 0);
 
 -- --------------------------------------------------------
 
@@ -409,12 +470,12 @@ INSERT INTO `guest` (`no`, `identity`, `name`, `address`, `email`, `phone`, `is_
 
 DROP TABLE IF EXISTS `room`;
 CREATE TABLE IF NOT EXISTS `room` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` char(3) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 0,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `room`
@@ -422,9 +483,16 @@ CREATE TABLE IF NOT EXISTS `room` (
 
 INSERT INTO `room` (`id`, `type`, `status`, `is_deleted`) VALUES
 (1, 'T01', 0, 0),
-(2, 'T02', 0, 0),
-(3, 'T01', 0, 1),
-(4, 'T02', 0, 1);
+(2, 'T01', 0, 0),
+(3, 'T01', 0, 0),
+(4, 'T01', 0, 0),
+(5, 'T02', 0, 0),
+(6, 'T02', 0, 0),
+(7, 'T03', 2, 0),
+(8, 'T03', 0, 0),
+(9, 'T03', 0, 0),
+(10, 'T04', 0, 0),
+(11, 'T04', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -444,16 +512,39 @@ CREATE TABLE IF NOT EXISTS `room_book` (
   `is_canceled` tinyint(1) NOT NULL DEFAULT 0,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `room_book`
 --
 
 INSERT INTO `room_book` (`id`, `name`, `email`, `phone`, `check_in_date`, `no_of_room`, `message`, `is_canceled`, `is_deleted`) VALUES
-(1, 'Madushan Sandaruwan Karunasena', 'madushansandaru1@gmail.com', '+94771637551', '2020-05-24', 2, 'hii hhhbsb sjkdksj', 0, 0),
-(2, 'Madushan Sandaruwan Karunasena', 'madushansandaru1@gmail.com', '+94771637551', '2020-05-24', 2, 'hii hhhbsb sjkdksj', 0, 0),
-(3, 'Madushan Sandaruwan Karunasena', 'madushansandaru1@gmail.com', '+94771637551', '2020-05-27', 3, 'fesf', 0, 0);
+(1, 'Sandun Chamara', 'sandun@gmail.com', '0789645123', '2020-05-30', 1, '2 adult and 1 child', 0, 0),
+(2, 'Kawindu', 'kawindu@gmail.com', '0798541749', '2020-05-29', 1, '1 adult', 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `room_food`
+--
+
+DROP TABLE IF EXISTS `room_food`;
+CREATE TABLE IF NOT EXISTS `room_food` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `room_id` int(11) NOT NULL,
+  `date` datetime NOT NULL DEFAULT current_timestamp(),
+  `amount` int(11) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `room_food`
+--
+
+INSERT INTO `room_food` (`id`, `room_id`, `date`, `amount`, `is_deleted`) VALUES
+(5, 7, '2020-05-27 17:04:56', 1433, 0),
+(6, 7, '2020-05-27 17:05:13', 2810, 0);
 
 -- --------------------------------------------------------
 
@@ -477,9 +568,10 @@ CREATE TABLE IF NOT EXISTS `room_type` (
 --
 
 INSERT INTO `room_type` (`id`, `type`, `description`, `rate`, `image`, `is_deleted`) VALUES
-('T01', 'Single', 'A room assigned to one person. May have one or more beds.  The room size or area of Single Rooms are generally between 37 m to 45 m', 50, 'room_type_default.jpg', 0),
-('T02', 'Double', 'A room assigned to one person. May have one or more beds.  The room size or area of Single Rooms are generally between 37 m to 45 m', 500, 'room_type_default.jpg', 0),
-('T03', 'aaaa', 'hbjkgb hhuh hjhouhjn hjhnojnnnnnnnnnnnnnnn jojhoiuj joiji ojioji oihjoi', 500, 'hjbgjgb', 1);
+('T01', 'Single', 'A room with the facility of single bed. It is meant for single occupancy. It has an attached bathroom, a small dressing table, a small bedside table, and a small writing table. Sometimes it has a single chair too.', 1500, 'room_type_default.jpg', 0),
+('T02', 'Double', 'A room with the facility of double bed. There are two variants in this type depending upon the size of the bed.', 2500, 'room_type_default.jpg', 0),
+('T03', 'Deluxe', 'They are available in Single Deluxe and Double Deluxe variants. Deluxe room is well furnished. Some amenities are attached bathroom, a dressing table, a bedside table, a small writing table, a TV, and a small fridge.', 4500, 'room_type_default.jpg', 0),
+('T04', 'Twin Double', 'This room provides two double beds with separate headboards. It is ideal for a family with two children below 12 years.', 6000, 'room_type_default.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -489,24 +581,23 @@ INSERT INTO `room_type` (`id`, `type`, `description`, `rate`, `image`, `is_delet
 
 DROP TABLE IF EXISTS `transaction`;
 CREATE TABLE IF NOT EXISTS `transaction` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `bill_id` int(11) NOT NULL,
+  `bill_id` int(11) NOT NULL AUTO_INCREMENT,
   `type` char(1) NOT NULL,
   `date` datetime NOT NULL DEFAULT current_timestamp(),
   `amount` float NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`bill_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `transaction`
 --
 
-INSERT INTO `transaction` (`id`, `bill_id`, `type`, `date`, `amount`) VALUES
-(1, 1, 'R', '2019-05-25 00:43:51', 15200),
-(2, 2, 'R', '2020-05-25 00:43:51', 253),
-(3, 3, 'K', '2020-04-25 00:43:51', 582),
-(4, 4, 'R', '2020-04-25 00:43:51', 500),
-(5, 5, 'K', '2020-04-29 00:43:51', 7802);
+INSERT INTO `transaction` (`bill_id`, `type`, `date`, `amount`) VALUES
+(34, 'F', '2020-05-27 16:41:04', 6540),
+(35, 'R', '2020-05-27 17:01:43', 2000),
+(36, 'R', '2020-05-27 17:03:07', 10000),
+(37, 'R', '2020-05-27 17:04:16', 2500),
+(38, 'F', '2020-05-27 17:05:28', 3600);
 
 -- --------------------------------------------------------
 
@@ -530,7 +621,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 INSERT INTO `user` (`id`, `password`, `role`, `is_deleted`) VALUES
 ('ADM001', '123', 'admin', 0),
 ('CSR001', '123', 'cashier', 0),
-('CSR002', '123', 'cashier', 0);
+('CSR002', '123', 'cashier', 0),
+('CSR003', '123', 'cashier', 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

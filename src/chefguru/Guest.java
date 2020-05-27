@@ -24,12 +24,21 @@ public class Guest {
     
     DBConnection obj = DBConnection.getDb();
     
+    private int no;
     private String id;
     private String name;
     private String address;
     private String email;
     private String phone;
 
+    public int getNo() {
+        return no;
+    }
+
+    public void setNo(int no) {
+        this.no = no;
+    }
+    
     public String getId() {
         return id;
     }
@@ -76,7 +85,8 @@ public class Guest {
         conn = obj.connect();
             
         try {
-            cs = conn.prepareCall("{call createGuestDetails(?,?,?,?,?)}");
+            cs = conn.prepareCall("{call createGuestDetails(?,?,?,?,?,?)}");
+            cs.setInt("gNo", getNo());
             cs.setString("gId", getId());
             cs.setString("gName", getName());
             cs.setString("gAddress", getAddress());
