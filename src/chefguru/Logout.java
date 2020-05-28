@@ -5,6 +5,8 @@
  */
 package chefguru;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author sanda
@@ -17,6 +19,7 @@ public class Logout extends javax.swing.JFrame {
     
     public Logout() {
         initComponents();
+        this.setIconImage(new ImageIcon(getClass().getResource("/image/logo_small.png")).getImage());
     }
 
     /**

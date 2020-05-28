@@ -5,6 +5,8 @@
  */
 package chefguru;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author sanda
@@ -17,6 +19,8 @@ public class ErrorMsg extends javax.swing.JFrame {
     
     public ErrorMsg() {
         initComponents();
+        
+        this.setIconImage(new ImageIcon(getClass().getResource("/image/logo_small.png")).getImage());
     }
 
     /**

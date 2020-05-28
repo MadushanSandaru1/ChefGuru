@@ -5,6 +5,8 @@
  */
 package chefguru;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author sanda
@@ -19,6 +21,8 @@ public class ConfirmationMsg extends javax.swing.JFrame {
     
     public ConfirmationMsg() {
         initComponents();
+        
+        this.setIconImage(new ImageIcon(getClass().getResource("/image/logo_small.png")).getImage());
     }
 
     /**

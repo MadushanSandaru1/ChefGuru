@@ -19,6 +19,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import net.proteanit.sql.DbUtils;
@@ -42,6 +43,8 @@ public class Room_Information_Report extends javax.swing.JFrame {
     
     public Room_Information_Report() {
         initComponents();
+        
+        this.setIconImage(new ImageIcon(getClass().getResource("/image/logo_small.png")).getImage());
         
         upper_date.setText(new AdminDashboard().dateForUse());
         

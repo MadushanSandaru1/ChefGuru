@@ -7,6 +7,7 @@ package chefguru;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -19,6 +20,8 @@ public class Loading extends javax.swing.JFrame {
      */
     public Loading() {
         initComponents();
+        
+        this.setIconImage(new ImageIcon(getClass().getResource("/image/logo_small.png")).getImage());
     }
 
     /**

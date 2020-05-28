@@ -7,6 +7,7 @@ package chefguru;
 
 import dbconnection.DBConnection;
 import java.sql.*;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -33,6 +34,8 @@ public class Login extends javax.swing.JFrame {
     
     public Login() {
         initComponents();
+        
+        this.setIconImage(new ImageIcon(getClass().getResource("/image/logo_small.png")).getImage());
     }
 
     /**

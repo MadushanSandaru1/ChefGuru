@@ -18,6 +18,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -70,6 +71,8 @@ public class AdminDashboard extends javax.swing.JFrame {
     public AdminDashboard() {
         
         initComponents();
+        
+        this.setIconImage(new ImageIcon(getClass().getResource("/image/logo_small.png")).getImage());
         
         today = AdminDashboard.dateForUse();
         

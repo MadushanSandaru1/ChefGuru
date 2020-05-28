@@ -18,6 +18,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -72,6 +73,8 @@ public class CashierDashboard extends javax.swing.JFrame {
     public CashierDashboard() {
         
         initComponents();
+        
+        this.setIconImage(new ImageIcon(getClass().getResource("/image/logo_small.png")).getImage());
         
         today = CashierDashboard.dateForUse();
         

@@ -19,6 +19,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -50,6 +51,8 @@ public class Checkin_Invoice extends javax.swing.JFrame {
     
     public Checkin_Invoice(String rm_id, String checkout_date, String adv_pymnt) {
         initComponents();
+        
+        this.setIconImage(new ImageIcon(getClass().getResource("/image/logo_small.png")).getImage());
         
         upper_date.setText(new CashierDashboard().dateForReport());
         
