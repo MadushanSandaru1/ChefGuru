@@ -202,7 +202,6 @@ public class CashierDashboard extends javax.swing.JFrame {
         userTopic1 = new javax.swing.JLabel();
         bookingCheckInBtn = new javax.swing.JButton();
         bookingCancelBtn = new javax.swing.JButton();
-        bookingDeleteBtn = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         bookingTable = new javax.swing.JTable();
         pwdLabel2 = new javax.swing.JLabel();
@@ -1534,16 +1533,6 @@ public class CashierDashboard extends javax.swing.JFrame {
             }
         });
 
-        bookingDeleteBtn.setBackground(new java.awt.Color(255, 96, 92));
-        bookingDeleteBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        bookingDeleteBtn.setForeground(new java.awt.Color(255, 255, 255));
-        bookingDeleteBtn.setText("Delete");
-        bookingDeleteBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bookingDeleteBtnActionPerformed(evt);
-            }
-        });
-
         bookingTable.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bookingTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1594,9 +1583,7 @@ public class CashierDashboard extends javax.swing.JFrame {
                                 .addGap(39, 39, 39)
                                 .addComponent(bookingCheckInBtn)
                                 .addGap(18, 18, 18)
-                                .addComponent(bookingCancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(bookingDeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(bookingCancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(bookingLayout.createSequentialGroup()
@@ -1613,8 +1600,7 @@ public class CashierDashboard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(bookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bookingCheckInBtn)
-                    .addComponent(bookingCancelBtn)
-                    .addComponent(bookingDeleteBtn))
+                    .addComponent(bookingCancelBtn))
                 .addGap(18, 18, 18)
                 .addGroup(bookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pwdLabel2)
@@ -2931,7 +2917,6 @@ public class CashierDashboard extends javax.swing.JFrame {
 
         bookingCheckInBtn.setVisible(true);
         bookingCancelBtn.setVisible(true);
-        bookingDeleteBtn.setVisible(true);
     }//GEN-LAST:event_bookingTableMouseClicked
 
     private void guestIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guestIdActionPerformed
@@ -3510,21 +3495,6 @@ public class CashierDashboard extends javax.swing.JFrame {
         viewGuestDetails();
     }//GEN-LAST:event_guestCancelBtnActionPerformed
 
-    private void bookingDeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookingDeleteBtnActionPerformed
-        Booking booking = new Booking();
-        
-        if(editBookingId.isEmpty()){
-            new ErrorMsg().showErr("Please select record...");
-        } else {
-            booking.setId(editBookingId);
-
-            booking.deleteBooking();
-            viewBookingDetails();
-        }
-        
-        editBookingId = null;
-    }//GEN-LAST:event_bookingDeleteBtnActionPerformed
-
     private void userCancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userCancelBtnActionPerformed
         panelDefault();
         user.setVisible(true);
@@ -3908,7 +3878,6 @@ public class CashierDashboard extends javax.swing.JFrame {
         
         bookingCheckInBtn.setVisible(false);
         bookingCancelBtn.setVisible(false);
-        bookingDeleteBtn.setVisible(false);
         
         try {
                 cs = conn.prepareCall("{CALL `viewBookingDetails`()}");
@@ -4578,7 +4547,6 @@ public class CashierDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel booking;
     private javax.swing.JButton bookingCancelBtn;
     private javax.swing.JButton bookingCheckInBtn;
-    private javax.swing.JButton bookingDeleteBtn;
     private javax.swing.JTextArea bookingMessage;
     private javax.swing.JPanel bookingPanel;
     private javax.swing.JTable bookingTable;
