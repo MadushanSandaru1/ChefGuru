@@ -24,16 +24,16 @@ public class Message {
     
     DBConnection obj = DBConnection.getDb();
     
-    private String id;
+    private int id;
     private String email;
     private String heading;
     private String message;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -53,34 +53,41 @@ public class Message {
         this.heading = heading;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
     public void setMessage(String message) {
         this.message = message;
     }
 
     public void sendReplyEmail()
     {
-        boolean status = false;
+        emailSender.EmailSenderAPI emailSenderAPI = new emailSender.EmailSenderAPI();
         
-        //email sending part
+        try {
+            String emaiContent = "<h3>"+getHeading()+"</h3><br>Dear Sir/Madam,<br><br><p>"+getMessage()+"</p><br>Thank You!<br><br><pre>ChefGuru Hotel,<br>Sri Sangharaja Piriwena Road,<br>Lower Kahattewela,<br>Bandarawela 90100,<br>Sri Lanka<br>Tel: +94 57 22 30 500<br>Email: mevangurusinghe2@gmail.com</pre>";
+            emailSenderAPI.sendEmail(getEmail(), "ChefGuru | Bandarawela", emaiContent);
+        } catch (Exception e) {
+        }
         
-        /*if(status){
+        if(emailSenderAPI.email_status){
             
             conn = obj.connect();
             
             try {
                 cs = conn.prepareCall("{CALL updateMessageDetails(?)}");
-                cs.setString("mId", getId());
+                cs.setInt("mId", getId());
+                
+                new ErrorMsg().showErr("Email sent successfully...");
 
             } catch (SQLException e) {
                 new ErrorMsg().showErr(e.getMessage());
             }
 
             conn = null;
-            
-            new ErrorMsg().showErr("Email sent successfully...");
-            
         } else {
             new ErrorMsg().showErr("Failed to send email...");
-        }*/
+        }
     }
 }

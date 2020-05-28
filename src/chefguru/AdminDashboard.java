@@ -16,6 +16,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
@@ -2038,7 +2039,9 @@ public class AdminDashboard extends javax.swing.JFrame {
         String name = this.userName.getText().trim();
         String email = this.userEmail.getText().trim();
         String phone = this.userPhone.getText().trim();
-        String password = "123";
+        String password = String.valueOf(new Random().nextInt(1000));
+       
+        
         
         if(id.isEmpty() || name.isEmpty() || email.isEmpty() || phone.isEmpty()){
             new ErrorMsg().showErr("Please fill all the fields...");
@@ -2081,6 +2084,7 @@ public class AdminDashboard extends javax.swing.JFrame {
             new ErrorMsg().showErr("Please enter password...");
         } else {
             user.setPassword(password);
+            user.setEmail(this.userEmail.getText().trim());
 
             user.changePassword(editUserId);
             viewUserDetails();
@@ -2580,7 +2584,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         if(email.isEmpty() || heading.isEmpty() || messageContent.isEmpty()){
             new ErrorMsg().showErr("Please fill all the fields...");
         } else {
-            message.setId(editMessageId);
+            message.setId(Integer.valueOf(editMessageId));
             message.setEmail(email);
             message.setHeading(heading);
             message.setMessage(messageContent);
