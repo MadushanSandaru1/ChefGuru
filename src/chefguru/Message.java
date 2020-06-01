@@ -66,8 +66,8 @@ public class Message {
         emailSender.EmailSenderAPI emailSenderAPI = new emailSender.EmailSenderAPI();
         
         try {
-            String emaiContent = "<h3>"+getHeading()+"</h3><br>Dear Sir/Madam,<br><br><p>"+getMessage()+"</p><br>Thank You!<br><br><pre>ChefGuru Hotel,<br>Sri Sangharaja Piriwena Road,<br>Lower Kahattewela,<br>Bandarawela 90100,<br>Sri Lanka<br>Tel: +94 57 22 30 500<br>Email: mevangurusinghe2@gmail.com</pre>";
-            emailSenderAPI.sendEmail(getEmail(), "ChefGuru | Bandarawela", emaiContent);
+            String emailContent = "<h3>"+getHeading()+"</h3><br>Dear Sir/Madam,<br><br><p>"+getMessage()+"</p><br>Thank You!<br><br><pre>ChefGuru Hotel,<br>Sri Sangharaja Piriwena Road,<br>Lower Kahattewela,<br>Bandarawela 90100,<br>Sri Lanka<br>Tel: +94 57 22 30 500<br>Email: mevangurusinghe2@gmail.com</pre>";
+            emailSenderAPI.sendEmail(getEmail(), "ChefGuru | Bandarawela", emailContent);
         } catch (Exception e) {
         }
         
