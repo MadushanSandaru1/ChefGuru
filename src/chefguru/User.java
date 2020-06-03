@@ -112,10 +112,10 @@ public class User {
             cs.setString("email", getEmail());
             cs.setString("phone", getPhone());
             cs.setString("password", getPassword());
-
-            if(cs.executeUpdate()==2){
+            
+            if(cs.executeUpdate()>0){
                 try {
-                    String emailContent = "<h3>ChefGuru Account Username and Password</h3><br>Dear "+getName()+",<br><br><p>Account Id: <b>"+getId()+"</b><br><br><b>"+getPassword()+"</b> is Your Chefguru Hotel Management System Password</p><br>Thank You!<br><br><pre>Administrator | ChefGuru Hotel,<br>Sri Sangharaja Piriwena Road,<br>Lower Kahattewela,<br>Bandarawela 90100,<br>Sri Lanka<br>Tel: +94 57 22 30 500<br>Email: mevangurusinghe2@gmail.com</pre>";
+                    String emailContent = "Dear "+getName()+",<br><h3>ChefGuru Account Username and Password</h3><br><p>Account Id: <b>"+getId()+"</b><br><br><b>"+getPassword()+"</b> is Your Chefguru Hotel Management System Password</p><br>Thank You!<br><br><pre>Administrator | ChefGuru Hotel,<br>Sri Sangharaja Piriwena Road,<br>Lower Kahattewela,<br>Bandarawela 90100,<br>Sri Lanka<br>Tel: +94 57 22 30 500<br>Email: mevangurusinghe2@gmail.com</pre>";
                     new emailSender.EmailSenderAPI().sendEmail(getEmail(), "ChefGuru | Bandarawela", emailContent);
                 } catch (Exception e) {
                 }
@@ -144,7 +144,12 @@ public class User {
             cs.setString("phone", getPhone());
             //cs.setString("password", getPassword());
 
-            if(cs.executeUpdate()==1){
+            if(cs.executeUpdate()>0){
+                try {
+                    String emailContent = "Dear "+getName()+",<br><h3>Updated Your ChefGuru Account Information</h3><br><p>Account Id: <b>"+editUserId+"</b><br>Name: <b>"+getName()+"</b><br>Email: <b>"+getEmail()+"</b><br>Phone No: <b>"+getPhone()+"</b><br><br></p><br>Thank You!<br><br><pre>Administrator | ChefGuru Hotel,<br>Sri Sangharaja Piriwena Road,<br>Lower Kahattewela,<br>Bandarawela 90100,<br>Sri Lanka<br>Tel: +94 57 22 30 500<br>Email: mevangurusinghe2@gmail.com</pre>";
+                    new emailSender.EmailSenderAPI().sendEmail(getEmail(), "ChefGuru | Bandarawela", emailContent);
+                } catch (Exception e) {
+                }
                 new ErrorMsg().showErr("Record updated successfully...");
             } else {
                 new ErrorMsg().showErr("Record not updated...");
@@ -168,9 +173,9 @@ public class User {
             cs.setString("username", editUserId);
             cs.setString("password", getPassword());
 
-            if(cs.executeUpdate()==1){
+            if(cs.executeUpdate()>0){
                 try {
-                    String emailContent = "<h3>New Password in ChefGuru Account</h3><br>Dear Sir/Madam,<br><br><p>Account Id: <b>"+editUserId+"</b><br><br><b>"+getPassword()+"</b> is Your Chefguru Hotel Management System New Password</p><br>Thank You!<br><br><pre>Administrator | ChefGuru Hotel,<br>Sri Sangharaja Piriwena Road,<br>Lower Kahattewela,<br>Bandarawela 90100,<br>Sri Lanka<br>Tel: +94 57 22 30 500<br>Email: mevangurusinghe2@gmail.com</pre>";
+                    String emailContent = "Dear "+getName()+",<br><h3>New Password in ChefGuru Account</h3><br><p>Account Id: <b>"+editUserId+"</b><br><br><b>"+getPassword()+"</b> is Your Chefguru Hotel Management System New Password</p><br>Thank You!<br><br><pre>Administrator | ChefGuru Hotel,<br>Sri Sangharaja Piriwena Road,<br>Lower Kahattewela,<br>Bandarawela 90100,<br>Sri Lanka<br>Tel: +94 57 22 30 500<br>Email: mevangurusinghe2@gmail.com</pre>";
                     new emailSender.EmailSenderAPI().sendEmail(getEmail(), "ChefGuru | Bandarawela", emailContent);
                 } catch (Exception e) {
                 }

@@ -53,7 +53,7 @@ public class Room {
             cs.setString("rId", getRoomId());
             cs.setString("rType", getRoomType());
 
-            if(cs.executeUpdate()==1){
+            if(cs.executeUpdate()>0){
                 new ErrorMsg().showErr("Record inserted successfully...");
             } else {
                 new ErrorMsg().showErr("Record not inserted...");
@@ -76,7 +76,7 @@ public class Room {
             cs.setString("rId", editRoomId);
             cs.setString("rType", getRoomType());
 
-            if(cs.executeUpdate()==1){
+            if(cs.executeUpdate()>0){
                 new ErrorMsg().showErr("Record updated successfully...");
             } else {
                 new ErrorMsg().showErr("Record not updated...");

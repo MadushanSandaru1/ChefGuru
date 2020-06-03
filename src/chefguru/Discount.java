@@ -63,7 +63,7 @@ public class Discount {
             cs.setString("dType", getType());
             cs.setString("dRate", getRate());
 
-            if(cs.executeUpdate()==1){
+            if(cs.executeUpdate()>0){
                 new ErrorMsg().showErr("Record inserted successfully...");
             } else {
                 new ErrorMsg().showErr("Record not inserted...");
@@ -87,7 +87,7 @@ public class Discount {
             cs.setString("dType", getType());
             cs.setString("dRate", getRate());
 
-            if(cs.executeUpdate()==1){
+            if(cs.executeUpdate()>0){
                 new ErrorMsg().showErr("Record updated successfully...");
             } else {
                 new ErrorMsg().showErr("Record not updated...");

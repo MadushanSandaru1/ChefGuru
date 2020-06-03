@@ -83,7 +83,7 @@ public class Roomtype {
             cs.setString("rRate", getRate());
             cs.setString("rImage", getImage());
 
-            if(cs.executeUpdate()==1){
+            if(cs.executeUpdate()>0){
                 new ErrorMsg().showErr("Record inserted successfully...");
             } else {
                 new ErrorMsg().showErr("Record not inserted...");
@@ -108,7 +108,7 @@ public class Roomtype {
             cs.setString("rDescription", getDescription());
             cs.setString("rRate", getRate());
 
-            if(cs.executeUpdate()==1){
+            if(cs.executeUpdate()>0){
                 new ErrorMsg().showErr("Record updated successfully...");
             } else {
                 new ErrorMsg().showErr("Record not updated...");

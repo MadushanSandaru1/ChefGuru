@@ -210,6 +210,10 @@ public class CashierDashboard extends javax.swing.JFrame {
         pwdLabel2 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         bookingMessage = new javax.swing.JTextArea();
+        pwdLabel3 = new javax.swing.JLabel();
+        pwdLabel4 = new javax.swing.JLabel();
+        bookingName = new javax.swing.JTextField();
+        bookingEmail = new javax.swing.JTextField();
         food = new javax.swing.JPanel();
         foodTopic = new javax.swing.JLabel();
         updateBill = new javax.swing.JPanel();
@@ -1568,6 +1572,38 @@ public class CashierDashboard extends javax.swing.JFrame {
         bookingMessage.setRows(5);
         jScrollPane6.setViewportView(bookingMessage);
 
+        pwdLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        pwdLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        pwdLabel3.setText("Email :");
+
+        pwdLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        pwdLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        pwdLabel4.setText("Name :");
+
+        bookingName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        bookingName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bookingNameActionPerformed(evt);
+            }
+        });
+        bookingName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                bookingNameKeyTyped(evt);
+            }
+        });
+
+        bookingEmail.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        bookingEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bookingEmailActionPerformed(evt);
+            }
+        });
+        bookingEmail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                bookingEmailKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout bookingLayout = new javax.swing.GroupLayout(booking);
         booking.setLayout(bookingLayout);
         bookingLayout.setHorizontalGroup(
@@ -1589,11 +1625,17 @@ public class CashierDashboard extends javax.swing.JFrame {
                                 .addComponent(bookingCancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(bookingLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bookingLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(pwdLabel2)
+                .addGroup(bookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(pwdLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pwdLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pwdLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(bookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bookingName, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bookingEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(111, 111, 111))
         );
         bookingLayout.setVerticalGroup(
@@ -1604,12 +1646,20 @@ public class CashierDashboard extends javax.swing.JFrame {
                 .addGroup(bookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bookingCheckInBtn)
                     .addComponent(bookingCancelBtn))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGroup(bookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(pwdLabel4)
+                    .addComponent(bookingName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(bookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(pwdLabel3)
+                    .addComponent(bookingEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(bookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pwdLabel2)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -2770,7 +2820,7 @@ public class CashierDashboard extends javax.swing.JFrame {
                         cs = conn.prepareCall("{call deleteUserDetails(?)}");
                         cs.setString("username", editUserId);
                         
-                        if(cs.executeUpdate()==2){
+                        if(cs.executeUpdate()>0){
                             viewUserDetails();
                             new ErrorMsg().showErr("Record deleted successfully...");
                         }
@@ -2870,11 +2920,15 @@ public class CashierDashboard extends javax.swing.JFrame {
         User user = new User();
         
         String password = this.userPassword.getText().trim();
+        String email = this.userEmail.getText().trim();
+        String name = this.userName.getText().trim();
         
         if(password.isEmpty()){
             new ErrorMsg().showErr("Please enter password...");
         } else {
             user.setPassword(password);
+            user.setEmail(email);
+            user.setName(name);
 
             user.changePassword(editUserId);
             viewUserDetails();
@@ -2898,10 +2952,15 @@ public class CashierDashboard extends javax.swing.JFrame {
     private void bookingCancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookingCancelBtnActionPerformed
         Booking booking = new Booking();
         
+        String name = this.bookingName.getText().trim();
+        String email = this.bookingEmail.getText().trim();
+        
         if(editBookingId.isEmpty()){
             new ErrorMsg().showErr("Please select record...");
         } else {
             booking.setId(editBookingId);
+            booking.setName(name);
+            booking.setEmail(email);
 
             booking.cancelBooking();
             viewBookingDetails();
@@ -2916,6 +2975,8 @@ public class CashierDashboard extends javax.swing.JFrame {
 
         editBookingId = bookingTable.getValueAt(row, 0).toString();
 
+        bookingName.setText(bookingTable.getValueAt(row, 1).toString());
+        bookingEmail.setText(bookingTable.getValueAt(row, 2).toString());
         bookingMessage.setText(bookingTable.getValueAt(row, 6).toString());
 
         bookingCheckInBtn.setVisible(true);
@@ -3033,7 +3094,7 @@ public class CashierDashboard extends javax.swing.JFrame {
                         cs = conn.prepareCall("{call deleteGuestDetails(?)}");
                         cs.setString("gId", editGuestId);
                         
-                        if(cs.executeUpdate()==1){
+                        if(cs.executeUpdate()>0){
                             viewGuestDetails();
                             new ErrorMsg().showErr("Record deleted successfully...");
                         }
@@ -3782,6 +3843,22 @@ public class CashierDashboard extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_foodNewBillAmountKeyTyped
+
+    private void bookingNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookingNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bookingNameActionPerformed
+
+    private void bookingNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bookingNameKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bookingNameKeyTyped
+
+    private void bookingEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookingEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bookingEmailActionPerformed
+
+    private void bookingEmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bookingEmailKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bookingEmailKeyTyped
 
     private void panelDefault(){
         checkIn.setVisible(false);
@@ -4550,7 +4627,9 @@ public class CashierDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel booking;
     private javax.swing.JButton bookingCancelBtn;
     private javax.swing.JButton bookingCheckInBtn;
+    private javax.swing.JTextField bookingEmail;
     private javax.swing.JTextArea bookingMessage;
+    private javax.swing.JTextField bookingName;
     private javax.swing.JPanel bookingPanel;
     private javax.swing.JTable bookingTable;
     private javax.swing.JPanel checkIn;
@@ -4697,6 +4776,8 @@ public class CashierDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel pwdLabel;
     private javax.swing.JLabel pwdLabel1;
     private javax.swing.JLabel pwdLabel2;
+    private javax.swing.JLabel pwdLabel3;
+    private javax.swing.JLabel pwdLabel4;
     private javax.swing.JLabel reportIcon;
     private javax.swing.JLabel reportLabel;
     private javax.swing.JLabel reportTopic1;

@@ -1978,7 +1978,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                         cs = conn.prepareCall("{call deleteUserDetails(?)}");
                         cs.setString("username", editUserId);
                         
-                        if(cs.executeUpdate()==2){
+                        if(cs.executeUpdate()>0){
                             viewUserDetails();
                             new ErrorMsg().showErr("Record deleted successfully...");
                         }
@@ -2156,7 +2156,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                         cs = conn.prepareCall("{call deleteDiscountDetails(?)}");
                         cs.setString("dId", editDiscountId);
                         
-                        if(cs.executeUpdate()==1){
+                        if(cs.executeUpdate()>0){
                             viewDiscountDetails();
                             new ErrorMsg().showErr("Record deleted successfully...");
                         }
@@ -2308,7 +2308,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                         cs = conn.prepareCall("{call deleteRoomDetails(?)}");
                         cs.setString("rId", editRoomId);
                         
-                        if(cs.executeUpdate()==1){
+                        if(cs.executeUpdate()>0){
                             viewRoomDetails();
                             new ErrorMsg().showErr("Record deleted successfully...");
                         }
@@ -2473,7 +2473,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                         cs = conn.prepareCall("{call deleteRoomTypeDetails(?)}");
                         cs.setString("rId", editRoomTypeId);
                         
-                        if(cs.executeUpdate()==1){
+                        if(cs.executeUpdate()>0){
                             viewRoomTypeDetails();
                             new ErrorMsg().showErr("Record deleted successfully...");
                         }

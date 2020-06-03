@@ -93,7 +93,7 @@ public class Guest {
             cs.setString("gEmail", getEmail());
             cs.setString("gPhone", getPhone());
 
-            if(cs.executeUpdate()==1){
+            if(cs.executeUpdate()>0){
                 new ErrorMsg().showErr("Record inserted successfully...");
             } else {
                 new ErrorMsg().showErr("Record not inserted...");
@@ -119,7 +119,7 @@ public class Guest {
             cs.setString("gEmail", getEmail());
             cs.setString("gPhone", getPhone());
 
-            if(cs.executeUpdate()==1){
+            if(cs.executeUpdate()>0){
                 new ErrorMsg().showErr("Record updated successfully...");
             } else {
                 new ErrorMsg().showErr("Record not updated...");

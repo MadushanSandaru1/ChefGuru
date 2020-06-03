@@ -146,7 +146,7 @@ public class CheckIn {
             cs.setString("dId", getDiscountId());
             cs.setString("advancePayment", getAdvancePayment());
             
-            if(cs.executeUpdate()==3){
+            if(cs.executeUpdate()>0){
                 new ErrorMsg().showErr("Record inserted successfully...");
                 
                 Checkin_Invoice checkin_Invoice = new Checkin_Invoice(getRoomId(), getCheckOutDate(), getAdvancePayment());

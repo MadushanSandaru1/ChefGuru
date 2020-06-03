@@ -43,7 +43,7 @@ public class CheckOut {
             cs = conn.prepareCall("{call checkOutDetails(?)}");
             cs.setString("tId", getTransactionId());
 
-            if(cs.executeUpdate()==2){
+            if(cs.executeUpdate()>0){
                 new ErrorMsg().showErr("Record updated successfully...");
             } else {
                 new ErrorMsg().showErr("Record not updated...");
