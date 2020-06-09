@@ -151,6 +151,24 @@ public class CheckIn {
                 
                 Checkin_Invoice checkin_Invoice = new Checkin_Invoice(getRoomId(), getCheckOutDate(), getAdvancePayment());
                 checkin_Invoice.setVisible(true);
+                
+                try {
+                    cs = conn.prepareCall("{call `getGuestEmailForCheckIn`(?)}");
+                    cs.setString("gId", getGuestId());
+                    rs = cs.executeQuery();
+
+                    while(rs.next()){
+                        try {
+                            String emailContent = "Dear "+rs.getString("name")+",<br><h3>Your Room Check In Successful</h3><br><p>Invoice Id: <b>"+getId()+"</b><br>Room ID: <b>"+getRoomId()+"</b><br>Check In Date: <b>"+getCheckInDate()+"</b><br>Check Out Date: <b>"+getCheckOutDate()+"</b><br>Advance Payment: <b>"+getAdvancePayment()+"</b><br><br></p><br>Thank You!<br><br><pre>Administrator | ChefGuru Hotel,<br>Sri Sangharaja Piriwena Road,<br>Lower Kahattewela,<br>Bandarawela 90100,<br>Sri Lanka<br>Tel: +94 57 22 30 500<br>Email: mevangurusinghe2@gmail.com</pre>";
+                            new emailSender.EmailSenderAPI().sendEmail(rs.getString("email"), "ChefGuru | Bandarawela", emailContent);
+                        } catch (Exception e) {
+                        }
+                    }
+
+                } catch (SQLException e) {
+                    new ErrorMsg().showErr(e.getMessage());
+                    //JOptionPane.showMessageDialog(null, e.getMessage());
+                }
             } else {
                 new ErrorMsg().showErr("Record not inserted...");
             }

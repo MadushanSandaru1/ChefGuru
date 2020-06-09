@@ -3597,23 +3597,49 @@ public class CashierDashboard extends javax.swing.JFrame {
                     new ErrorMsg().showErr("Please fill all the fields...");
                 } else {
                     try {
+                        String guestId = editCheckoutId;
+                        String room = totalRoomAmount;
+                        String food = totalFoodAmount;
+                        
                         cs = conn.prepareCall("{call createCheckoutByGuestDetails(?,?)}");
                         cs.setString("gId", editCheckoutId);
                         cs.setFloat("pendingAmount", Float.valueOf(checkoutByGuestPendingBalance.getText().toString()));
+                        
+                        if(cs.executeUpdate()>0){
+                            String rm_id = checkoutByGuestRoomId.getText();
+                            String ttl_balance = checkoutByGuestTotalBalance.getText();
+                            String pendi_balance = checkoutByGuestPendingBalance.getText();
+                            String csh = checkoutByGuestCash.getText();
+                            String cng = checkoutByGuestChange.getText();
 
-                        cs.executeUpdate();
-                        
-                        String rm_id = checkoutByGuestRoomId.getText().toString();
-                        String ttl_balance = checkoutByGuestTotalBalance.getText().toString();
-                        String pendi_balance = checkoutByGuestPendingBalance.getText().toString();
-                        String csh = checkoutByGuestCash.getText().toString();
-                        String cng = checkoutByGuestChange.getText().toString();
-                        
-                        viewCheckoutDetailsByGuest();
-                        new ErrorMsg().showErr("Successfully...");
-                                                
-                        Checkout_Invoice checkout_Invoice = new Checkout_Invoice(rm_id, totalRoomAmount, totalFoodAmount, ttl_balance, pendi_balance, csh, cng);
-                        checkout_Invoice.setVisible(true);
+                            new ErrorMsg().showErr("Successfully...");
+                            
+                            Checkout_Invoice checkout_Invoice = new Checkout_Invoice(rm_id, room, food, ttl_balance, pendi_balance, csh, cng);
+                            checkout_Invoice.setVisible(true);
+                            
+                            try {
+                                cs = conn.prepareCall("{call `getGuestEmailForCheckIn`(?)}");
+                                cs.setString("gId", guestId);
+                                rs = cs.executeQuery();
+
+                                while(rs.next()){
+                                    try {
+                                        String emailContent = "Dear "+rs.getString("name")+",<br><h3>Your Room Check Out Successful</h3><br><p>Room Ids: <b>"+rm_id+"</b><br>Room Charges: <b>"+totalRoomAmount+"</b><br>Food Charges: <b>"+totalFoodAmount+"</b><br>Total Balance: <b>"+ttl_balance+"</b><br>Pending Balance: <b>"+pendi_balance+"</b><br>Cash: <b>"+csh+"</b><br>Change: <b>"+cng+"</b><br><br></p><br>Thank You!<br><br><pre>Administrator | ChefGuru Hotel,<br>Sri Sangharaja Piriwena Road,<br>Lower Kahattewela,<br>Bandarawela 90100,<br>Sri Lanka<br>Tel: +94 57 22 30 500<br>Email: mevangurusinghe2@gmail.com</pre>";
+                                        new emailSender.EmailSenderAPI().sendEmail(rs.getString("email"), "ChefGuru | Bandarawela", emailContent);
+                                    } catch (Exception e) {
+                                    }
+                                }
+
+                            } catch (SQLException e) {
+                                new ErrorMsg().showErr(e.getMessage());
+                                //JOptionPane.showMessageDialog(null, e.getMessage());
+                            }
+
+                            viewCheckoutDetailsByGuest();
+                            
+                            totalRoomAmount = null;
+                            totalFoodAmount = null;
+                        }
                         
                     } catch (SQLException e) {
                         new ErrorMsg().showErr(e.getMessage());

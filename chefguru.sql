@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 09, 2020 at 12:02 AM
+-- Generation Time: Jun 09, 2020 at 04:27 AM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.4.0
 
@@ -159,6 +159,10 @@ SELECT `bill_id` AS 'Bill Id', IF(`type`='R','Room', 'Food') AS 'Type', `date` A
 DROP PROCEDURE IF EXISTS `getDiscountIdByType`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getDiscountIdByType` (IN `dType` VARCHAR(15))  NO SQL
 SELECT * FROM `discount` WHERE `type` = dType AND `is_deleted` = 0$$
+
+DROP PROCEDURE IF EXISTS `getGuestEmailForCheckIn`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getGuestEmailForCheckIn` (IN `gId` VARCHAR(20))  NO SQL
+SELECT `name`,`email` FROM `guest` WHERE `is_deleted` = 0 AND `identity` = gId$$
 
 DROP PROCEDURE IF EXISTS `getRoomTypeId`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getRoomTypeId` (IN `rType` VARCHAR(20))  NO SQL
@@ -377,7 +381,7 @@ CREATE TABLE IF NOT EXISTS `cashier` (
 --
 
 INSERT INTO `cashier` (`id`, `name`, `email`, `mobile`, `is_deleted`) VALUES
-('CSR001', 'Test Cashier', 'tg2017233@gmail.com', '0741258963', 0);
+('CSR001', 'Test Cashier', 'tg2017233@gmail.com', '0748541236', 0);
 
 -- --------------------------------------------------------
 
@@ -399,6 +403,19 @@ CREATE TABLE IF NOT EXISTS `checkin` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `checkin`
+--
+
+INSERT INTO `checkin` (`id`, `guest_id`, `room_id`, `checkin_date`, `checkout_date`, `discount_id`, `advance_payment`, `is_checkout`, `is_deleted`) VALUES
+(4, '214578436V', 6, '2020-06-09 09:42:14', '2020-06-11 00:00:00', 0, 3000, 1, 0),
+(3, '980171329V', 3, '2020-06-09 09:38:25', '2020-06-10 00:00:00', 1, 1000, 1, 0),
+(2, '980171329V', 3, '2020-06-09 09:21:33', '2020-06-14 00:00:00', 0, 5000, 1, 0),
+(1, '980171329V', 7, '2020-06-09 09:02:11', '2020-06-12 00:00:00', 3, 10000, 1, 0),
+(5, '214578436V', 4, '2020-06-09 09:45:14', '2020-06-10 00:00:00', 0, 1000, 1, 0),
+(6, '214578436V', 2, '2020-06-09 09:48:45', '2020-06-10 00:00:00', 0, 1000, 1, 0),
+(7, '214578436V', 4, '2020-06-09 09:53:47', '2020-06-10 00:00:00', 0, 500, 1, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -415,7 +432,15 @@ CREATE TABLE IF NOT EXISTS `customer_message` (
   `received_time` datetime NOT NULL DEFAULT current_timestamp(),
   `is_replied` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `customer_message`
+--
+
+INSERT INTO `customer_message` (`id`, `name`, `email`, `phone`, `message`, `received_time`, `is_replied`) VALUES
+(2, 'Test Message', 'sandaru1wgm@gmail.com', '0711234568', 'Can I cancel only certain parts of my reservation (for example one of the two booked rooms)?', '2020-06-09 08:36:22', 1),
+(1, 'Test Message', 'madushansandaru1@gmail.com', '0771637551', 'For how many persons I can make a reservation? Are bookings for groups possible online?', '2020-06-09 08:34:18', 0);
 
 -- --------------------------------------------------------
 
@@ -440,7 +465,8 @@ INSERT INTO `discount` (`id`, `type`, `rate`, `is_deleted`) VALUES
 (0, 'do_not_delete', 0, 0),
 (1, 'New Year', 3, 0),
 (2, 'Holi', 2, 0),
-(3, 'Christmas', 5, 0);
+(3, 'Christmas', 5, 0),
+(4, 'Test Type', 5, 1);
 
 -- --------------------------------------------------------
 
@@ -459,6 +485,14 @@ CREATE TABLE IF NOT EXISTS `guest` (
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`no`)
 ) ENGINE=MyISAM AUTO_INCREMENT=980171333 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `guest`
+--
+
+INSERT INTO `guest` (`no`, `identity`, `name`, `address`, `email`, `phone`, `is_deleted`) VALUES
+(2, '214578436V', 'Test Guest 2', 'aaaa, bbbbbbbbb, cccc', 'tg2017233@gmail.com', '0123145278', 0),
+(1, '980171329V', 'Test guest 1', 'Kamburupitiya, Matara', 'madushansandaru1@gmail.com', '0771637551', 0);
 
 -- --------------------------------------------------------
 
@@ -490,7 +524,8 @@ INSERT INTO `room` (`id`, `type`, `status`, `is_deleted`) VALUES
 (8, 'T03', 0, 0),
 (9, 'T03', 0, 0),
 (10, 'T04', 0, 0),
-(11, 'T04', 0, 0);
+(11, 'T04', 0, 0),
+(12, 'T03', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -510,7 +545,15 @@ CREATE TABLE IF NOT EXISTS `room_book` (
   `is_canceled` tinyint(1) NOT NULL DEFAULT 0,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `room_book`
+--
+
+INSERT INTO `room_book` (`id`, `name`, `email`, `phone`, `check_in_date`, `no_of_room`, `message`, `is_canceled`, `is_deleted`) VALUES
+(2, 'Test Customer 2', 'tg2017233@gmail.com', '0718523645', '2020-06-16', 1, '', 0, 0),
+(1, 'Test Customer 1', 'sandaru1wgm@gmail.com', '0771637551', '2020-06-12', 2, 'I need two rooms for five adults.', 2, 0);
 
 -- --------------------------------------------------------
 
@@ -552,7 +595,8 @@ INSERT INTO `room_type` (`id`, `type`, `description`, `rate`, `is_deleted`) VALU
 ('T01', 'Single', 'A room with the facility of single bed. It is meant for single occupancy. It has an attached bathroom, a small dressing table, a small bedside table, and a small writing table. Sometimes it has a single chair too.', 1500, 0),
 ('T02', 'Double', 'A room with the facility of double bed. There are two variants in this type depending upon the size of the bed.', 2500, 0),
 ('T03', 'Deluxe', 'They are available in Single Deluxe and Double Deluxe variants. Deluxe room is well furnished. Some amenities are attached bathroom, a dressing table, a bedside table, a small writing table, a TV, and a small fridge.', 4500, 0),
-('T04', 'Twin Double', 'This room provides two double beds with separate headboards. It is ideal for a family with two children below 12 years.', 6000, 0);
+('T04', 'Twin Double', 'This room provides two double beds with separate headboards. It is ideal for a family with two children below 12 years.', 6000, 0),
+('T05', 'Test Type', 'gdhgjhdas bdhgh bjkdhs jkhas', 4500, 1);
 
 -- --------------------------------------------------------
 
@@ -567,7 +611,27 @@ CREATE TABLE IF NOT EXISTS `transaction` (
   `date` datetime NOT NULL DEFAULT current_timestamp(),
   `amount` float NOT NULL,
   PRIMARY KEY (`bill_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=46 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=60 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `transaction`
+--
+
+INSERT INTO `transaction` (`bill_id`, `type`, `date`, `amount`) VALUES
+(57, 'R', '2020-06-09 09:49:22', 500),
+(56, 'R', '2020-06-09 09:48:59', 1000),
+(55, 'R', '2020-06-09 09:45:47', 500),
+(54, 'R', '2020-06-09 09:45:28', 1000),
+(53, 'R', '2020-06-09 09:43:19', 2000),
+(52, 'R', '2020-06-09 09:42:35', 3000),
+(51, 'R', '2020-06-09 09:39:06', 455),
+(50, 'R', '2020-06-09 09:38:46', 1000),
+(49, 'R', '2020-06-09 09:30:58', 5325),
+(48, 'R', '2020-06-09 09:22:00', 5000),
+(47, 'R', '2020-06-09 09:02:41', 10000),
+(46, 'F', '2020-06-09 08:55:42', 2500),
+(58, 'R', '2020-06-09 09:54:01', 500),
+(59, 'R', '2020-06-09 09:54:22', 1000);
 
 -- --------------------------------------------------------
 
