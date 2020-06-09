@@ -28,7 +28,6 @@ public class Roomtype {
     private String roomType;
     private String description;
     private String rate;
-    private String image;
 
     public String getId() {
         return Id;
@@ -61,14 +60,6 @@ public class Roomtype {
     public void setRate(String rate) {
         this.rate = rate;
     }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
     
     public void createRoomType()
     {
@@ -76,12 +67,11 @@ public class Roomtype {
         conn = obj.connect();
             
         try {
-            cs = conn.prepareCall("{CALL createRoomTypeDetails(?,?,?,?,?)}");
+            cs = conn.prepareCall("{CALL createRoomTypeDetails(?,?,?,?)}");
             cs.setString("rId", getId());
             cs.setString("rType", getRoomType());
             cs.setString("rDescription", getDescription());
             cs.setString("rRate", getRate());
-            cs.setString("rImage", getImage());
 
             if(cs.executeUpdate()>0){
                 new ErrorMsg().showErr("Record inserted successfully...");

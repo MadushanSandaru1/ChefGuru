@@ -12,8 +12,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.Random;
 import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
@@ -132,8 +134,6 @@ public class AdminDashboard extends javax.swing.JFrame {
         roomTypeTable = new javax.swing.JTable();
         jScrollPane5 = new javax.swing.JScrollPane();
         roomTypeDescription = new javax.swing.JTextArea();
-        jLabel42 = new javax.swing.JLabel();
-        roomTypeImage = new javax.swing.JTextField();
         roomTypeCancelBtn = new javax.swing.JButton();
         room = new javax.swing.JPanel();
         userTopic2 = new javax.swing.JLabel();
@@ -167,11 +167,17 @@ public class AdminDashboard extends javax.swing.JFrame {
         guestGetReportBtn = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         guestTable = new javax.swing.JTable();
+        jLabel12 = new javax.swing.JLabel();
+        guest_count = new javax.swing.JLabel();
         transaction = new javax.swing.JPanel();
         transactionTopic = new javax.swing.JLabel();
         transactionGetReportBtn = new javax.swing.JButton();
         jScrollPane7 = new javax.swing.JScrollPane();
         transactionTable = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        monthly_income = new javax.swing.JLabel();
+        daily_income = new javax.swing.JLabel();
         message = new javax.swing.JPanel();
         transactionTopic1 = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
@@ -497,6 +503,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         userTopic6.setForeground(new java.awt.Color(51, 51, 51));
         userTopic6.setText("Room Type Information");
 
+        roomTypeId.setEditable(false);
         roomTypeId.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         roomTypeId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -607,23 +614,6 @@ public class AdminDashboard extends javax.swing.JFrame {
         roomTypeDescription.setRows(5);
         jScrollPane5.setViewportView(roomTypeDescription);
 
-        jLabel42.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel42.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel42.setText("Image :");
-
-        roomTypeImage.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        roomTypeImage.setText("room_type_default.jpg");
-        roomTypeImage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                roomTypeImageActionPerformed(evt);
-            }
-        });
-        roomTypeImage.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                roomTypeImageKeyTyped(evt);
-            }
-        });
-
         roomTypeCancelBtn.setBackground(new java.awt.Color(85, 85, 85));
         roomTypeCancelBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         roomTypeCancelBtn.setForeground(new java.awt.Color(255, 255, 255));
@@ -648,8 +638,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                                     .addComponent(jLabel37)
                                     .addComponent(jLabel40)
                                     .addComponent(jLabel39)
-                                    .addComponent(jLabel41)
-                                    .addComponent(jLabel42))
+                                    .addComponent(jLabel41))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(roomtypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -658,8 +647,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                                         .addComponent(roomTypeType, javax.swing.GroupLayout.Alignment.LEADING))
                                     .addComponent(roomTypeRate, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(roomtypeLayout.createSequentialGroup()
-                                        .addComponent(roomTypeImage, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(42, 42, 42)
+                                        .addGap(192, 192, 192)
                                         .addComponent(roomTypeSaveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(roomTypeUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -698,11 +686,9 @@ public class AdminDashboard extends javax.swing.JFrame {
                     .addComponent(roomTypeRate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(roomtypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(roomTypeImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(roomTypeSaveBtn)
                     .addComponent(roomTypeUpdateBtn)
                     .addComponent(roomTypeDeleteBtn)
-                    .addComponent(jLabel42)
                     .addComponent(roomTypeCancelBtn))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
@@ -717,6 +703,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         userTopic2.setForeground(new java.awt.Color(51, 51, 51));
         userTopic2.setText("Room Information");
 
+        roomId.setEditable(false);
         roomId.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         roomId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -970,6 +957,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(discountTable);
 
+        discountId.setEditable(false);
         discountId.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         discountId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1099,33 +1087,43 @@ public class AdminDashboard extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(guestTable);
 
+        jLabel12.setFont(new java.awt.Font("Cambria Math", 0, 14)); // NOI18N
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel12.setText("Guest Count:");
+
+        guest_count.setFont(new java.awt.Font("Cambria Math", 1, 14)); // NOI18N
+
         javax.swing.GroupLayout guestLayout = new javax.swing.GroupLayout(guest);
         guest.setLayout(guestLayout);
         guestLayout.setHorizontalGroup(
             guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(guestLayout.createSequentialGroup()
-                .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(guestLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(userTopic3, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 405, Short.MAX_VALUE))
-                    .addGroup(guestLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane4)))
-                .addContainerGap())
-            .addGroup(guestLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(guestGetReportBtn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 791, Short.MAX_VALUE)
+                    .addGroup(guestLayout.createSequentialGroup()
+                        .addComponent(userTopic3, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(guestLayout.createSequentialGroup()
+                        .addComponent(guestGetReportBtn)
+                        .addGap(314, 314, 314)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(guest_count, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         guestLayout.setVerticalGroup(
             guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(guestLayout.createSequentialGroup()
                 .addComponent(userTopic3)
                 .addGap(18, 18, 18)
-                .addComponent(guestGetReportBtn)
+                .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(guestGetReportBtn)
+                    .addGroup(guestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(guest_count, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1170,6 +1168,18 @@ public class AdminDashboard extends javax.swing.JFrame {
         });
         jScrollPane7.setViewportView(transactionTable);
 
+        jLabel1.setFont(new java.awt.Font("Cambria Math", 0, 14)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel1.setText("Daily Income:");
+
+        jLabel4.setFont(new java.awt.Font("Cambria Math", 0, 14)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel4.setText("Monthly Income:");
+
+        monthly_income.setFont(new java.awt.Font("Cambria Math", 1, 14)); // NOI18N
+
+        daily_income.setFont(new java.awt.Font("Cambria Math", 1, 14)); // NOI18N
+
         javax.swing.GroupLayout transactionLayout = new javax.swing.GroupLayout(transaction);
         transaction.setLayout(transactionLayout);
         transactionLayout.setHorizontalGroup(
@@ -1179,20 +1189,39 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addGroup(transactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 791, Short.MAX_VALUE)
                     .addGroup(transactionLayout.createSequentialGroup()
+                        .addGroup(transactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(transactionLayout.createSequentialGroup()
+                                .addComponent(transactionTopic, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(transactionLayout.createSequentialGroup()
+                                .addComponent(transactionGetReportBtn)
+                                .addGap(298, 298, 298)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(transactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(transactionTopic, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(transactionGetReportBtn))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(daily_income, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(monthly_income, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         transactionLayout.setVerticalGroup(
             transactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(transactionLayout.createSequentialGroup()
-                .addComponent(transactionTopic)
-                .addGap(18, 18, 18)
-                .addComponent(transactionGetReportBtn)
+                .addGroup(transactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(transactionLayout.createSequentialGroup()
+                        .addComponent(transactionTopic)
+                        .addGap(19, 19, 19))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, transactionLayout.createSequentialGroup()
+                        .addGroup(transactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(monthly_income, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(transactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(transactionGetReportBtn)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(daily_income, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1252,6 +1281,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         jLabel44.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel44.setText("Heading :");
 
+        messageEmail.setEditable(false);
         messageEmail.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         messageEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2420,16 +2450,14 @@ public class AdminDashboard extends javax.swing.JFrame {
         String roomType = this.roomTypeType.getText().trim();
         String description = this.roomTypeDescription.getText().trim();
         String rate = this.roomTypeRate.getText().trim();
-        String image = this.roomTypeImage.getText().trim();
         
-        if(id.isEmpty() || roomType.isEmpty() || description.isEmpty() || rate.isEmpty() || image.isEmpty()){
+        if(id.isEmpty() || roomType.isEmpty() || description.isEmpty() || rate.isEmpty()){
             new ErrorMsg().showErr("Please fill all the fields...");
         } else {
             roomtype1.setId(id);
             roomtype1.setRoomType(roomType);
             roomtype1.setDescription(description);
             roomtype1.setRate(rate);
-            roomtype1.setImage(image);
 
             roomtype1.createRoomType();
             viewRoomTypeDetails();
@@ -2442,7 +2470,6 @@ public class AdminDashboard extends javax.swing.JFrame {
         String roomType = this.roomTypeType.getText().trim();
         String description = this.roomTypeDescription.getText().trim();
         String rate = this.roomTypeRate.getText().trim();
-        String image = this.roomTypeImage.getText().trim();
         
         if(roomType.isEmpty() || description.isEmpty() || rate.isEmpty()){
             new ErrorMsg().showErr("Please fill all the fields...");
@@ -2450,7 +2477,6 @@ public class AdminDashboard extends javax.swing.JFrame {
             roomtype1.setRoomType(roomType);
             roomtype1.setDescription(description);
             roomtype1.setRate(rate);
-            roomtype1.setImage(image);
 
             roomtype1.updateRoomType(editRoomTypeId);
             viewRoomTypeDetails();
@@ -2489,8 +2515,6 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     private void roomTypeTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_roomTypeTableMouseClicked
         
-        roomTypeImage.setEnabled(false);
-        
         DefaultTableModel model = (DefaultTableModel) roomTypeTable.getModel();
         int row = roomTypeTable.getSelectedRow();
 
@@ -2506,14 +2530,6 @@ public class AdminDashboard extends javax.swing.JFrame {
         roomTypeDeleteBtn.setVisible(true);
         roomTypeCancelBtn.setVisible(true);
     }//GEN-LAST:event_roomTypeTableMouseClicked
-
-    private void roomTypeImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomTypeImageActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_roomTypeImageActionPerformed
-
-    private void roomTypeImageKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_roomTypeImageKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_roomTypeImageKeyTyped
 
     private void roomTypeCancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomTypeCancelBtnActionPerformed
         panelDefault();
@@ -2587,6 +2603,7 @@ public class AdminDashboard extends javax.swing.JFrame {
             message.setMessage(messageContent);
 
             message.sendReplyEmail();
+            updateMessageReplied();
             viewMessageDetails();
         }
     }//GEN-LAST:event_messageReplyBtnActionPerformed
@@ -2752,8 +2769,6 @@ public class AdminDashboard extends javax.swing.JFrame {
     
     public void viewRoomTypeDetails(){
         
-        roomTypeImage.setEnabled(true);
-        
         conn = obj.connect();
         
         String lastId = "T00";
@@ -2779,7 +2794,6 @@ public class AdminDashboard extends javax.swing.JFrame {
         roomTypeType.setText(null);
         roomTypeDescription.setText(null);
         roomTypeRate.setText(null);
-        roomTypeImage.setText(null);
         
         roomTypeSaveBtn.setVisible(true);
         roomTypeUpdateBtn.setVisible(false);
@@ -2850,6 +2864,8 @@ public class AdminDashboard extends javax.swing.JFrame {
     
     public void viewGuestDetails(){
         
+        calculateGuestCount();
+        
         conn = obj.connect();
         
         try {
@@ -2868,6 +2884,9 @@ public class AdminDashboard extends javax.swing.JFrame {
     }
     
     public void viewTransactionDetails(){
+        
+        monthlyIncomeCount();
+        dailyIncomeCount();
         
         conn = obj.connect();
         
@@ -2910,6 +2929,80 @@ public class AdminDashboard extends javax.swing.JFrame {
         
         conn = null;
         
+    }
+    
+    public void updateMessageReplied() {
+        conn = obj.connect();
+            
+        try {
+            cs = conn.prepareCall("{CALL updateMessageReplied(?)}");
+            cs.setString("cmId", editMessageId);
+
+            cs.executeUpdate();
+           
+        } catch (SQLException e) {
+            //new ErrorMsg().showErr(e.getMessage());
+        }
+
+        editMessageId = null;
+        conn = null;
+    }
+    
+    public void monthlyIncomeCount(){
+        
+        conn = obj.connect();
+        
+        try {
+            cs = conn.prepareCall("{CALL `monthlyIncomeCount`()}");
+            rs = cs.executeQuery();
+            
+            while(rs.next()){
+                monthly_income.setText(NumberFormat.getCurrencyInstance(new Locale("en", "LKR")).format(Float.valueOf(rs.getString("monthlyIncomeValue"))));
+            }
+            
+        } catch (SQLException e) {
+            //new ErrorMsg().showErr(e.getMessage());
+        }
+        
+        conn = null;
+    }
+    
+    public void dailyIncomeCount(){
+        
+        conn = obj.connect();
+        
+        try {
+            cs = conn.prepareCall("{CALL `dailyIncomeCount`()}");
+            rs = cs.executeQuery();
+            
+            while(rs.next()){
+                daily_income.setText(NumberFormat.getCurrencyInstance(new Locale("en", "LKR")).format(Float.valueOf(rs.getString("dailyIncomeValue"))));
+            }
+            
+        } catch (SQLException e) {
+            //new ErrorMsg().showErr(e.getMessage());
+        }
+        
+        conn = null;
+    }
+    
+    public void calculateGuestCount(){
+        
+        conn = obj.connect();
+        
+        try {
+            cs = conn.prepareCall("{CALL `calculateGuestCount`()}");
+            rs = cs.executeQuery();
+            
+            while(rs.next()){
+                guest_count.setText(rs.getString("guestCountValue"));
+            }
+            
+        } catch (SQLException e) {
+            //new ErrorMsg().showErr(e.getMessage());
+        }
+        
+        conn = null;
     }
     
     public void comboBoxRoomType(){
@@ -3008,6 +3101,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel checkedOutLabel;
     private javax.swing.JLabel closeBtn;
     private javax.swing.JLabel copyrights;
+    private javax.swing.JLabel daily_income;
     private javax.swing.JPanel dashboarddPane;
     private static javax.swing.JLabel date;
     private javax.swing.JPanel discount;
@@ -3028,17 +3122,20 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel guestLabel;
     private javax.swing.JPanel guestPanel;
     private javax.swing.JTable guestTable;
+    private javax.swing.JLabel guest_count;
     private javax.swing.JPanel hrLine;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel5;
@@ -3069,6 +3166,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JButton messageReplyBtn;
     private javax.swing.JTable messageTable;
     private javax.swing.JLabel minimizeBtn;
+    private javax.swing.JLabel monthly_income;
     private javax.swing.JPanel pane;
     private javax.swing.JLabel pwdLabel;
     private javax.swing.JLabel reportIcon;
@@ -3088,7 +3186,6 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JButton roomTypeDeleteBtn;
     private javax.swing.JTextArea roomTypeDescription;
     private javax.swing.JTextField roomTypeId;
-    private javax.swing.JTextField roomTypeImage;
     private javax.swing.JTextField roomTypeRate;
     private javax.swing.JButton roomTypeSaveBtn;
     private javax.swing.JTable roomTypeTable;

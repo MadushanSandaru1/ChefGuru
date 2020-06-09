@@ -76,6 +76,33 @@ public class Booking {
         conn = null;
     }
     
+    public void approveBooking()
+    {
+       
+        conn = obj.connect();
+            
+        try {
+            cs = conn.prepareCall("{call approveBookingDetails(?)}");
+            cs.setString("bId", getId());
+
+            if(cs.executeUpdate()>0){
+                try {
+                    String emailContent = "Dear "+getName()+",<br><h3>Reservations approved</h3><br><p>Booking Id: <b>"+getId()+"</b><br><br>Your booking has been approved</p><br>Thank You!<br><br><pre>Administrator | ChefGuru Hotel,<br>Sri Sangharaja Piriwena Road,<br>Lower Kahattewela,<br>Bandarawela 90100,<br>Sri Lanka<br>Tel: +94 57 22 30 500<br>Email: mevangurusinghe2@gmail.com</pre>";
+                    new emailSender.EmailSenderAPI().sendEmail(getEmail(), "ChefGuru | Bandarawela", emailContent);
+                } catch (Exception e) {
+                }
+                new ErrorMsg().showErr("Record updated successfully...");
+            } else {
+                new ErrorMsg().showErr("Record not updated...");
+            }
+           
+        } catch (SQLException e) {
+            new ErrorMsg().showErr(e.getMessage());
+        }
+
+        conn = null;
+    }
+    
     public void cancelBooking()
     {
        
