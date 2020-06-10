@@ -254,9 +254,13 @@ public class CashierDashboard extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         userTable = new javax.swing.JTable();
         userChangePwdBtn = new javax.swing.JButton();
-        userPassword = new javax.swing.JTextField();
-        pwdLabel = new javax.swing.JLabel();
         userCancelBtn = new javax.swing.JButton();
+        userNewPassword = new javax.swing.JTextField();
+        pwdLabel = new javax.swing.JLabel();
+        pwdLabel6 = new javax.swing.JLabel();
+        userCurrentPassword = new javax.swing.JTextField();
+        userConfirmPassword = new javax.swing.JTextField();
+        pwdLabel7 = new javax.swing.JLabel();
         hrLine = new javax.swing.JPanel();
         logoIcon = new javax.swing.JLabel();
         logoLabel = new javax.swing.JLabel();
@@ -2094,17 +2098,6 @@ public class CashierDashboard extends javax.swing.JFrame {
             }
         });
 
-        userPassword.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        userPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userPasswordActionPerformed(evt);
-            }
-        });
-
-        pwdLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        pwdLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        pwdLabel.setText("Password :");
-
         userCancelBtn.setBackground(new java.awt.Color(85, 85, 85));
         userCancelBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         userCancelBtn.setForeground(new java.awt.Color(255, 255, 255));
@@ -2114,6 +2107,39 @@ public class CashierDashboard extends javax.swing.JFrame {
                 userCancelBtnActionPerformed(evt);
             }
         });
+
+        userNewPassword.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        userNewPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userNewPasswordActionPerformed(evt);
+            }
+        });
+
+        pwdLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        pwdLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        pwdLabel.setText("Current Password :");
+
+        pwdLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        pwdLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        pwdLabel6.setText("New Password :");
+
+        userCurrentPassword.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        userCurrentPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userCurrentPasswordActionPerformed(evt);
+            }
+        });
+
+        userConfirmPassword.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        userConfirmPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userConfirmPasswordActionPerformed(evt);
+            }
+        });
+
+        pwdLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        pwdLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        pwdLabel7.setText("Confirm Password :");
 
         javax.swing.GroupLayout userLayout = new javax.swing.GroupLayout(user);
         user.setLayout(userLayout);
@@ -2125,39 +2151,38 @@ public class CashierDashboard extends javax.swing.JFrame {
                         .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(userLayout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(userTopic, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(userTopic, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(userLayout.createSequentialGroup()
+                                .addGap(49, 49, 49)
                                 .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(userLayout.createSequentialGroup()
-                                        .addGap(91, 91, 91)
-                                        .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel2)
-                                            .addComponent(jLabel5)
-                                            .addComponent(jLabel6)
-                                            .addComponent(pwdLabel)))
-                                    .addGroup(userLayout.createSequentialGroup()
-                                        .addGap(65, 65, 65)
-                                        .addComponent(jLabel4)))
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel4)
+                                    .addComponent(pwdLabel)
+                                    .addComponent(pwdLabel6)
+                                    .addComponent(pwdLabel7))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(userPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(userEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(userId, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(userName, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(userNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(userLayout.createSequentialGroup()
-                                        .addComponent(userPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(userConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(31, 31, 31)
                                         .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(userChangePwdBtn)
                                             .addGroup(userLayout.createSequentialGroup()
                                                 .addComponent(userSaveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(userUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(userDeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(userCancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                    .addComponent(userId, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(userName, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                .addComponent(userUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(userChangePwdBtn))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(userDeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(userCancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(userCurrentPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 94, Short.MAX_VALUE))
                     .addGroup(userLayout.createSequentialGroup()
                         .addContainerGap()
@@ -2188,13 +2213,21 @@ public class CashierDashboard extends javax.swing.JFrame {
                     .addComponent(userUpdateBtn)
                     .addComponent(userDeleteBtn)
                     .addComponent(userCancelBtn))
-                .addGap(31, 31, 31)
-                .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(userPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(pwdLabel)
+                    .addComponent(userCurrentPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(pwdLabel6)
+                    .addComponent(userNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(userConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pwdLabel7)
                     .addComponent(userChangePwdBtn))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -2806,10 +2839,6 @@ public class CashierDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_userNameActionPerformed
 
-    private void userPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_userPasswordActionPerformed
-
     private void userUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userUpdateBtnActionPerformed
         User user = new User();
         
@@ -2882,7 +2911,11 @@ public class CashierDashboard extends javax.swing.JFrame {
 
         userId.setEditable(false);
         pwdLabel.setEnabled(true);
-        userPassword.setEnabled(true);
+        pwdLabel6.setEnabled(true);
+        pwdLabel7.setEnabled(true);
+        userCurrentPassword.setEnabled(true);
+        userNewPassword.setEnabled(true);
+        userConfirmPassword.setEnabled(true);
         userChangePwdBtn.setEnabled(true);
     }//GEN-LAST:event_userTableMouseClicked
 
@@ -2930,19 +2963,34 @@ public class CashierDashboard extends javax.swing.JFrame {
     private void userChangePwdBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userChangePwdBtnActionPerformed
         User user = new User();
         
-        String password = this.userPassword.getText().trim();
-        String email = this.userEmail.getText().trim();
-        String name = this.userName.getText().trim();
+        String current_password = this.userCurrentPassword.getText().trim();
+        String new_password = this.userNewPassword.getText().trim();
+        String confirm_password = this.userConfirmPassword.getText().trim();
         
-        if(password.isEmpty()){
-            new ErrorMsg().showErr("Please enter password...");
+        if(current_password.isEmpty() || new_password.isEmpty() || confirm_password.isEmpty()){
+            new ErrorMsg().showErr("Please fill all the fields...");
         } else {
-            user.setPassword(password);
-            user.setEmail(email);
-            user.setName(name);
+            if(new_password.equals(confirm_password)){
+                if(isCurrentPassword(current_password)){
+                    user.setPassword(new_password);
+                    user.setName(this.userName.getText().trim());
+                    user.setEmail(this.userEmail.getText().trim());
 
-            user.changePassword(editUserId);
-            viewUserDetails();
+                    user.changePassword(editUserId);
+                    viewUserDetails();
+                } else {
+                    userCurrentPassword.setText(null);
+                    userCurrentPassword.setText(null);
+                    userNewPassword.setText(null);
+                    userConfirmPassword.setText(null);
+                    userConfirmPassword.setText(null);
+                    new ErrorMsg().showErr("Invalid current password...");
+                }
+            } else {
+                userNewPassword.setText(null);
+                userConfirmPassword.setText(null);
+                new ErrorMsg().showErr("Confirm password does not match...");
+            }
         }
     }//GEN-LAST:event_userChangePwdBtnActionPerformed
 
@@ -3926,6 +3974,18 @@ public class CashierDashboard extends javax.swing.JFrame {
         editBookingId = null;
     }//GEN-LAST:event_bookingApproveBtnActionPerformed
 
+    private void userNewPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userNewPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userNewPasswordActionPerformed
+
+    private void userCurrentPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userCurrentPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userCurrentPasswordActionPerformed
+
+    private void userConfirmPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userConfirmPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userConfirmPasswordActionPerformed
+
     private void panelDefault(){
         checkIn.setVisible(false);
         checkout.setVisible(false);
@@ -3970,7 +4030,9 @@ public class CashierDashboard extends javax.swing.JFrame {
         userName.setText(null);
         userEmail.setText(null);
         userPhone.setText(null);
-        userPassword.setText(null);
+        userCurrentPassword.setText(null);
+        userNewPassword.setText(null);
+        userConfirmPassword.setText(null);
         
         //cashier cannot create user profile
         if(Login.role.equalsIgnoreCase("cashier")){
@@ -3985,7 +4047,11 @@ public class CashierDashboard extends javax.swing.JFrame {
         
         userId.setEditable(true);
         pwdLabel.setEnabled(false);
-        userPassword.setEnabled(false);
+        pwdLabel6.setEnabled(false);
+        pwdLabel7.setEnabled(false);
+        userCurrentPassword.setEnabled(false);
+        userNewPassword.setEnabled(false);
+        userConfirmPassword.setEnabled(false);
         userChangePwdBtn.setEnabled(false);
         
         if(Login.role.equalsIgnoreCase("admin")){
@@ -4389,6 +4455,39 @@ public class CashierDashboard extends javax.swing.JFrame {
         }
         
         conn = null;
+        
+    }
+    
+    public boolean isCurrentPassword(String pwd){
+        
+        boolean status = false;
+        
+        conn = obj.connect();
+        
+        try {
+                cs = conn.prepareCall("{call login(?)}");
+                cs.setString("username", Login.id);
+                rs = cs.executeQuery();
+                
+                if(rs.next())
+                {
+                    if(pwd.equals(rs.getString("password")))
+                    {
+                        status = true;
+                    }
+                    else
+                    {
+                        status = false;
+                    }
+                    
+                }
+            } catch (SQLException e) {
+                //System.out.println(e.getMessage());
+            }
+        
+        conn = null;
+        
+        return status;
         
     }
     
@@ -4883,6 +4982,8 @@ public class CashierDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel pwdLabel2;
     private javax.swing.JLabel pwdLabel3;
     private javax.swing.JLabel pwdLabel4;
+    private javax.swing.JLabel pwdLabel6;
+    private javax.swing.JLabel pwdLabel7;
     private javax.swing.JLabel reportIcon;
     private javax.swing.JLabel reportLabel;
     private javax.swing.JLabel reportTopic1;
@@ -4896,14 +4997,16 @@ public class CashierDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel user;
     private javax.swing.JButton userCancelBtn;
     private javax.swing.JButton userChangePwdBtn;
+    private javax.swing.JTextField userConfirmPassword;
+    private javax.swing.JTextField userCurrentPassword;
     private javax.swing.JButton userDeleteBtn;
     private javax.swing.JTextField userEmail;
     private javax.swing.JLabel userIcon;
     private javax.swing.JTextField userId;
     private javax.swing.JLabel userLabel;
     private javax.swing.JTextField userName;
+    private javax.swing.JTextField userNewPassword;
     private javax.swing.JPanel userPanel;
-    private javax.swing.JTextField userPassword;
     private javax.swing.JTextField userPhone;
     private javax.swing.JButton userSaveBtn;
     private javax.swing.JTable userTable;

@@ -235,13 +235,15 @@
                                               <Component id="userTopic" min="-2" pref="386" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="1" attributes="0">
                                                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jLabel6" alignment="1" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="pwdLabel" alignment="1" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="pwdLabel2" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="pwdLabel1" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="pwdLabel" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -251,12 +253,14 @@
                                                   <Group type="102" alignment="0" attributes="0">
                                                       <Group type="103" groupAlignment="0" attributes="0">
                                                           <Component id="userName" min="-2" pref="183" max="-2" attributes="0"/>
-                                                          <Component id="userPassword" alignment="0" min="-2" pref="183" max="-2" attributes="0"/>
+                                                          <Component id="userConfirmPassword" alignment="0" min="-2" pref="183" max="-2" attributes="0"/>
+                                                          <Component id="userNewPassword" alignment="0" min="-2" pref="183" max="-2" attributes="0"/>
+                                                          <Component id="userCurrentPassword" alignment="0" min="-2" pref="183" max="-2" attributes="0"/>
                                                       </Group>
                                                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                                                       <Group type="103" groupAlignment="0" attributes="0">
                                                           <Component id="userChangePwdBtn" min="-2" max="-2" attributes="0"/>
-                                                          <Group type="102" alignment="0" attributes="0">
+                                                          <Group type="102" attributes="0">
                                                               <Component id="userSaveBtn" min="-2" pref="75" max="-2" attributes="0"/>
                                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                               <Component id="userUpdateBtn" min="-2" pref="75" max="-2" attributes="0"/>
@@ -309,14 +313,26 @@
                                   <Component id="userDeleteBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="userCancelBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="userChangePwdBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="pwdLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="userPassword" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="userCurrentPassword" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="pwdLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="51" max="32767" attributes="0"/>
-                              <Component id="jScrollPane1" min="-2" pref="275" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="userNewPassword" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="pwdLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="userChangePwdBtn" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="userConfirmPassword" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="pwdLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="jScrollPane1" pref="252" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -518,14 +534,14 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="userChangePwdBtnActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="userPassword">
+                    <Component class="javax.swing.JTextField" name="userNewPassword">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Tahoma" size="12" style="0"/>
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="userPasswordActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="userNewPasswordActionPerformed"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="pwdLabel">
@@ -534,7 +550,7 @@
                           <Font name="Tahoma" size="12" style="0"/>
                         </Property>
                         <Property name="horizontalAlignment" type="int" value="4"/>
-                        <Property name="text" type="java.lang.String" value="Password :"/>
+                        <Property name="text" type="java.lang.String" value="Confirm Password :"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JButton" name="userCancelBtn">
@@ -553,6 +569,44 @@
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="userCancelBtnActionPerformed"/>
                       </Events>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="userConfirmPassword">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Tahoma" size="12" style="0"/>
+                        </Property>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="userConfirmPasswordActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="pwdLabel1">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Tahoma" size="12" style="0"/>
+                        </Property>
+                        <Property name="horizontalAlignment" type="int" value="4"/>
+                        <Property name="text" type="java.lang.String" value="New Password :"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="userCurrentPassword">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Tahoma" size="12" style="0"/>
+                        </Property>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="userCurrentPasswordActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="pwdLabel2">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Tahoma" size="12" style="0"/>
+                        </Property>
+                        <Property name="horizontalAlignment" type="int" value="4"/>
+                        <Property name="text" type="java.lang.String" value="Current Password :"/>
+                      </Properties>
                     </Component>
                   </SubComponents>
                 </Container>

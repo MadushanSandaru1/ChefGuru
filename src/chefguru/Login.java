@@ -359,7 +359,7 @@ public class Login extends javax.swing.JFrame {
                     password.setText(null);
                 }
             } catch (SQLException e) {
-                System.out.println(e.getMessage());
+                //System.out.println(e.getMessage());
             }
             
             conn = null;

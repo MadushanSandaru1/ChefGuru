@@ -115,9 +115,13 @@ public class AdminDashboard extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         userTable = new javax.swing.JTable();
         userChangePwdBtn = new javax.swing.JButton();
-        userPassword = new javax.swing.JTextField();
+        userNewPassword = new javax.swing.JTextField();
         pwdLabel = new javax.swing.JLabel();
         userCancelBtn = new javax.swing.JButton();
+        userConfirmPassword = new javax.swing.JTextField();
+        pwdLabel1 = new javax.swing.JLabel();
+        userCurrentPassword = new javax.swing.JTextField();
+        pwdLabel2 = new javax.swing.JLabel();
         roomtype = new javax.swing.JPanel();
         userTopic6 = new javax.swing.JLabel();
         roomTypeId = new javax.swing.JTextField();
@@ -395,16 +399,16 @@ public class AdminDashboard extends javax.swing.JFrame {
             }
         });
 
-        userPassword.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        userPassword.addActionListener(new java.awt.event.ActionListener() {
+        userNewPassword.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        userNewPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userPasswordActionPerformed(evt);
+                userNewPasswordActionPerformed(evt);
             }
         });
 
         pwdLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         pwdLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        pwdLabel.setText("Password :");
+        pwdLabel.setText("Confirm Password :");
 
         userCancelBtn.setBackground(new java.awt.Color(85, 85, 85));
         userCancelBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -415,6 +419,28 @@ public class AdminDashboard extends javax.swing.JFrame {
                 userCancelBtnActionPerformed(evt);
             }
         });
+
+        userConfirmPassword.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        userConfirmPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userConfirmPasswordActionPerformed(evt);
+            }
+        });
+
+        pwdLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        pwdLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        pwdLabel1.setText("New Password :");
+
+        userCurrentPassword.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        userCurrentPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userCurrentPasswordActionPerformed(evt);
+            }
+        });
+
+        pwdLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        pwdLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        pwdLabel2.setText("Current Password :");
 
         javax.swing.GroupLayout userLayout = new javax.swing.GroupLayout(user);
         user.setLayout(userLayout);
@@ -428,13 +454,15 @@ public class AdminDashboard extends javax.swing.JFrame {
                                 .addContainerGap()
                                 .addComponent(userTopic, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(userLayout.createSequentialGroup()
-                                .addGap(91, 91, 91)
+                                .addGap(49, 49, 49)
                                 .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel6)
-                                    .addComponent(pwdLabel)
-                                    .addComponent(jLabel5))
+                                    .addComponent(jLabel5)
+                                    .addComponent(pwdLabel2)
+                                    .addComponent(pwdLabel1)
+                                    .addComponent(pwdLabel))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(userEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -443,7 +471,9 @@ public class AdminDashboard extends javax.swing.JFrame {
                                     .addGroup(userLayout.createSequentialGroup()
                                         .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(userName, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(userPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(userConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(userNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(userCurrentPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(31, 31, 31)
                                         .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(userChangePwdBtn)
@@ -485,13 +515,22 @@ public class AdminDashboard extends javax.swing.JFrame {
                     .addComponent(userUpdateBtn)
                     .addComponent(userDeleteBtn)
                     .addComponent(userCancelBtn))
-                .addGap(33, 33, 33)
+                .addGap(35, 35, 35)
                 .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(userCurrentPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pwdLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(userNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pwdLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(userChangePwdBtn)
-                    .addComponent(pwdLabel)
-                    .addComponent(userPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(userConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pwdLabel)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1964,9 +2003,9 @@ public class AdminDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_userNameActionPerformed
 
-    private void userPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userPasswordActionPerformed
+    private void userNewPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userNewPasswordActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_userPasswordActionPerformed
+    }//GEN-LAST:event_userNewPasswordActionPerformed
 
     private void userUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userUpdateBtnActionPerformed
         User user = new User();
@@ -2046,7 +2085,11 @@ public class AdminDashboard extends javax.swing.JFrame {
             }
             userSaveBtn.setVisible(false);
             pwdLabel.setEnabled(false);
-            userPassword.setEnabled(false);
+            pwdLabel1.setEnabled(false);
+            pwdLabel2.setEnabled(false);
+            userCurrentPassword.setEnabled(false);
+            userNewPassword.setEnabled(false);
+            userConfirmPassword.setEnabled(false);
             userChangePwdBtn.setEnabled(false);
         } else {
             userSaveBtn.setVisible(false);
@@ -2054,7 +2097,11 @@ public class AdminDashboard extends javax.swing.JFrame {
             userDeleteBtn.setVisible(false);
             userCancelBtn.setVisible(true);
             pwdLabel.setEnabled(true);
-            userPassword.setEnabled(true);
+            pwdLabel1.setEnabled(true);
+            pwdLabel2.setEnabled(true);
+            userCurrentPassword.setEnabled(true);
+            userNewPassword.setEnabled(true);
+            userConfirmPassword.setEnabled(true);
             userChangePwdBtn.setEnabled(true);
         }
     }//GEN-LAST:event_userTableMouseClicked
@@ -2105,16 +2152,34 @@ public class AdminDashboard extends javax.swing.JFrame {
     private void userChangePwdBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userChangePwdBtnActionPerformed
         User user = new User();
         
-        String password = this.userPassword.getText().trim();
+        String current_password = this.userCurrentPassword.getText().trim();
+        String new_password = this.userNewPassword.getText().trim();
+        String confirm_password = this.userConfirmPassword.getText().trim();
         
-        if(password.isEmpty()){
-            new ErrorMsg().showErr("Please enter password...");
+        if(current_password.isEmpty() || new_password.isEmpty() || confirm_password.isEmpty()){
+            new ErrorMsg().showErr("Please fill all the fields...");
         } else {
-            user.setPassword(password);
-            user.setEmail(this.userEmail.getText().trim());
+            if(new_password.equals(confirm_password)){
+                if(isCurrentPassword(current_password)){
+                    user.setPassword(new_password);
+                    user.setName(this.userName.getText().trim());
+                    user.setEmail(this.userEmail.getText().trim());
 
-            user.changePassword(editUserId);
-            viewUserDetails();
+                    user.changePassword(editUserId);
+                    viewUserDetails();
+                } else {
+                    userCurrentPassword.setText(null);
+                    userCurrentPassword.setText(null);
+                    userNewPassword.setText(null);
+                    userConfirmPassword.setText(null);
+                    userConfirmPassword.setText(null);
+                    new ErrorMsg().showErr("Invalid current password...");
+                }
+            } else {
+                userNewPassword.setText(null);
+                userConfirmPassword.setText(null);
+                new ErrorMsg().showErr("Confirm password does not match...");
+            }
         }
     }//GEN-LAST:event_userChangePwdBtnActionPerformed
 
@@ -2633,6 +2698,14 @@ public class AdminDashboard extends javax.swing.JFrame {
         transaction_Report.setVisible(true);
     }//GEN-LAST:event_transactionGetReportBtnActionPerformed
 
+    private void userConfirmPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userConfirmPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userConfirmPasswordActionPerformed
+
+    private void userCurrentPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userCurrentPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userCurrentPasswordActionPerformed
+
     private void panelDefault(){
         message.setVisible(false);
         roomtype.setVisible(false);
@@ -2675,7 +2748,9 @@ public class AdminDashboard extends javax.swing.JFrame {
         userName.setText(null);
         userEmail.setText(null);
         userPhone.setText(null);
-        userPassword.setText(null);
+        userCurrentPassword.setText(null);
+        userNewPassword.setText(null);
+        userConfirmPassword.setText(null);
         
         //cashier cannot create user profile
         if(Login.role.equalsIgnoreCase("cashier")){
@@ -2689,7 +2764,11 @@ public class AdminDashboard extends javax.swing.JFrame {
         userCancelBtn.setVisible(false);
         
         pwdLabel.setEnabled(false);
-        userPassword.setEnabled(false);
+        pwdLabel1.setEnabled(false);
+        pwdLabel2.setEnabled(false);
+        userCurrentPassword.setEnabled(false);
+        userNewPassword.setEnabled(false);
+        userConfirmPassword.setEnabled(false);
         userChangePwdBtn.setEnabled(false);
         
         if(Login.role.equalsIgnoreCase("admin")){
@@ -2753,15 +2832,15 @@ public class AdminDashboard extends javax.swing.JFrame {
         discountCancelBtn.setVisible(false);
         
         try {
-                cs = conn.prepareCall("{CALL `viewDiscountDetails`()}");
-                rs = cs.executeQuery();
+            cs = conn.prepareCall("{CALL `viewDiscountDetails`()}");
+            rs = cs.executeQuery();
 
-                discountTable.setModel(DbUtils.resultSetToTableModel(rs));
+            discountTable.setModel(DbUtils.resultSetToTableModel(rs));
 
-            } catch (SQLException e) {
-                new ErrorMsg().showErr(e.getMessage());
-                //JOptionPane.showMessageDialog(null, e.getMessage());
-            }
+        } catch (SQLException e) {
+            new ErrorMsg().showErr(e.getMessage());
+            //JOptionPane.showMessageDialog(null, e.getMessage());
+        }
         
         conn = null;
         
@@ -2801,15 +2880,15 @@ public class AdminDashboard extends javax.swing.JFrame {
         roomTypeCancelBtn.setVisible(false);
         
         try {
-                cs = conn.prepareCall("{CALL `viewRoomTypeDetails`()}");
-                rs = cs.executeQuery();
+            cs = conn.prepareCall("{CALL `viewRoomTypeDetails`()}");
+            rs = cs.executeQuery();
 
-                roomTypeTable.setModel(DbUtils.resultSetToTableModel(rs));
+            roomTypeTable.setModel(DbUtils.resultSetToTableModel(rs));
 
-            } catch (SQLException e) {
-                new ErrorMsg().showErr(e.getMessage());
-                //JOptionPane.showMessageDialog(null, e.getMessage());
-            }
+        } catch (SQLException e) {
+            new ErrorMsg().showErr(e.getMessage());
+            //JOptionPane.showMessageDialog(null, e.getMessage());
+        }
         
         conn = null;
         
@@ -2848,15 +2927,15 @@ public class AdminDashboard extends javax.swing.JFrame {
         roomCancelBtn.setVisible(false);
         
         try {
-                cs = conn.prepareCall("{CALL `viewRoomDetails`()}");
-                rs = cs.executeQuery();
+            cs = conn.prepareCall("{CALL `viewRoomDetails`()}");
+            rs = cs.executeQuery();
 
-                roomTable.setModel(DbUtils.resultSetToTableModel(rs));
+            roomTable.setModel(DbUtils.resultSetToTableModel(rs));
 
-            } catch (SQLException e) {
-                new ErrorMsg().showErr(e.getMessage());
-                //JOptionPane.showMessageDialog(null, e.getMessage());
-            }
+        } catch (SQLException e) {
+            new ErrorMsg().showErr(e.getMessage());
+            //JOptionPane.showMessageDialog(null, e.getMessage());
+        }
         
         conn = null;
         
@@ -2869,15 +2948,15 @@ public class AdminDashboard extends javax.swing.JFrame {
         conn = obj.connect();
         
         try {
-                cs = conn.prepareCall("{CALL `viewGuestDetails`()}");
-                rs = cs.executeQuery();
+            cs = conn.prepareCall("{CALL `viewGuestDetails`()}");
+            rs = cs.executeQuery();
 
-                guestTable.setModel(DbUtils.resultSetToTableModel(rs));
+            guestTable.setModel(DbUtils.resultSetToTableModel(rs));
 
-            } catch (SQLException e) {
-                new ErrorMsg().showErr(e.getMessage());
-                //JOptionPane.showMessageDialog(null, e.getMessage());
-            }
+        } catch (SQLException e) {
+            new ErrorMsg().showErr(e.getMessage());
+            //JOptionPane.showMessageDialog(null, e.getMessage());
+        }
         
         conn = null;
         
@@ -3003,6 +3082,39 @@ public class AdminDashboard extends javax.swing.JFrame {
         }
         
         conn = null;
+    }
+    
+    public boolean isCurrentPassword(String pwd){
+        
+        boolean status = false;
+        
+        conn = obj.connect();
+        
+        try {
+                cs = conn.prepareCall("{call login(?)}");
+                cs.setString("username", Login.id);
+                rs = cs.executeQuery();
+                
+                if(rs.next())
+                {
+                    if(pwd.equals(rs.getString("password")))
+                    {
+                        status = true;
+                    }
+                    else
+                    {
+                        status = false;
+                    }
+                    
+                }
+            } catch (SQLException e) {
+                //System.out.println(e.getMessage());
+            }
+        
+        conn = null;
+        
+        return status;
+        
     }
     
     public void comboBoxRoomType(){
@@ -3169,6 +3281,8 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel monthly_income;
     private javax.swing.JPanel pane;
     private javax.swing.JLabel pwdLabel;
+    private javax.swing.JLabel pwdLabel1;
+    private javax.swing.JLabel pwdLabel2;
     private javax.swing.JLabel reportIcon;
     private javax.swing.JLabel reportLabel;
     private javax.swing.JPanel room;
@@ -3203,14 +3317,16 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel user;
     private javax.swing.JButton userCancelBtn;
     private javax.swing.JButton userChangePwdBtn;
+    private javax.swing.JTextField userConfirmPassword;
+    private javax.swing.JTextField userCurrentPassword;
     private javax.swing.JButton userDeleteBtn;
     private javax.swing.JTextField userEmail;
     private javax.swing.JLabel userIcon;
     private javax.swing.JTextField userId;
     private javax.swing.JLabel userLabel;
     private javax.swing.JTextField userName;
+    private javax.swing.JTextField userNewPassword;
     private javax.swing.JPanel userPanel;
-    private javax.swing.JTextField userPassword;
     private javax.swing.JTextField userPhone;
     private javax.swing.JButton userSaveBtn;
     private javax.swing.JTable userTable;
