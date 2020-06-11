@@ -1551,14 +1551,14 @@ public class CashierDashboard extends javax.swing.JFrame {
         bookingTable.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bookingTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Name", "Email", "Phone", "Check In Date", "No of Room", "Message", "Status"
+                "Id", "Name", "Email", "Phone", "Check In Date", "Type of Room", "No of Room", "Message", "Status"
             }
         ));
         bookingTable.setRowHeight(20);
@@ -3037,12 +3037,12 @@ public class CashierDashboard extends javax.swing.JFrame {
 
         bookingName.setText(bookingTable.getValueAt(row, 1).toString());
         bookingEmail.setText(bookingTable.getValueAt(row, 2).toString());
-        bookingMessage.setText(bookingTable.getValueAt(row, 6).toString());
+        bookingMessage.setText(bookingTable.getValueAt(row, 7).toString());
 
         bookingCheckInBtn.setVisible(true);
         bookingCancelBtn.setVisible(true);
         
-        if(bookingTable.getValueAt(row, 7).toString().equalsIgnoreCase("Pending")) {
+        if(bookingTable.getValueAt(row, 8).toString().equalsIgnoreCase("Pending")) {
             bookingApproveBtn.setVisible(true);
         } else {
             bookingApproveBtn.setVisible(false);
@@ -3450,6 +3450,7 @@ public class CashierDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_checkoutByRoomIdKeyTyped
 
     private void checkoutByRoomCheckOutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkoutByRoomCheckOutBtnActionPerformed
+        
         conn = obj.connect();
         
         try {
@@ -3460,22 +3461,51 @@ public class CashierDashboard extends javax.swing.JFrame {
                     new ErrorMsg().showErr("Please fill all the fields...");
                 } else {
                     try {
+                        
+                        String guestId = checkoutByRoomGuestId.getText();
+                        String room = totalRoomAmount;
+                        String food = totalFoodAmount;
+                        
                         cs = conn.prepareCall("{call createCheckoutByRoomDetails(?,?)}");
                         cs.setString("rId", editCheckoutId);
                         cs.setFloat("pendingAmount", Float.valueOf(checkoutByRoomPendingBalance.getText().toString()));
 
-                        cs.executeUpdate();
-                        
-                        String ttl_balance = checkoutByRoomTotalBalance.getText().toString();
-                        String pendi_balance = checkoutByRoomPendingBalance.getText().toString();
-                        String csh = checkoutByRoomCash.getText().toString();
-                        String cng = checkoutByRoomChange.getText().toString();
-                        
-                        viewCheckoutDetailsByRoom();
-                        new ErrorMsg().showErr("Successfully...");
-                                                
-                        Checkout_Invoice checkout_Invoice = new Checkout_Invoice(editCheckoutId, totalRoomAmount, totalFoodAmount, ttl_balance, pendi_balance, csh, cng);
-                        checkout_Invoice.setVisible(true);
+                        if(cs.executeUpdate()>0){
+                            String rm_id = checkoutByRoomRoomId.getText();
+                            String ttl_balance = checkoutByRoomTotalBalance.getText();
+                            String pendi_balance = checkoutByRoomPendingBalance.getText();
+                            String csh = checkoutByRoomCash.getText();
+                            String cng = checkoutByRoomChange.getText();
+                            
+                            new ErrorMsg().showErr("Successfully...");
+                            
+                            Checkout_Invoice checkout_Invoice = new Checkout_Invoice(rm_id, room, food, ttl_balance, pendi_balance, csh, cng);
+                            checkout_Invoice.setVisible(true);
+                            
+                            try {
+                                cs = conn.prepareCall("{call `getGuestEmailForCheckIn`(?)}");
+                                cs.setString("gId", guestId);
+                                rs = cs.executeQuery();
+
+                                while(rs.next()){
+                                    try {
+                                        String emailContent = "Dear "+rs.getString("name")+",<br><h3>Your Room Check Out Successful</h3><br><p>Room Ids: <b>"+rm_id+"</b><br>Room Charges: <b>"+totalRoomAmount+"</b><br>Food Charges: <b>"+totalFoodAmount+"</b><br>Total Balance: <b>"+ttl_balance+"</b><br>Pending Balance: <b>"+pendi_balance+"</b><br>Cash: <b>"+csh+"</b><br>Change: <b>"+cng+"</b><br><br></p><br>Thank You!<br><br><pre>Administrator | ChefGuru Hotel,<br>Sri Sangharaja Piriwena Road,<br>Lower Kahattewela,<br>Bandarawela 90100,<br>Sri Lanka<br>Tel: +94 57 22 30 500<br>Email: mevangurusinghe2@gmail.com</pre>";
+                                        new emailSender.EmailSenderAPI().sendEmail(rs.getString("email"), "ChefGuru | Bandarawela", emailContent);
+                                    } catch (Exception e) {
+                                    }
+                                }
+
+                            } catch (SQLException e) {
+                                new ErrorMsg().showErr(e.getMessage());
+                                //JOptionPane.showMessageDialog(null, e.getMessage());
+                            }
+
+                            viewCheckoutDetailsByRoom();
+                            
+                            totalRoomAmount = null;
+                            totalFoodAmount = null;
+                            
+                        }
                         
                     } catch (SQLException e) {
                         new ErrorMsg().showErr(e.getMessage());
@@ -3587,6 +3617,7 @@ public class CashierDashboard extends javax.swing.JFrame {
 
         checkoutByRoomCheckOutBtn.setVisible(true);
         checkoutByRoomDeleteBtn.setVisible(true);
+        
     }//GEN-LAST:event_checkoutByRoomTableMouseClicked
 
     private void checkoutByRoomRoomIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkoutByRoomRoomIdActionPerformed
@@ -4594,6 +4625,9 @@ public class CashierDashboard extends javax.swing.JFrame {
         if(discountRate != 1) {
             roomAmount = roomAmount*(100-discountRate)/100;
         }
+        
+        this.totalRoomAmount = String.valueOf(roomAmount);
+        this.totalFoodAmount = String.valueOf(foodAmount);
         
         //totalBalance = roomAmount+foodAmount
         return roomAmount+foodAmount;
