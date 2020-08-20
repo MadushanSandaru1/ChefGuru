@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 09, 2020 at 04:27 AM
+-- Generation Time: Aug 20, 2020 at 07:43 PM
 -- Server version: 10.4.10-MariaDB
--- PHP Version: 7.4.0
+-- PHP Version: 7.3.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -381,7 +381,8 @@ CREATE TABLE IF NOT EXISTS `cashier` (
 --
 
 INSERT INTO `cashier` (`id`, `name`, `email`, `mobile`, `is_deleted`) VALUES
-('CSR001', 'Test Cashier', 'tg2017233@gmail.com', '0748541236', 0);
+('CSR001', 'Test Cashier', 'tg2017233@gmail.com', '0748541236', 0),
+('CSR002', 'mashan', 'tg2017233@gmail.com', '0771637551', 0);
 
 -- --------------------------------------------------------
 
@@ -414,7 +415,8 @@ INSERT INTO `checkin` (`id`, `guest_id`, `room_id`, `checkin_date`, `checkout_da
 (1, '980171329V', 7, '2020-06-09 09:02:11', '2020-06-12 00:00:00', 3, 10000, 1, 0),
 (5, '214578436V', 4, '2020-06-09 09:45:14', '2020-06-10 00:00:00', 0, 1000, 1, 0),
 (6, '214578436V', 2, '2020-06-09 09:48:45', '2020-06-10 00:00:00', 0, 1000, 1, 0),
-(7, '214578436V', 4, '2020-06-09 09:53:47', '2020-06-10 00:00:00', 0, 500, 1, 0);
+(7, '214578436V', 4, '2020-06-09 09:53:47', '2020-06-10 00:00:00', 0, 500, 1, 0),
+(8, '980171329V', 2, '2020-08-20 09:33:35', '2020-08-21 00:00:00', 1, 1300, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -440,7 +442,7 @@ CREATE TABLE IF NOT EXISTS `customer_message` (
 
 INSERT INTO `customer_message` (`id`, `name`, `email`, `phone`, `message`, `received_time`, `is_replied`) VALUES
 (2, 'Test Message', 'sandaru1wgm@gmail.com', '0711234568', 'Can I cancel only certain parts of my reservation (for example one of the two booked rooms)?', '2020-06-09 08:36:22', 1),
-(1, 'Test Message', 'madushansandaru1@gmail.com', '0771637551', 'For how many persons I can make a reservation? Are bookings for groups possible online?', '2020-06-09 08:34:18', 0);
+(1, 'Test Message', 'madushansandaru1@gmail.com', '0771637551', 'For how many persons I can make a reservation? Are bookings for groups possible online?', '2020-06-09 08:34:18', 1);
 
 -- --------------------------------------------------------
 
@@ -552,7 +554,7 @@ CREATE TABLE IF NOT EXISTS `room_book` (
 --
 
 INSERT INTO `room_book` (`id`, `name`, `email`, `phone`, `check_in_date`, `no_of_room`, `message`, `is_canceled`, `is_deleted`) VALUES
-(2, 'Test Customer 2', 'tg2017233@gmail.com', '0718523645', '2020-06-16', 1, '', 0, 0),
+(2, 'Test Customer 2', 'tg2017233@gmail.com', '0718523645', '2020-06-16', 1, '', 1, 0),
 (1, 'Test Customer 1', 'sandaru1wgm@gmail.com', '0771637551', '2020-06-12', 2, 'I need two rooms for five adults.', 2, 0);
 
 -- --------------------------------------------------------
@@ -569,7 +571,15 @@ CREATE TABLE IF NOT EXISTS `room_food` (
   `amount` int(11) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `room_food`
+--
+
+INSERT INTO `room_food` (`id`, `room_id`, `date`, `amount`, `is_deleted`) VALUES
+(9, 2, '2020-08-20 09:35:31', 5000, 1),
+(10, 2, '2020-08-20 09:36:05', 245512, 1);
 
 -- --------------------------------------------------------
 
@@ -611,7 +621,7 @@ CREATE TABLE IF NOT EXISTS `transaction` (
   `date` datetime NOT NULL DEFAULT current_timestamp(),
   `amount` float NOT NULL,
   PRIMARY KEY (`bill_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=60 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=63 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `transaction`
@@ -631,7 +641,10 @@ INSERT INTO `transaction` (`bill_id`, `type`, `date`, `amount`) VALUES
 (47, 'R', '2020-06-09 09:02:41', 10000),
 (46, 'F', '2020-06-09 08:55:42', 2500),
 (58, 'R', '2020-06-09 09:54:01', 500),
-(59, 'R', '2020-06-09 09:54:22', 1000);
+(59, 'R', '2020-06-09 09:54:22', 1000),
+(60, 'R', '2020-08-20 09:34:19', 1300),
+(61, 'F', '2020-08-20 09:35:49', 3420),
+(62, 'R', '2020-08-20 09:37:20', 250667);
 
 -- --------------------------------------------------------
 
@@ -654,7 +667,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`id`, `password`, `role`, `is_deleted`) VALUES
 ('ADM001', '123', 'admin', 0),
-('CSR001', '123', 'cashier', 0);
+('CSR001', '123', 'cashier', 0),
+('CSR002', '222', 'cashier', 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
